@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReserveUserActivity">
+
+    <include
+        android:id="@+id/header_user"
+        layout="@layout/header_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/titleConfirmingReserve"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Confirmar Reserva"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_user"/>
+
+    <TextView
+        android:id="@+id/nameSportCenterReservation"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Centro"
+        app:layout_constraintBottom_toBottomOf="@+id/nameReserveSportCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameReserveSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/nameReserveSportCenter"/>
+
+    <TextView
+        android:id="@+id/nameReserveSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Centro Deportivo:"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleConfirmingReserve"/>
+
+    <TextView
+        android:id="@+id/adressReserveSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Dirección:"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/nameReserveSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/nameReserveSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/nameReserveSportCenter"/>
+
+    <TextView
+        android:id="@+id/adressSportCenterReservation"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Dirección"
+        app:layout_constraintBottom_toBottomOf="@+id/adressReserveSportCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/adressReserveSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/adressReserveSportCenter"/>
+
+    <TextView
+        android:id="@+id/numberPlayers"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:text="Número de jugadores:"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/adressReserveSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/adressReserveSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/adressReserveSportCenter"/>
+
+
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_input"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/numberPlayers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/numberPlayers"
+        app:layout_constraintTop_toTopOf="@+id/numberPlayers" />
+
+
+    <TextView
+        android:id="@+id/dateReserveSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Fecha:"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/numberPlayers"
+        app:layout_constraintStart_toStartOf="@+id/numberPlayers"
+        app:layout_constraintTop_toBottomOf="@+id/numberPlayers"/>
+
+    <TextView
+        android:id="@+id/reservationDate"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="22/05/2023"
+        app:layout_constraintBottom_toBottomOf="@+id/dateReserveSportCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateReserveSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/dateReserveSportCenter" />
+
+    <TextView
+        android:id="@+id/hourReserveSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Hora:"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/dateReserveSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/dateReserveSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/dateReserveSportCenter"/>
+
+    <TextView
+        android:id="@+id/reservationHour"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="15:00"
+        app:layout_constraintBottom_toBottomOf="@+id/hourReserveSportCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hourReserveSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/hourReserveSportCenter" />
+
+    <TextView
+        android:id="@+id/priceSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Precio de la reserva"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/hourReserveSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/hourReserveSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/hourReserveSportCenter"/>
+
+    <TextView
+        android:id="@+id/reservationPrice"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="90.000"
+        app:layout_constraintBottom_toBottomOf="@+id/priceSportCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/priceSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/priceSportCenter" />
+
+    <TextView
+        android:id="@+id/payNowSportCenter"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:text="Pagar ahora:"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/priceSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/priceSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/priceSportCenter"/>
+
+    <TextView
+        android:id="@+id/cancelReservation"
+        android:layout_width="400dp"
+        android:layout_height="25dp"
+        android:text="Puedes cancelar en un máximo de 10 horas antes de la reserva"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payNowSportCenter"/>
+
+    <ImageView
+        android:id="@+id/nequi"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/nequi2"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/cancelReservation"
+        app:layout_constraintStart_toStartOf="@+id/cancelReservation"
+        app:layout_constraintTop_toBottomOf="@+id/cancelReservation" />
+
+    <ImageView
+        android:id="@+id/paypal"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/paypal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/nequi"
+        app:layout_constraintStart_toStartOf="@+id/nequi"
+        app:layout_constraintTop_toBottomOf="@+id/nequi" />
+
+    <ImageView
+        android:id="@+id/daviplata"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:background="@drawable/daviplata"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/paypal"
+        app:layout_constraintStart_toStartOf="@+id/paypal"
+        app:layout_constraintTop_toBottomOf="@+id/paypal" />
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

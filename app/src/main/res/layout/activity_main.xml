@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        android:drawableStart="@drawable/email_icon"
+        android:drawablePadding="12dp"
+        android:hint="Email:"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/custom_input"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+        />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/lock_icon"
+        android:hint="Contraseña:"
+        android:drawablePadding="12dp"
+        android:background="@drawable/custom_input"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmail"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/forgotPassword"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/custom_button"
+        android:text="Iniciar Sesión"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/textViewForgotPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/TextViewCreateUser"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/createUser"
+        android:clickable="true"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
+    <TextView
+        android:id="@+id/TextViewCreateAdmin"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
+        android:text="@string/createAdmin"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/TextViewCreateUser"
+        app:layout_constraintStart_toStartOf="@+id/TextViewCreateUser"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewCreateUser" />
+</androidx.constraintlayout.widget.ConstraintLayout>

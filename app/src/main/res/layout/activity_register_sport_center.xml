@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterSportCenterActivity">
+
+    <TextView
+        android:id="@+id/titleRegisterSportCenter"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/custom_register_title"
+        android:gravity="center"
+        android:text="Registro del Centro Deportivo"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageSportCenter"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sportcenter"
+        app:layout_constraintEnd_toEndOf="@+id/titleRegisterSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/titleRegisterSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/titleRegisterSportCenter" />
+
+    <EditText
+        android:id="@+id/nameSportCenter"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_input"
+        android:hint="Nombre:"
+        android:layout_marginTop="30dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/imageSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/imageSportCenter" />
+
+    <EditText
+        android:id="@+id/adressSportCenter"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_input"
+        android:hint="Dirección:"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/nameSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/nameSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/nameSportCenter" />
+
+    <EditText
+        android:id="@+id/nitSportCenter"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_input"
+        android:hint="NIT:"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/adressSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/adressSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/adressSportCenter" />
+
+    <EditText
+        android:id="@+id/descriptionSportCenter"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:background="@drawable/custom_input"
+        android:hint="Descripción:"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/nitSportCenter"
+        app:layout_constraintStart_toStartOf="@+id/nitSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/nitSportCenter" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonRegisterSportCenter"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_button"
+        android:text="Registrar"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@+id/descriptionSportCenter"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonRegisterSportCenterCancel"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_button"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonRegisterSportCenter"
+        app:layout_constraintEnd_toEndOf="@+id/descriptionSportCenter"
+        app:layout_constraintTop_toTopOf="@+id/buttonRegisterSportCenter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
