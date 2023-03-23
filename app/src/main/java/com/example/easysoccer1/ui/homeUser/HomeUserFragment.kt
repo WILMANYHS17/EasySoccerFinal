@@ -1,5 +1,6 @@
 package com.example.easysoccer1.ui.homeUser
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.easysoccer1.DescriptionSportCenterActivity
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
 import com.example.easysoccer1.models.AreaSportCenterUser
-import com.example.easysoccer1.ui.HeaderProfile
+//import com.example.easysoccer1.ui.HeaderProfileUser
 import com.example.easysoccer1.ui.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
 
@@ -21,11 +23,11 @@ class HomeUserFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private val sportCenterUserAdapter by lazy {
-        //SportCenterUserAdapter(
-            //::goToDetailProduct,
-            //::goToReserveStadium
-        //)
+    private val centerUserAdapter by lazy {
+        SportCenterUserAdapter(
+            ::goToDescription
+
+        )
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,7 @@ class HomeUserFragment : Fragment() {
         homeUserViewModel.text.observe(viewLifecycleOwner) {
         }
         setUpAdapter()
-        sportCenterUserAdapter.se(getListStadiumsNearYou())
+        centerUserAdapter.setListInYouArea(getListStadiumsNearYou())
         homeUserViewModel.text.observe(viewLifecycleOwner) {
         }
         return root
@@ -64,8 +66,15 @@ class HomeUserFragment : Fragment() {
     }
     private fun setUpAdapter() {
         binding.recyclerSportCenterNearYou.apply {
-           layoutManager = LinearLayoutManager(context)
-           adapter = sportCenterUserAdapter
+            layoutManager = LinearLayoutManager(context)
+            adapter = centerUserAdapter
+        }
+    }
+
+    private fun goToDescription(inYouArea: AreaSportCenterUser) {
+        activity?.let {
+            val intent = Intent(this.activity, DescriptionSportCenterActivity::class.java)
+            it.startActivity(intent)
         }
     }
 
