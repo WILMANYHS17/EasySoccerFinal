@@ -36,7 +36,7 @@ class HomeUserFragment : Fragment() {
         val homeUserViewModel = ViewModelProvider(this)[HomeUserViewModel::class.java]
         _binding = FragmentHomeUserBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        HeaderProfileUser(_binding!!.headerUser, this).build()
+        HeaderProfileUser(_binding!!.HigherheaderUser, this).build()
         homeUserViewModel.text.observe(viewLifecycleOwner) {
         }
         setUpAdapter()
