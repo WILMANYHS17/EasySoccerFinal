@@ -18,7 +18,7 @@ class NavigationAdminActivity : AppCompatActivity() {
 
         binding = ActivityNavigationAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar!!.hide()
+        supportActionBar?.hide()
 
         val navView: BottomNavigationView = binding.navView
 
