@@ -31,8 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapBinding
     private lateinit var map: GoogleMap
-    private lateinit var locationManager: LocationManager
-    private lateinit var locationListener: LocationListener
     private var myLocation: String = ""
     private var start: String = ""
     private var end: String = ""
@@ -48,7 +46,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-        // Definir el LocationListener
+
 
         createFragment()
 
