@@ -1,81 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.homeAdmin.HomeAdminFragment">
-
-    <include
-        android:id="@+id/header_user"
-        layout="@layout/header_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textNameSportCenter"
+    android:layout_height="wrap_content"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Nombre del Centro Deportivo"
-        android:layout_marginTop="8dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_user" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".ui.homeAdmin.HomeAdminFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonRegisterSportCenter"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:text="Editar"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textNameSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/textNameSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/textNameSportCenter" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPageSportCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:background="@color/gray"
-        android:paddingStart="200dp"
-        android:paddingEnd="200dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegisterSportCenter" />
-
-    <TextView
-        android:id="@+id/titleDescriptionSportCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción:"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/viewPageSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/viewPageSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/viewPageSportCenter" />
-
-    <TextView
-        android:id="@+id/descriptionSportCenter"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/titleDescriptionSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/titleDescriptionSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/titleDescriptionSportCenter" />
-
-    <TextView
-        android:id="@+id/comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Comentarios"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/descriptionSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/descriptionSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
+        <include
+            android:id="@+id/header_user"
+            layout="@layout/header_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textNameSportCenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nombre del Centro Deportivo"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_user" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonRegisterSportCenter"
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:background="@drawable/custom_button"
+            android:text="Editar"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/textNameSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/textNameSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/textNameSportCenter" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPageSportCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:background="@color/gray"
+            android:paddingStart="200dp"
+            android:paddingEnd="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonRegisterSportCenter" />
+
+        <TextView
+            android:id="@+id/titleDescriptionSportCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción:"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/viewPageSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/viewPageSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/viewPageSportCenter" />
+
+        <TextView
+            android:id="@+id/descriptionSportCenter"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/titleDescriptionSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/titleDescriptionSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/titleDescriptionSportCenter" />
+
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/descriptionSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/descriptionSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/comments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

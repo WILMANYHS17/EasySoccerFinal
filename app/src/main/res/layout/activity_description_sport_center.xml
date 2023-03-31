@@ -1,81 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".DescriptionSportCenterActivity">
 
-    <include
-        android:id="@+id/header_user"
-        layout="@layout/header_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
-    <TextView
-        android:id="@+id/titleSportCenter"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintParent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Centro deportivo"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/header_user"
-        app:layout_constraintTop_toBottomOf="@+id/header_user" />
+        app:layout_constraintEnd_toEndOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="@id/scrollView"
+        app:layout_constraintTop_toTopOf="@id/scrollView">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPageSportCenterUser"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:background="@color/gray"
-        android:paddingStart="200dp"
-        android:paddingEnd="200dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleSportCenter" />
+        <include
+            android:id="@+id/header_user"
+            layout="@layout/header_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonlocateSportCenter"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="8dp"
-        android:text="Ubicar"
-        app:layout_constraintEnd_toEndOf="@+id/viewPageSportCenterUser"
-        app:layout_constraintStart_toStartOf="@+id/viewPageSportCenterUser"
-        app:layout_constraintTop_toBottomOf="@+id/viewPageSportCenterUser" />
+        <TextView
+            android:id="@+id/titleSportCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Centro deportivo"
+            app:layout_constraintEnd_toEndOf="@id/constraintParent"
+            app:layout_constraintStart_toStartOf="@id/constraintParent"
+            app:layout_constraintTop_toBottomOf="@+id/header_user" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonReserve"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:layout_marginTop="8dp"
-        android:text="Reservar"
-        app:layout_constraintEnd_toEndOf="@+id/buttonlocateSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/buttonlocateSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/buttonlocateSportCenter" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPageSportCenterUser"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray"
+            android:paddingStart="200dp"
+            android:paddingEnd="200dp"
+            app:layout_constraintEnd_toEndOf="@id/constraintParent"
+            app:layout_constraintStart_toStartOf="@id/constraintParent"
+            app:layout_constraintTop_toBottomOf="@+id/titleSportCenter" />
 
-    <TextView
-        android:id="@+id/tittleDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción:"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonReserve" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonlocateSportCenter"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/custom_button"
+            android:text="Ubicar"
+            app:layout_constraintEnd_toEndOf="@+id/viewPageSportCenterUser"
+            app:layout_constraintStart_toStartOf="@+id/viewPageSportCenterUser"
+            app:layout_constraintTop_toBottomOf="@+id/viewPageSportCenterUser" />
 
-    <TextView
-        android:id="@+id/descriptionSportCenter"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tittleDescription" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonReserve"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/custom_button"
+            android:text="Reservar"
+            app:layout_constraintEnd_toEndOf="@+id/buttonlocateSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/buttonlocateSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/buttonlocateSportCenter" />
+
+        <TextView
+            android:id="@+id/titleDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="Descripción:"
+            app:layout_constraintStart_toStartOf="@id/constraintParent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonReserve" />
+
+        <TextView
+            android:id="@+id/descriptionSportCenter"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/constraintParent"
+            app:layout_constraintStart_toStartOf="@id/constraintParent"
+            app:layout_constraintTop_toBottomOf="@+id/titleDescription" />
+
+        <TextView
+            android:id="@+id/titleComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Comentarios:"
+            app:layout_constraintEnd_toEndOf="@id/titleDescription"
+            app:layout_constraintStart_toStartOf="@id/titleDescription"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
+
+        <include
+            android:id="@+id/itemCommentsUser"
+            layout="@layout/item_comments"
+            app:layout_constraintEnd_toEndOf="@id/constraintParent"
+            app:layout_constraintStart_toStartOf="@id/constraintParent"
+            app:layout_constraintTop_toBottomOf="@+id/titleComments" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+
+
