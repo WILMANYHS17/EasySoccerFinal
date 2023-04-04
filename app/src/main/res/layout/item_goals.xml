@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemGoals"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="120dp"
+    android:background="@drawable/box_text">
+
+    <ImageView
+        android:id="@+id/imageGoal"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@drawable/footballfield"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/numberGoal"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toEndOf="@+id/imageGoal"
+        app:layout_constraintTop_toTopOf="@id/imageGoal"
+        app:layout_constraintBottom_toBottomOf="@id/imageGoal"
+        />
+
+    <TextView
+        android:id="@+id/availableGoal"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Disponible"
+        android:textColor="@color/red"
+        app:layout_constraintTop_toTopOf="@id/imageGoal"
+        app:layout_constraintStart_toEndOf="@+id/numberGoal"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/hourGoal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="No reservado"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/availableGoal"
+        app:layout_constraintEnd_toEndOf="@+id/availableGoal"
+        app:layout_constraintTop_toBottomOf="@+id/availableGoal"/>
+
+    <TextView
+        android:id="@+id/dateGoal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="No reservado"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/hourGoal"
+        app:layout_constraintEnd_toEndOf="@id/hourGoal"
+        app:layout_constraintTop_toBottomOf="@id/hourGoal"/>
+
+    <TextView
+        android:id="@+id/sizeGoal"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="5vs5"
+        app:layout_constraintTop_toBottomOf="@+id/dateGoal"
+        app:layout_constraintEnd_toEndOf="@id/dateGoal"
+        app:layout_constraintStart_toStartOf="@id/dateGoal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageTrash"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/trashchange"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageGoal"
+        app:layout_constraintStart_toEndOf="@id/imageGoal"
+        app:layout_constraintTop_toBottomOf="@+id/numberGoal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

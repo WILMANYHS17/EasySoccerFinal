@@ -33,4 +33,38 @@
         app:layout_constraintTop_toBottomOf="@+id/textGoal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/inputTextNumberGoal"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_input"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:hint="Número de la cancha"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewGoals"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <EditText
+        android:id="@+id/inputTextSizeGoal"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_input"
+        android:hint="Tamaño de la cancha"
+        app:layout_constraintStart_toEndOf="@+id/inputTextNumberGoal"
+        app:layout_constraintTop_toTopOf="@+id/inputTextNumberGoal"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bottonCreateGoal"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_button"
+        android:text="Crear Cancha"
+        android:layout_marginTop="15dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/inputTextNumberGoal"
+        app:layout_constraintStart_toStartOf="@+id/inputTextNumberGoal"
+        app:layout_constraintEnd_toEndOf="@id/inputTextSizeGoal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
