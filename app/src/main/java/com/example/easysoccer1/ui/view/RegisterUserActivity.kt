@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.easysoccer1.R
+import com.example.easysoccer1.data.models.RegisterUsers
 import com.example.easysoccer1.databinding.ActivityRegisterUserBinding
 import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
 
@@ -20,15 +21,22 @@ class RegisterUserActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-        registerUserViewModel.registerUserModel.observe(this, Observer {
-            binding.editTextName.text = it.name
-
-        })
-
-
-
-
         typeUser = intent.extras!!.getString("user") ?: ""
+        binding.buttonRegister.setOnClickListener {
+            registerUserViewModel.createUser(
+                RegisterUsers(
+                    name = binding.editTextName.text.toString(),
+                    phone = binding.editTextPhone.text.toString(),
+                    email = binding.editTextEmailRegister.text.toString(),
+                    nameUser = binding.editTextNameUser.text.toString(),
+                    password = binding.editTextContraseA.text.toString(),
+                    birthday = binding.editTextDate.text.toString(),
+                    isAdmin = typeUser
+                )
+            )
+        }
+
+
         if (typeUser == "Admin") {
             binding.TittleRegister.text = getString(R.string.RegisterAdmin)
             binding.editTextId.visibility = View.VISIBLE

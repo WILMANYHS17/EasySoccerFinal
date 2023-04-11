@@ -1,10 +1,15 @@
 package com.example.easysoccer1.domain
 
-import com.example.easysoccer1.data.database.DataBase
+import com.example.easysoccer1.data.models.RegisterUsers
 
-class SetUsersUseCase {
-    private val user = DataBase()
-    operator fun invoke() {
-    user.CreateUser()
+class SetUsersUseCase(
+    private val databaseUserRepository: DatabaseUserRepository
+) {
+    fun createUser(registerUsers: RegisterUsers) {
+        databaseUserRepository.createUser(registerUsers)
+       // databaseUserRepository.getUser().name == "pedro"
     }
+
+
 }
+
