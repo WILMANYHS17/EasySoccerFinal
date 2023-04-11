@@ -21,30 +21,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
-            android:name=".MapActivity"
+            android:name=".ui.view.MapActivity"
             android:exported="false" />
         <activity
-            android:name=".DescriptionSportCenterActivity"
+            android:name=".ui.view.DescriptionSportCenterActivity"
             android:exported="false" />
         <activity
-            android:name=".ReserveUserActivity"
+            android:name=".ui.view.ReserveUserActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterSportCenterActivity"
+            android:name=".ui.view.RegisterSportCenterActivity"
             android:exported="false" />
         <activity
-            android:name=".NavigationUserActivity"
+            android:name=".ui.view.NavigationUserActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation_user" />
         <activity
-            android:name=".NavigationAdminActivity"
+            android:name=".ui.view.NavigationAdminActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation_admin" />
         <activity
-            android:name=".RegisterUserActivity"
+            android:name=".ui.view.RegisterUserActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>

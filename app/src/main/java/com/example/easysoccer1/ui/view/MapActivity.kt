@@ -1,10 +1,8 @@
-package com.example.easysoccer1
+package com.example.easysoccer1.ui.view
 
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +10,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityMapBinding
-import com.example.easysoccer1.models.RouteResponse
+import com.example.easysoccer1.data.models.RouteResponse
 import com.example.easysoccer1.ui.interfaces.ApiService
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

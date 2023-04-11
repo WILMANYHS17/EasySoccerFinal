@@ -1,6 +1,6 @@
 package com.example.easysoccer1.ui.interfaces
 
-import com.example.easysoccer1.models.RouteResponse
+import com.example.easysoccer1.data.models.RouteResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
