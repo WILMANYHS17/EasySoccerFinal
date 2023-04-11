@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@id/header_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:context=".MapActivity"
+        tools:context=".ui.view.MapActivity"
          />
 
 

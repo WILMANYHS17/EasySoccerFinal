@@ -1,4 +1,4 @@
-package com.example.easysoccer1.models
+package com.example.easysoccer1.data.models
 
 data class AreaSportCenterUser(
     val id: String,

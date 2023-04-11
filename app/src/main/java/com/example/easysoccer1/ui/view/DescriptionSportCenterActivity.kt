@@ -1,10 +1,10 @@
-package com.example.easysoccer1
+package com.example.easysoccer1.ui.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityDescriptionSportCenterBinding
-import com.example.easysoccer1.databinding.ActivityMainBinding
 
 class DescriptionSportCenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDescriptionSportCenterBinding

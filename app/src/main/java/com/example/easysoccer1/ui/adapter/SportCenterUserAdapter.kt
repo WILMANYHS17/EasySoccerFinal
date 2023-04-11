@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.databinding.ItemsSportCenterUserBinding
-import com.example.easysoccer1.models.AreaSportCenterUser
+import com.example.easysoccer1.data.models.AreaSportCenterUser
 
 class SportCenterUserAdapter (private val goToDescription: (AreaSportCenterUser) -> Unit
 ) : RecyclerView.Adapter<SportCenterUserAdapter.DescriptionViewHolder>() {

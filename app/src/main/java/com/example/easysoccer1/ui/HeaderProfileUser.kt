@@ -3,7 +3,7 @@ package com.example.easysoccer1.ui
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.easysoccer1.RegisterUserActivity
+import com.example.easysoccer1.ui.view.RegisterUserActivity
 import com.example.easysoccer1.databinding.HeaderProfileBinding
 
 class HeaderProfileUser (val binding: HeaderProfileBinding, val fragment: Fragment) {

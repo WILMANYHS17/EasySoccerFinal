@@ -1,4 +1,4 @@
-package com.example.easysoccer1
+package com.example.easysoccer1.ui.view
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,27 +7,27 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.easysoccer1.databinding.ActivityNavigationAdminBinding
+import com.example.easysoccer1.R
+import com.example.easysoccer1.databinding.ActivityNavigationUserBinding
 
-class NavigationAdminActivity : AppCompatActivity() {
+class NavigationUserActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityNavigationAdminBinding
+    private lateinit var binding: ActivityNavigationUserBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityNavigationAdminBinding.inflate(layoutInflater)
+        binding = ActivityNavigationUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+        supportActionBar!!.hide()
+        val navView: BottomNavigationView = binding.navViewUser
 
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_navigation_admin)
+        val navController = findNavController(R.id.nav_host_fragment_activity_navigation_user)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home_user, R.id.navigation_notifications_user
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

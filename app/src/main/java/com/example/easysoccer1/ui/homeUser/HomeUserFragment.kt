@@ -7,11 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.easysoccer1.DescriptionSportCenterActivity
+import com.example.easysoccer1.ui.view.DescriptionSportCenterActivity
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
-import com.example.easysoccer1.models.AreaSportCenterUser
+import com.example.easysoccer1.data.models.AreaSportCenterUser
 //import com.example.easysoccer1.ui.HeaderProfileUser
 import com.example.easysoccer1.ui.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
@@ -26,7 +25,6 @@ class HomeUserFragment : Fragment() {
     private val centerUserAdapter by lazy {
         SportCenterUserAdapter(
             ::goToDescription
-
         )
     }
     override fun onCreateView(

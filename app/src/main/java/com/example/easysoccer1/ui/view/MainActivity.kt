@@ -1,10 +1,8 @@
-package com.example.easysoccer1
+package com.example.easysoccer1.ui.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.easysoccer1.databinding.ActivityMainBinding
 
