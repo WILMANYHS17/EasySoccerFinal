@@ -184,6 +184,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun createRoute() {
         CoroutineScope(Dispatchers.IO).launch {
+            createRoute()
             val call = getRetrofit().create(ApiService::class.java)
                 .getRoute("5b3ce3597851110001cf62481f51957ab1d149de8fd09afeac3c6080", start, end)
             if (call.isSuccessful) {

@@ -1,17 +1,15 @@
 package com.example.easysoccer1.ui.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.easysoccer1.data.database.DataBase
 import com.example.easysoccer1.data.models.RegisterUsers
+import com.example.easysoccer1.domain.SetUsersUseCase
 
-class RegisterUserViewModel: ViewModel() {
+class RegisterUserViewModel(
+    private val setUsersUseCase: SetUsersUseCase
+) : ViewModel() {
 
-val registerUserModel = MutableLiveData<RegisterUsers>()
 
-    fun CreateUsers(){
-
-        val createUsers=DataBase.createUser()
-        registerUserModel.postValue(createUsers)
+    fun createUser(registerUsers: RegisterUsers) {
+        setUsersUseCase.createUser(registerUsers)
     }
 }
