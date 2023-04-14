@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.ui.view.DescriptionSportCenterActivity
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
 import com.example.easysoccer1.data.models.AreaSportCenterUser
-//import com.example.easysoccer1.ui.HeaderProfileUser
-import com.example.easysoccer1.ui.HeaderProfileUser
+//import com.example.easysoccer1.ui.view.HeaderProfileUser
+import com.example.easysoccer1.ui.view.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
 
 class HomeUserFragment : Fragment() {

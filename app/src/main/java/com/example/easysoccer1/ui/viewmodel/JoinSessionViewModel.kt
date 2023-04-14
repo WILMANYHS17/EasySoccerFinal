@@ -8,6 +8,6 @@ class JoinSessionViewModel: ViewModel() {
     val joinSessionUsersModel = MutableLiveData<JoinSessionUsers>()
 
     fun searchUser(){
-        val userExist: JoinSessionUsers =
+        //val userExist: JoinSessionUsers =
     }
 }
