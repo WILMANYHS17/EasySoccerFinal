@@ -27,32 +27,49 @@ class RegisterUserActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         val registerUserViewModel: RegisterUserViewModel by viewModel()
 
+
         typeUser = intent.extras!!.getString("user") ?: ""
+
+        if (typeUser == "Admin") {
+            binding.TittleRegister.text = getString(R.string.RegisterAdmin)
+            binding.editTextId.visibility = View.VISIBLE
+            binding.editTextIdLayout.visibility = View.VISIBLE
+
+        } else {
+            binding.TittleRegister.text = getString(R.string.RegisterUser)
+        }
+
+
         binding.buttonRegister.setOnClickListener {
-            AlertDialog.Builder(this).apply {
-                setTitle("Registro de Usuario")
-                setMessage("¿Estás seguro de restrarte con este usuario? Más adelante lo puedes editar.")
-                setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-                    registerUserViewModel.createUser(
-                        RegisterUsers(
-                            name = binding.editTextName.text.toString(),
-                            phone = binding.editTextPhone.text.toString(),
-                            email = binding.editTextEmailRegister.text.toString(),
-                            nameUser = binding.editTextNameUser.text.toString(),
-                            password = binding.editTextContraseA.text.toString(),
-                            birthday = binding.textViewDate.text.toString(),
-                            isAdmin = typeUser
+            if(validationRegister()){
+                AlertDialog.Builder(this).apply {
+                    setTitle("Registro de Usuario")
+                    setMessage("¿Estás seguro de restrarte con este usuario? Más adelante lo puedes editar.")
+                    setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                        registerUserViewModel.createUser(
+                            RegisterUsers(
+                                name = binding.editTextName.text.toString(),
+                                phone = binding.editTextPhone.text.toString(),
+                                email = binding.editTextEmailRegister.text.toString(),
+                                nameUser = binding.editTextNameUser.text.toString(),
+                                password = binding.editTextPassword.text.toString(),
+                                birthday = binding.editTextDate.text.toString(),
+                                isAdmin = typeUser
+                            )
                         )
-                    )
-                }
-                setNegativeButton("No", null)
-            }.show()
+                    }
+                    setNegativeButton("No", null)
+                }.show()
+
+            }
+
 
         }
-        binding.textViewDate.setOnClickListener {
+        binding.editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
         binding.backButton.setOnClickListener { onClickBackActivity() }
+
         binding.buttonRegisterCancel.setOnClickListener {
             AlertDialog.Builder(this).apply {
                 setTitle("Cancelar Registro")
@@ -61,19 +78,36 @@ class RegisterUserActivity : AppCompatActivity() {
                     onClickBackActivity()
                 }
                 setNegativeButton("No", null)
-            }
+            }.show()
         }
 
 
+    }
 
-        if (typeUser == "Admin") {
-            binding.TittleRegister.text = getString(R.string.RegisterAdmin)
-            binding.editTextId.visibility = View.VISIBLE
-
+    fun validationRegister(): Boolean {
+        if (binding.editTextName.text?.isEmpty() == true && binding.editTextPhone.text?.isEmpty() == true &&
+            binding.editTextEmailRegister.text?.isEmpty() == true && binding.editTextNameUser.text?.isEmpty() == true &&
+            binding.editTextPassword.text?.isEmpty() == true && binding.editTextDate.text?.isEmpty() == true
+        ) {
+            binding.editTextName.setError("El espacio está vacio")
+            binding.editTextPhone.setError("El espacio está vacio")
+            binding.editTextEmailRegister.setError("El espacio está vacio")
+            binding.editTextNameUser.setError("El espacio está vacio")
+            binding.editTextPassword.setError("El espacio está vacio")
+            binding.editTextDate.setError("El espacio está vacio")
+            return false
         } else {
-            binding.TittleRegister.text = getString(R.string.RegisterUser)
+
+            binding.editTextName.setError(null)
+            binding.editTextPhone.setError(null)
+            binding.editTextEmailRegister.setError(null)
+            binding.editTextNameUser.setError(null)
+            binding.editTextPassword.setError(null)
+            binding.editTextDate.setError(null)
+            return true
         }
     }
+
 
     private fun onClickBackActivity() {
         val intent = Intent(this, MainActivity::class.java)
@@ -87,7 +121,7 @@ class RegisterUserActivity : AppCompatActivity() {
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
-        binding.textViewDate.setText("$day / $month / $year")
+        binding.editTextDate.setText("$day / $month / $year")
     }
 
 
