@@ -18,37 +18,50 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/editTextEmail"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextEmailLayout"
         android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="80dp"
-        android:drawableStart="@drawable/email_icon"
-        android:drawablePadding="12dp"
-        android:hint="Email:"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:background="@drawable/custom_input"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
         app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
 
-    <EditText
-        android:id="@+id/editTextPassword"
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/email_icon"
+            android:drawablePadding="12dp"
+            android:hint="Email:"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextPasswordLayout"
         android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:drawableStart="@drawable/lock_icon"
-        android:hint="Contraseña:"
-        android:drawablePadding="12dp"
-        android:background="@drawable/custom_input"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="@+id/editTextEmail"
-        app:layout_constraintStart_toStartOf="@+id/editTextEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailLayout"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailLayout"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/lock_icon"
+            android:drawablePadding="12dp"
+            android:hint="Contraseña:"
+            android:inputType="textPassword"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
@@ -56,14 +69,14 @@
         android:layout_width="250dp"
         android:layout_height="20dp"
         android:layout_marginTop="30dp"
-        android:text="@string/forgotPassword"
-        android:textStyle="bold"
         android:clickable="true"
         android:gravity="end"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        android:text="@string/forgotPassword"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPasswordLayout"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintStart_toStartOf="@+id/editTextPasswordLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"
@@ -71,20 +84,20 @@
         android:layout_height="40dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/custom_button"
-        android:text="Iniciar Sesión"
         android:gravity="center"
+        android:text="Iniciar Sesión"
         app:layout_constraintEnd_toEndOf="@+id/textViewForgotPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintStart_toStartOf="@+id/editTextPasswordLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordLayout" />
 
     <TextView
         android:id="@+id/TextViewCreateUser"
         android:layout_width="250dp"
         android:layout_height="20dp"
         android:layout_marginTop="30dp"
-        android:text="@string/createUser"
         android:clickable="true"
         android:gravity="center"
+        android:text="@string/createUser"
         app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
         app:layout_constraintStart_toStartOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
@@ -95,8 +108,8 @@
         android:layout_height="20dp"
         android:layout_marginTop="30dp"
         android:clickable="true"
-        android:text="@string/createAdmin"
         android:gravity="center"
+        android:text="@string/createAdmin"
         app:layout_constraintEnd_toEndOf="@+id/TextViewCreateUser"
         app:layout_constraintStart_toStartOf="@+id/TextViewCreateUser"
         app:layout_constraintTop_toBottomOf="@+id/TextViewCreateUser" />
