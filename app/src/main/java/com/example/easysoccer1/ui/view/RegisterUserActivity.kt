@@ -44,7 +44,7 @@ class RegisterUserActivity : AppCompatActivity() {
             if(validationRegister()){
                 AlertDialog.Builder(this).apply {
                     setTitle("Registro de Usuario")
-                    setMessage("¿Estás seguro de restrarte con este usuario? Más adelante lo puedes editar.")
+                    setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
                     setPositiveButton("Sí") { _: DialogInterface, _: Int ->
                         registerUserViewModel.createUser(
                             RegisterUsers(

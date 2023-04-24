@@ -1,9 +1,15 @@
 package com.example.easysoccer1.ui.view
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModel
+import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.databinding.ActivityForgotPasswordBinding
+import com.example.easysoccer1.ui.viewmodel.ForgotPasswordViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
@@ -13,11 +19,29 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
 
-
+        val forgotPasswordViewModel: ForgotPasswordViewModel by viewModel()
         binding.backButton.setOnClickListener { onClickBackActivity() }
         binding.buttonCancelForgotPassword.setOnClickListener {
             if (validationRegister()) {
                 onClickBackActivity()
+            }
+        }
+        binding.buttonRegister.setOnClickListener {
+            if (validationRegister()) {
+                AlertDialog.Builder(this).apply {
+                    setTitle("Cambio de contraseña")
+                    setMessage("¿Estás seguro de cambiar de contraseña?")
+                    setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                        forgotPasswordViewModel.changePassword(
+                            ForgotPassword(
+                                email = binding.editTextEmailRegister.text.toString(),
+                                password = binding.editTextPassword.text.toString()
+                            )
+                        )
+
+                    }
+                    setNegativeButton("No", null)
+                }.show()
             }
         }
     }
