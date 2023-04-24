@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.data.models.JoinSessionUsers
 import com.example.easysoccer1.databinding.ActivityMainBinding
 import com.example.easysoccer1.ui.viewmodel.JoinSessionViewModel
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
         screenSplash.setKeepOnScreenCondition { false }
-        binding.textViewForgotPassword.setOnClickListener { }
+
         binding.TextViewCreateUser.setOnClickListener { onClickRegisterUser() }
         binding.TextViewCreateAdmin.setOnClickListener { onClickRegisterAdmin() }
         binding.buttonLogin.setOnClickListener {
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+        binding.textViewForgotPassword.setOnClickListener { onClickForgotPassword() }
 
     }
 
@@ -50,6 +52,11 @@ class MainActivity : AppCompatActivity() {
     private fun onClickRegisterAdmin() {
         val intent = Intent(this, RegisterUserActivity::class.java)
         intent.putExtra("user", "Admin")
+        startActivity(intent)
+    }
+
+    private fun onClickForgotPassword(){
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 

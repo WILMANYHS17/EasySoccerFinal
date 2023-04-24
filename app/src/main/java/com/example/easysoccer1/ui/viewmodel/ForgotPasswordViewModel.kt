@@ -10,6 +10,6 @@ class ForgotPasswordViewModel(
     ):ViewModel() {
 
         fun changePassword(forgotPassword: ForgotPassword){
-
+            return setPasswordUseCase.changePassword(forgotPassword)
         }
 }

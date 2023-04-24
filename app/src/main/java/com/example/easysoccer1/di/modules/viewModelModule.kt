@@ -1,5 +1,6 @@
 package com.example.easysoccer1.di.modules
 
+import com.example.easysoccer1.ui.viewmodel.ForgotPasswordViewModel
 import com.example.easysoccer1.ui.viewmodel.JoinSessionViewModel
 import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,6 +19,11 @@ val viewModelModule: Module = module {
         JoinSessionViewModel(
             getJoinSessionUseCase = get()
 
+        )
+    }
+    viewModel{
+        ForgotPasswordViewModel(
+            setPasswordUseCase = get()
         )
     }
 }
