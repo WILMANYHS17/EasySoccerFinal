@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityMapBinding
 import com.example.easysoccer1.data.models.RouteResponse
-import com.example.easysoccer1.ui.interfaces.ApiService
+import com.example.easysoccer1.domain.ApiService
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -211,7 +211,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("https://api.openrouteservice.org/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     }
 }

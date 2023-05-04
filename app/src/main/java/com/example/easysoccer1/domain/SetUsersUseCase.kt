@@ -7,7 +7,6 @@ class SetUsersUseCase(
 ) {
     fun createUser(registerUsers: RegisterUsers) {
         databaseUserRepository.createUser(registerUsers)
-       // databaseUserRepository.getUser().name == "pedro"
     }
 
 

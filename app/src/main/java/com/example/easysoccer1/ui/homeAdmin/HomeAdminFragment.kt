@@ -1,15 +1,23 @@
 package com.example.easysoccer1.ui.homeAdmin
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.FragmentHomeAdminBinding
+import com.example.easysoccer1.ui.view.RegisterSportCenterActivity
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeAdminFragment() : Fragment() {
 
@@ -25,18 +33,54 @@ class HomeAdminFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeAdminViewModel =
-            ViewModelProvider(this).get(HomeAdminViewModel::class.java)
+
 
         _binding = FragmentHomeAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        lifecycleScope.launch {
+            getSportCenter()
+            Log.i("Entra", "Si")
+        }
+
+        binding.buttonRegisterSportCenter.setOnClickListener { goEditSportCenter() }
 
         //val textView: TextView = binding.textHome
-       // homeAdminViewModel.text.observe(viewLifecycleOwner) {
-         //   textView.text = it
+        // homeAdminViewModel.text.observe(viewLifecycleOwner) {
+        //   textView.text = it
         //}
         return root
     }
+
+    fun goEditSportCenter() {
+        activity?.let {
+            val intent = Intent(this.activity, RegisterSportCenterActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    suspend fun getSportCenter() {
+        val homeAdminViewModel: HomeAdminViewModel by viewModel()
+        val prefs = requireActivity().applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val emailAdmin = prefs.getString("email", "")
+        val sportCenter = homeAdminViewModel.getSportCenter(
+            SportCenter(
+                name = "",
+                address = "",
+                nit ="",
+                price5vs5 = "",
+                price8vs8 = "",
+                description = "",
+                emailAdmin = emailAdmin.toString()
+            )
+        )
+        binding.textNameSportCenter.text = sportCenter.getOrNull()?.name.toString()
+        binding.descriptionSportCenter.text = sportCenter.getOrNull()?.description.toString()
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

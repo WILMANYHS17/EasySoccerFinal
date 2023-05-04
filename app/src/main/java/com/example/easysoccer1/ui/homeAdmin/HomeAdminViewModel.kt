@@ -1,13 +1,16 @@
 package com.example.easysoccer1.ui.homeAdmin
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
+import com.example.easysoccer1.data.models.SportCenter
+import com.example.easysoccer1.domain.GetSportCenterUseCase
 
-class HomeAdminViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragmentñ"
+class HomeAdminViewModel(
+    private val getSportCenterUseCase: GetSportCenterUseCase
+) : ViewModel() {
+    suspend fun getSportCenter(sportCenter: SportCenter) : Result<SportCenter>{
+    return getSportCenterUseCase.getSportCenter(sportCenter)
     }
-    val text: LiveData<String> = _text
+
 }
+
