@@ -18,4 +18,5 @@ class JoinSessionViewModel(
     suspend fun isAdmin(joinSessionUsers: JoinSessionUsers):Result<Boolean>{
         return getJoinSessionUseCase.isAdmin(joinSessionUsers.email, joinSessionUsers.isAdmin)
     }
+
 }

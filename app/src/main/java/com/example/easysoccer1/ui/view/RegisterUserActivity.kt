@@ -57,10 +57,13 @@ class RegisterUserActivity : AppCompatActivity() {
                                 isAdmin = typeUser
                             )
                         )
+
                     }
                     setNegativeButton("No", null)
                 }.show()
-
+                if(typeUser == "Admin"){
+                    goRegisterSportCenter()
+                }
             }
 
 
@@ -113,6 +116,25 @@ class RegisterUserActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+
+    private fun goRegisterSportCenter(){
+        AlertDialog.Builder(this).apply {
+            setTitle("Crear Centro deportivo")
+            setMessage("¿Aún no tienes un centro deportivo?¿Quieres crear uno?")
+            setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                onClickRegisterSportCenter()
+            }
+            setNegativeButton("No", null)
+        }
+
+    }
+
+    private fun onClickRegisterSportCenter(){
+        val intent = Intent(this, RegisterSportCenterActivity::class.java)
+        startActivity(intent)
+    }
+
+
 
     private fun showDatePickerDialog() {
         val datePicker =
