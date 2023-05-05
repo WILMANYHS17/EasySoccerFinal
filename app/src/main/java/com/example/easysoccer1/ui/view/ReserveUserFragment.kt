@@ -1,4 +1,4 @@
-package com.example.easysoccer1.ui.reserveUser
+package com.example.easysoccer1.ui.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.easysoccer1.R
+import com.example.easysoccer1.ui.viewmodel.ReserveUserViewModel
 
 class ReserveUserFragment : Fragment() {
 

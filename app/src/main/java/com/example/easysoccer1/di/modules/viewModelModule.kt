@@ -1,6 +1,6 @@
 package com.example.easysoccer1.di.modules
 
-import com.example.easysoccer1.ui.homeAdmin.HomeAdminViewModel
+import com.example.easysoccer1.ui.viewmodel.HomeAdminViewModel
 import com.example.easysoccer1.ui.viewmodel.ForgotPasswordViewModel
 import com.example.easysoccer1.ui.viewmodel.JoinSessionViewModel
 import com.example.easysoccer1.ui.viewmodel.RegisterSportCenterViewModel

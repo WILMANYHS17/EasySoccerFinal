@@ -1,4 +1,4 @@
-package com.example.easysoccer1.ui.homeUser
+package com.example.easysoccer1.ui.view
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.easysoccer1.ui.view.DescriptionSportCenterActivity
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
 import com.example.easysoccer1.data.models.AreaSportCenterUser
 //import com.example.easysoccer1.ui.view.HeaderProfileUser
-import com.example.easysoccer1.ui.view.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
+import com.example.easysoccer1.ui.viewmodel.HomeUserViewModel
 
 class HomeUserFragment : Fragment() {
 

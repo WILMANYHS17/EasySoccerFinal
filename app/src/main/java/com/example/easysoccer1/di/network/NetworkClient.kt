@@ -1,4 +1,4 @@
-package com.jhonatanrojas.searchapp.di.network
+package com.example.easysoccer1.di.network
 
 import androidx.viewbinding.BuildConfig
 import com.squareup.moshi.Moshi
@@ -10,9 +10,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by JHONATAN ROJAS on 8/10/2021.
- */
 class NetworkClient {
 
     private fun createOkHttpClient(): OkHttpClient {

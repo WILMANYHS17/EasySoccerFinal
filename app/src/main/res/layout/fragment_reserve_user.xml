@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.reserveUser.ReserveUserFragment">
+    tools:context=".ui.view.ReserveUserFragment">
 
     <include
         android:id="@+id/header_user"

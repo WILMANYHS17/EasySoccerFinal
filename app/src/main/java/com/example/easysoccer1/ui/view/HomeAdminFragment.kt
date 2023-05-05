@@ -1,21 +1,17 @@
-package com.example.easysoccer1.ui.homeAdmin
+package com.example.easysoccer1.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.FragmentHomeAdminBinding
-import com.example.easysoccer1.ui.view.RegisterSportCenterActivity
+import com.example.easysoccer1.ui.viewmodel.HomeAdminViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

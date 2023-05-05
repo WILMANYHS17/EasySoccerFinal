@@ -1,12 +1,13 @@
-package com.example.easysoccer1.ui.homeUser
+package com.example.easysoccer1.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeUserViewModel : ViewModel() {
+class GoalsViewModel : ViewModel() {
+
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment User"
+        value = "This is dashboard Fragment"
     }
     val text: LiveData<String> = _text
 }

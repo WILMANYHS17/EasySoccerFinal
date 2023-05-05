@@ -1,7 +1,7 @@
 package com.example.easysoccer1.di.modules
 
+import com.example.easysoccer1.di.network.NetworkClient
 import com.example.easysoccer1.domain.ApiService
-import com.jhonatanrojas.searchapp.di.network.NetworkClient
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module

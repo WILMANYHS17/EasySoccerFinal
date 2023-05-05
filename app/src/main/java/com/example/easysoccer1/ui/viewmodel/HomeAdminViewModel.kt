@@ -1,4 +1,4 @@
-package com.example.easysoccer1.ui.homeAdmin
+package com.example.easysoccer1.ui.viewmodel
 
 
 import androidx.lifecycle.ViewModel

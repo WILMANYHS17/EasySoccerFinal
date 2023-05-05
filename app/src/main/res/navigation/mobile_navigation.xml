@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.easysoccer1.ui.homeAdmin.HomeAdminFragment"
+        android:name="com.example.easysoccer1.ui.view.HomeAdminFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home_admin" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.easysoccer1.ui.goalsAdmin.GoalsFragment"
+        android:name="com.example.easysoccer1.ui.view.GoalsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_reserve_admin" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.easysoccer1.ui.reserveAdmin.ReserveAdminFragment"
+        android:name="com.example.easysoccer1.ui.view.ReserveAdminFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_goals" />
 </navigation>

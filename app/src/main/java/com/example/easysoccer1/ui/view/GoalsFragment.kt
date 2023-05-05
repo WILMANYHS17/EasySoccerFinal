@@ -1,4 +1,4 @@
-package com.example.easysoccer1.ui.goalsAdmin
+package com.example.easysoccer1.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.easysoccer1.databinding.FragmentGoalsBinding
+import com.example.easysoccer1.ui.viewmodel.GoalsViewModel
 
 class GoalsFragment : Fragment() {
 

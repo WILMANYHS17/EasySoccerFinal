@@ -1,4 +1,4 @@
-package com.example.easysoccer1.ui.reserveUser
+package com.example.easysoccer1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 
