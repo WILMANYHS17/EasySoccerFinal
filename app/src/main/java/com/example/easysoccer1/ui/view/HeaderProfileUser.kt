@@ -2,6 +2,7 @@ package com.example.easysoccer1.ui.view
 
 import android.content.Intent
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.example.easysoccer1.databinding.HeaderProfileBinding
 
@@ -14,10 +15,10 @@ class HeaderProfileUser (val binding: HeaderProfileBinding, val fragment: Fragme
         binding.nameUserProfile.text =
             "Wilman Yecid Hernández Suesca"
 
-        binding.imageProfile.setOnClickListener {
+        binding.imvUser.setOnClickListener {
             val intent = Intent(fragment.activity, RegisterUserActivity::class.java)
             intent.putExtra("user", "User")
-            ContextCompat.startActivity(fragment.context!!, intent, null)
+            startActivity(fragment.requireContext(), intent, null)
         }
 
 
