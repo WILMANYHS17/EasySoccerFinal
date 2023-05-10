@@ -39,7 +39,6 @@ class HomeAdminFragment() : Fragment() {
         }
 
         binding.buttonRegisterSportCenter.setOnClickListener { goEditSportCenter() }
-
         //val textView: TextView = binding.textHome
         // homeAdminViewModel.text.observe(viewLifecycleOwner) {
         //   textView.text = it
@@ -50,6 +49,7 @@ class HomeAdminFragment() : Fragment() {
     fun goEditSportCenter() {
         activity?.let {
             val intent = Intent(this.activity, RegisterSportCenterActivity::class.java)
+            intent.putExtra("Edit","Yes")
             startActivity(intent)
         }
     }
@@ -76,6 +76,7 @@ class HomeAdminFragment() : Fragment() {
         binding.descriptionSportCenter.text = sportCenter.getOrNull()?.description.toString()
 
     }
+
 
 
     override fun onDestroyView() {

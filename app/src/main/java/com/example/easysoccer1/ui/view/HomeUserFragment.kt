@@ -18,8 +18,7 @@ class HomeUserFragment : Fragment() {
 
     private var _binding:FragmentHomeUserBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
     private val centerUserAdapter by lazy {
         SportCenterUserAdapter(
@@ -36,6 +35,8 @@ class HomeUserFragment : Fragment() {
         HeaderProfileUser(_binding!!.headerUser, this).build()
         homeUserViewModel.text.observe(viewLifecycleOwner) {
         }
+
+
         setUpAdapter()
         centerUserAdapter.setListInYouArea(getListStadiumsNearYou())
         homeUserViewModel.text.observe(viewLifecycleOwner) {

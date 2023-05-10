@@ -3,12 +3,11 @@ package com.example.easysoccer1.ui.view
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easysoccer1.R
-import com.example.easysoccer1.data.models.Users
+import com.example.easysoccer1.data.models.RegisterUsers
 import com.example.easysoccer1.databinding.ActivityRegisterUserBinding
 import com.example.easysoccer1.ui.calendarUser.DatePickerAgeFragment
 import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
@@ -18,7 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class RegisterUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterUserBinding
     private lateinit var typeUser: String
-    var isAdmin = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +31,9 @@ class RegisterUserActivity : AppCompatActivity() {
         typeUser = intent.extras!!.getString("user") ?: ""
 
         if (typeUser == "Admin") {
-            isAdmin = true
             binding.TittleRegister.text = getString(R.string.RegisterAdmin)
             binding.editTextId.visibility = View.VISIBLE
             binding.editTextIdLayout.visibility = View.VISIBLE
-            binding.editTextNitLayout.visibility = View.VISIBLE
-            binding.editTextNit.visibility = View.VISIBLE
 
         } else {
             binding.TittleRegister.text = getString(R.string.RegisterUser)
@@ -50,21 +45,16 @@ class RegisterUserActivity : AppCompatActivity() {
                 AlertDialog.Builder(this).apply {
                     setTitle("Registro de Usuario")
                     setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
-                    Log.i("Método","Antes")
                     setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-
                         registerUserViewModel.createUser(
-
-                            Users(
+                            RegisterUsers(
                                 name = binding.editTextName.text.toString(),
                                 phone = binding.editTextPhone.text.toString(),
                                 email = binding.editTextEmailRegister.text.toString(),
                                 nameUser = binding.editTextNameUser.text.toString(),
                                 password = binding.editTextPassword.text.toString(),
                                 birthday = binding.editTextDate.text.toString(),
-                                isAdmin = isAdmin,
-                                nit = binding.editTextNit.text.toString(),
-                                identification = binding.editTextId.text.toString()
+                                isAdmin = typeUser
                             )
                         )
 
@@ -123,7 +113,7 @@ class RegisterUserActivity : AppCompatActivity() {
 
 
     private fun onClickBackActivity() {
-        val intent = Intent(this, JoinSessionActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 

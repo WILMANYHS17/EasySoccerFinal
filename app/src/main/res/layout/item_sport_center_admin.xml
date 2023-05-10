@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemSportCenterAdmin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/box_text">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageSelectSportCenter"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameSelectSportCenter"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Invictus Fútbol 5"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/imageSelectSportCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nitSelectSportCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="16dp"
+        android:text="125634PL"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/nameSelectSportCenter"
+        app:layout_constraintEnd_toEndOf="@id/nameSelectSportCenter"
+        app:layout_constraintStart_toStartOf="@id/nameSelectSportCenter"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/addressSelectSportCenter"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:text="Dirección"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/nitSelectSportCenter"
+        app:layout_constraintStart_toStartOf="@id/nitSelectSportCenter"
+        app:layout_constraintEnd_toEndOf="@id/nitSelectSportCenter"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

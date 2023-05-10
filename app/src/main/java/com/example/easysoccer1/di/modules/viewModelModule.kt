@@ -1,34 +1,42 @@
 package com.example.easysoccer1.di.modules
 
-
-import com.example.easysoccer1.ui.viewmodel.*
+import com.example.easysoccer1.ui.viewmodel.HomeAdminViewModel
+import com.example.easysoccer1.ui.viewmodel.ForgotPasswordViewModel
+import com.example.easysoccer1.ui.viewmodel.JoinSessionViewModel
+import com.example.easysoccer1.ui.viewmodel.RegisterSportCenterViewModel
+import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val viewModelModule: Module = module {
 
-
-    viewModel{
-        JoinSessionViewModel(
-            usersUseCase = get()
-
-        )
-    }
-    viewModel{
+    viewModel {
         RegisterUserViewModel(
-            usersUseCase = get()
-        )
-    }
-    viewModel{
-        ForgotPasswordViewModel(
-            usersUseCase = get()
+            setUsersUseCase = get()
         )
     }
 
-    viewModel{
+    viewModel {
+        JoinSessionViewModel(
+            getJoinSessionUseCase = get()
+
+        )
+    }
+    viewModel {
+        ForgotPasswordViewModel(
+            setPasswordUseCase = get()
+        )
+    }
+    viewModel {
+        RegisterSportCenterViewModel(
+            setSportCenterUseCase = get(),
+            getSportCenterUseCase = get()
+        )
+    }
+    viewModel {
         HomeAdminViewModel(
-            sportCenterUseCase = get()
+            getSportCenterUseCase = get()
         )
     }
 }

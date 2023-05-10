@@ -46,7 +46,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun onClickBackActivity() {
-        val intent = Intent(this, JoinSessionActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 

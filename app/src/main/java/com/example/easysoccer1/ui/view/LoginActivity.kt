@@ -13,7 +13,11 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
+<<<<<<<< HEAD:app/src/main/java/com/example/easysoccer1/ui/view/JoinSessionActivity.kt
 class JoinSessionActivity : AppCompatActivity() {
+========
+class LoginActivity : AppCompatActivity() {
+>>>>>>>> 968eba0 (Creando ciclo para buscar y mostrar los datos de un documento):app/src/main/java/com/example/easysoccer1/ui/view/LoginActivity.kt
     private lateinit var binding: ActivityMainBinding
     private var joinSussesful = Result.success(false)
     private var isAdmin = Result.success(false)
@@ -32,7 +36,6 @@ class JoinSessionActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             if (validationRegister()) {
                 lifecycleScope.launch {
-
                     onClickHomeAdmin()
                 }
 
@@ -87,7 +90,7 @@ class JoinSessionActivity : AppCompatActivity() {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
                 editor.putString("email", binding.editTextEmail.text.toString())
                 editor.apply()
-                val intent = Intent(this, NavigationAdminActivity::class.java)
+                val intent = Intent(this, SelectSportCenterActivity::class.java)
                 startActivity(intent)
             } else {
                 Log.i("Actividad User", "Inició")

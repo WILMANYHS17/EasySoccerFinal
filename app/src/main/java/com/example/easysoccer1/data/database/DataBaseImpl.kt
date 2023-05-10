@@ -1,9 +1,13 @@
 package com.example.easysoccer1.data.database
 
+import android.util.Log
 import com.example.easysoccer1.data.models.ForgotPassword
-import com.example.easysoccer1.data.models.Users
+import com.example.easysoccer1.data.models.JoinSessionUsers
+import com.example.easysoccer1.data.models.RegisterUsers
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -11,18 +15,16 @@ class DataBaseImpl(
     private val dataBase: FirebaseFirestore
 ) : DatabaseUserRepository {
 
-    override fun createUser(users: Users) {
-        dataBase.collection("Users").document(users.email).set(
+    override fun createUser(registerUsers: RegisterUsers) {
+        dataBase.collection("Users").document(registerUsers.email).set(
             hashMapOf(
-                "name" to users.name,
-                "phone" to users.phone,
-                "email" to users.email,
-                "nameUser" to users.nameUser,
-                "password" to users.password,
-                "birthday" to users.birthday,
-                "isAdmin" to (users.isAdmin),
-                "identification" to (users.identification),
-                "nit" to (users.nit)
+                "name" to registerUsers.name,
+                "phone" to registerUsers.phone,
+                "email" to registerUsers.email,
+                "nameUser" to registerUsers.nameUser,
+                "password" to registerUsers.password,
+                "birthday" to registerUsers.birthday,
+                "isAdmin" to (registerUsers.isAdmin == "Admin")
             )
         )
     }
@@ -65,11 +67,9 @@ class DataBaseImpl(
             )
     }
 
-    override suspend fun getSportCenter(sportCenter: SportCenter): Result<SportCenter> {
+    override suspend fun getSportCenter(sportCenter:SportCenter):Result<SportCenter>{
 
-        val snapshot =
-            dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
-                .document(sportCenter.emailAdmin).get().await()
+        val snapshot = dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter").document(sportCenter.emailAdmin).get().await()
         var nameSportCenter = snapshot.get("nameSportCenter") as? String
         var address = snapshot.get("nameSportCenter") as? String
         var description = snapshot.get("description") as? String
@@ -85,19 +85,8 @@ class DataBaseImpl(
         return Result.success(sportCenter)
     }
 
-    override suspend fun searchUser(email: String): Result<Users> {
-        val snapshot = dataBase.collection("Users").document(email).get().await()
-        val users = snapshot.toObject(Users::class.java)
-        return if (users != null) {
-            Result.success(users)
-        } else {
-            Result.failure(Exception("Algo pasó"))
-        }
+    fun getListSportCenter(){
 
-    }
-
-    fun getListSportCenter() {
-/*
         val collectionRef = dataBase.collection("Users")
 
         collectionRef.whereEqualTo("isAdmin", true).get().addOnSuccessListener { documents ->
@@ -114,8 +103,6 @@ class DataBaseImpl(
         }.addOnFailureListener { exception ->
             Log.d("Consulta", "get failed with ", exception)
         }
-
- */
     }
 
 
