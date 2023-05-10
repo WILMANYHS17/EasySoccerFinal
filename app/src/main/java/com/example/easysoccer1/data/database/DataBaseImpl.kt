@@ -67,9 +67,11 @@ class DataBaseImpl(
             )
     }
 
-    override suspend fun getSportCenter(sportCenter:SportCenter):Result<SportCenter>{
+    override suspend fun getSportCenter(sportCenter: SportCenter): Result<SportCenter> {
 
-        val snapshot = dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter").document(sportCenter.emailAdmin).get().await()
+        val snapshot =
+            dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
+                .document(sportCenter.emailAdmin).get().await()
         var nameSportCenter = snapshot.get("nameSportCenter") as? String
         var address = snapshot.get("nameSportCenter") as? String
         var description = snapshot.get("description") as? String
@@ -85,16 +87,33 @@ class DataBaseImpl(
         return Result.success(sportCenter)
     }
 
-    fun getListSportCenter(){
+    suspend fun getListSportCenter(sportCenter: SportCenter): Result<List<SportCenter>> {
 
-        val collectionRef = dataBase.collection("Users")
+        return try {
+            val snapshot = dataBase.collection("Users")
+                .whereEqualTo("isAdmin", true)
+                .get()
+                .await()
+            val listSportCenter = snapshot.map { it.toObject(SportCenter::class.java) }
+            Result.success(listSportCenter)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 
-        collectionRef.whereEqualTo("isAdmin", true).get().addOnSuccessListener { documents ->
+/*
+        val snapshot = dataBase.collection("Users").get().await()
+
+        for(snapshot.map{}){
+
+        }
+
+
             if (documents != null) {
-                val tuLista = ArrayList<SportCenter>()
+                val listSportCenter = ArrayList<SportCenter>()
                 for (document in documents) {
-                    val tuObjeto = document.toObject(TuClase::class.java)
-                    tuLista.add(tuObjeto)
+                    val sportCenterDataclass = document.toObject(sportCenter::class.java)
+                    listSportCenter.add(sportCenterDataclass)
                 }
                 // Aquí puedes agregar tu lista a un RecyclerView usando un adaptador personalizado
             } else {
@@ -105,5 +124,5 @@ class DataBaseImpl(
         }
     }
 
-
+*/
 }
