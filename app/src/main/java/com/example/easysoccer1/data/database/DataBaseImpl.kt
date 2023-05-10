@@ -1,5 +1,6 @@
 package com.example.easysoccer1.data.database
 
+import android.util.Log
 import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.data.models.JoinSessionUsers
 import com.example.easysoccer1.data.models.RegisterUsers
@@ -82,6 +83,26 @@ class DataBaseImpl(
         sportCenter.price5vs5 = price5vs5.toString()
         sportCenter.price8vs8 = price8vs8.toString()
         return Result.success(sportCenter)
+    }
+
+    fun getListSportCenter(){
+
+        val collectionRef = dataBase.collection("Users")
+
+        collectionRef.whereEqualTo("isAdmin", true).get().addOnSuccessListener { documents ->
+            if (documents != null) {
+                val tuLista = ArrayList<SportCenter>()
+                for (document in documents) {
+                    val tuObjeto = document.toObject(TuClase::class.java)
+                    tuLista.add(tuObjeto)
+                }
+                // Aquí puedes agregar tu lista a un RecyclerView usando un adaptador personalizado
+            } else {
+                Log.d("Consulta", "No such document")
+            }
+        }.addOnFailureListener { exception ->
+            Log.d("Consulta", "get failed with ", exception)
+        }
     }
 
 

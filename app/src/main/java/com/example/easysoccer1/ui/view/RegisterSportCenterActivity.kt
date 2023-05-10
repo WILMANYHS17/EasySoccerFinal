@@ -3,22 +3,36 @@ package com.example.easysoccer1.ui.view
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ActivityRegisterSportCenterBinding
 import com.example.easysoccer1.ui.viewmodel.RegisterSportCenterViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RegisterSportCenterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterSportCenterBinding
+    private lateinit var editSportCenter: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
+
+        editSportCenter = intent.extras!!.getString("Edit") ?: ""
+
+        if (editSportCenter == "Si") {
+            lifecycleScope.launch {
+                getSportCenter()
+            }
+        }else{
+            binding.nitSportCenter.visibility = View.VISIBLE
+        }
 
         binding.buttonRegisterSportCenter.setOnClickListener { onClickCreateSportCenter() }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
@@ -51,6 +65,32 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                 setNegativeButton("No", null)
             }.show()
         }
+
+    }
+
+    suspend fun getSportCenter() {
+        val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
+        val prefs = getSharedPreferences(
+            "easySoccer",
+            MODE_PRIVATE
+        )
+        val emailAdmin = prefs.getString("email", "")
+        val sportCenter = registerSportCenterViewModel.getSportCenter(
+            SportCenter(
+                name = "",
+                address = "",
+                nit = "",
+                price5vs5 = "",
+                price8vs8 = "",
+                description = "",
+                emailAdmin = emailAdmin.toString()
+            )
+        )
+        binding.nameSportCenter.setText(sportCenter.getOrNull()?.name.toString())
+        binding.adressSportCenter.setText(sportCenter.getOrNull()?.address.toString())
+        binding.price5vs5.setText(sportCenter.getOrNull()?.price5vs5.toString())
+        binding.price8vs8.setText(sportCenter.getOrNull()?.price8vs8.toString())
+        binding.descriptionSportCenter.setText(sportCenter.getOrNull()?.description.toString())
 
     }
 

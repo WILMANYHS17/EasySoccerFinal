@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var joinSussesful = Result.success(false)
     private var isAdmin = Result.success(false)
@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             if (validationRegister()) {
                 lifecycleScope.launch {
-
                     onClickHomeAdmin()
                 }
 
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
                 editor.putString("email", binding.editTextEmail.text.toString())
                 editor.apply()
-                val intent = Intent(this, NavigationAdminActivity::class.java)
+                val intent = Intent(this, SelectSportCenterActivity::class.java)
                 startActivity(intent)
             } else {
                 Log.i("Actividad User", "Inició")

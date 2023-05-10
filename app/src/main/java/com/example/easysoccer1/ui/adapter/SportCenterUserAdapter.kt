@@ -54,8 +54,6 @@ class SportCenterUserAdapter (private val goToDescription: (AreaSportCenterUser)
                 textPriceStadiumItem.text = stadiumInYourArea.valueStadium
                 textAdressStadiumItem.text = stadiumInYourArea.directionStadium
                 itemSportCenterUser.setOnClickListener{goToDescription(stadiumInYourArea)}
-                //btnMap.setOnClickListener { selectGoToDetail(stadiumInYourArea) }
-                //btnReserverUser.setOnClickListener { selectGoToReserve(stadiumInYourArea) }
                 val identifier =
                     context.resources.getIdentifier(
                         stadiumInYourArea.image,

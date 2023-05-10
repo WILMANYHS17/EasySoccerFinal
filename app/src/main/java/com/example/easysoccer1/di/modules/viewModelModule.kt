@@ -17,23 +17,24 @@ val viewModelModule: Module = module {
         )
     }
 
-    viewModel{
+    viewModel {
         JoinSessionViewModel(
             getJoinSessionUseCase = get()
 
         )
     }
-    viewModel{
+    viewModel {
         ForgotPasswordViewModel(
             setPasswordUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         RegisterSportCenterViewModel(
-            setSportCenterUseCase = get()
+            setSportCenterUseCase = get(),
+            getSportCenterUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         HomeAdminViewModel(
             getSportCenterUseCase = get()
         )
