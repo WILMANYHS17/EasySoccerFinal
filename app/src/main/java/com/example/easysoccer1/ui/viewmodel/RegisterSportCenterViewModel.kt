@@ -1,17 +1,16 @@
 package com.example.easysoccer1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.easysoccer1.data.models.JoinSessionUsers
 import com.example.easysoccer1.data.models.SportCenter
-import com.example.easysoccer1.domain.SetSportCenterUseCase
+import com.example.easysoccer1.domain.SportCenterUseCase
 
 class RegisterSportCenterViewModel(
-    private val setSportCenterUseCase: SetSportCenterUseCase
+    private val sportCenterUseCase: SportCenterUseCase
 ): ViewModel() {
 
 
     fun setSportCenter(sportCenter:SportCenter){
-        setSportCenterUseCase.setSportCenter(sportCenter)
+        sportCenterUseCase.setSportCenter(sportCenter)
     }
 
 }

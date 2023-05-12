@@ -189,6 +189,27 @@
             app:layout_constraintStart_toStartOf="@+id/editTextIdLayout"
             app:layout_constraintTop_toBottomOf="@+id/editTextIdLayout" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextNitLayout"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDate"
+            app:layout_constraintStart_toStartOf="@+id/editTextDate"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate">
+
+            <EditText
+                android:id="@+id/editTextNit"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:hint="Nit:"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:visibility="gone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonRegister"
@@ -197,8 +218,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/custom_button"
             android:text="Registrar"
-            app:layout_constraintStart_toStartOf="@+id/editTextDate"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNitLayout" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonRegisterCancel"
@@ -208,7 +230,7 @@
             android:background="@drawable/custom_button"
             android:text="Cancelar"
             app:layout_constraintBottom_toBottomOf="@+id/buttonRegister"
-            app:layout_constraintEnd_toEndOf="@+id/editTextDate"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonRegister"
             app:layout_constraintTop_toTopOf="@+id/buttonRegister" />
 

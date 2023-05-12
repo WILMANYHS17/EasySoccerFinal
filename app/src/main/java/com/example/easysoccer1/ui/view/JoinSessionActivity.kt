@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class JoinSessionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var joinSussesful = Result.success(false)
     private var isAdmin = Result.success(false)
@@ -54,13 +54,18 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onClickForgotPassword(){
+    private fun onClickForgotPassword() {
         val intent = Intent(this, ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 
     private suspend fun onClickHomeAdmin() {
         val joinSessionViewModel: JoinSessionViewModel by viewModel()
+        Log.i("Entra", "Sí")
+        var email = binding.editTextEmail.text.toString()
+
+        var joinSuccessful = joinSessionViewModel.searchUsers1(email)
+        Log.i("Password", joinSuccessful.getOrNull()?.password.toString())
         joinSussesful = joinSessionViewModel.searchUser(
             JoinSessionUsers(
                 email = binding.editTextEmail.text.toString(),
@@ -106,6 +111,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+
 
 
 

@@ -1,15 +1,16 @@
 package com.example.easysoccer1.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.easysoccer1.data.models.RegisterUsers
-import com.example.easysoccer1.domain.SetUsersUseCase
+import com.example.easysoccer1.data.models.Users
+import com.example.easysoccer1.domain.UsersUseCase
 
 class RegisterUserViewModel(
-    private val setUsersUseCase: SetUsersUseCase
+    private val usersUseCase: UsersUseCase
 ) : ViewModel() {
 
 
-    fun createUser(registerUsers: RegisterUsers) {
-        setUsersUseCase.createUser(registerUsers)
+    fun createUser(users: Users) {
+        usersUseCase.createUser(users)
     }
 }
