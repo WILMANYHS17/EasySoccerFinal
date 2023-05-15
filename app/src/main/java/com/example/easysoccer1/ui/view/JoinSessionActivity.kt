@@ -15,8 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JoinSessionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var joinSussesful = Result.success(false)
-    private var isAdmin = Result.success(false)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +30,6 @@ class JoinSessionActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             if (validationRegister()) {
                 lifecycleScope.launch {
-
                     onClickHomeAdmin()
                 }
 
@@ -62,41 +59,35 @@ class JoinSessionActivity : AppCompatActivity() {
     private suspend fun onClickHomeAdmin() {
         val joinSessionViewModel: JoinSessionViewModel by viewModel()
         Log.i("Entra", "Sí")
-        var email = binding.editTextEmail.text.toString()
+        val email = binding.editTextEmail.text.toString()
 
-        var joinSuccessful = joinSessionViewModel.searchUsers1(email)
-        Log.i("Password", joinSuccessful.getOrNull()?.password.toString())
-        joinSussesful = joinSessionViewModel.searchUser(
-            JoinSessionUsers(
-                email = binding.editTextEmail.text.toString(),
-                password = binding.editTextPassword.text.toString(),
-                isAdmin = true
-            )
-        )
-        isAdmin = joinSessionViewModel.isAdmin(
-            JoinSessionUsers(
-                email = binding.editTextEmail.text.toString(),
-                password = binding.editTextPassword.text.toString(),
-                isAdmin = true
-            )
-        )
-        if (joinSussesful.getOrDefault(false)) {
-            if (isAdmin.getOrDefault(false)) {
-                Log.i("Actividad Admin", "Inició")
+        val joinSuccessful = joinSessionViewModel.searchUsers1(email).getOrNull()
 
+        joinSuccessful?.let { user ->
+            if(validateLogin(user.email, user.password)) {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
-                editor.putString("email", binding.editTextEmail.text.toString())
+                editor.putString("email", user.email)
                 editor.apply()
-                val intent = Intent(this, NavigationAdminActivity::class.java)
-                startActivity(intent)
+                if (user.isAdmin) {
+                    Log.i("Actividad Admin", "Inició")
+                    val intent = Intent(this, NavigationAdminActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.i("Actividad User", "Inició")
+                    val intent = Intent(this, NavigationUserActivity::class.java)
+                    startActivity(intent)
+                }
+
             } else {
-                Log.i("Actividad User", "Inició")
-                val intent = Intent(this, NavigationUserActivity::class.java)
-                startActivity(intent)
+                binding.editTextEmail.setError("Email o contraseña incorrecta")
             }
-        } else {
-            binding.editTextEmail.setError("Email o contraseña incorrecta")
-        }
+        } ?: binding.editTextEmail.setError("Email o contraseña incorrecta")
+
+    }
+    private fun validateLogin(email: String, password : String): Boolean {
+        return binding.editTextEmail.text.toString() == email
+                && binding.editTextPassword.text.toString() == password
+
     }
 
     fun validationRegister(): Boolean {
