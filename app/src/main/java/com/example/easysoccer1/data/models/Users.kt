@@ -8,7 +8,9 @@ data class Users(
     val phone: String = "",
     val name: String = "",
     var nit: String = "",
-    val isAdmin: Boolean = false,
+    // Por si la variable booleana comienza en "is"
+    @field:JvmField
+    var isAdmin: Boolean = false,
     val email: String = ""
 )
 
