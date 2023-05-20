@@ -18,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeAdminFragment() : Fragment() {
 
     private var _binding: FragmentHomeAdminBinding? = null
+    private lateinit var nit : String
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,6 +31,7 @@ class HomeAdminFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        nit = activity?.intent?.extras?.getString("Nit") ?: ""
 
         _binding = FragmentHomeAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -63,16 +65,16 @@ class HomeAdminFragment() : Fragment() {
         val emailAdmin = prefs.getString("email", "")
         val sportCenter = homeAdminViewModel.getSportCenter(
             SportCenter(
-                name = "",
+                nameSportCenter = "",
                 address = "",
-                nit ="",
+                nit = "",
                 price5vs5 = "",
                 price8vs8 = "",
                 description = "",
                 emailAdmin = emailAdmin.toString()
             )
         )
-        binding.textNameSportCenter.text = sportCenter.getOrNull()?.name.toString()
+        binding.textNameSportCenter.text = sportCenter.getOrNull()?.nameSportCenter.toString()
         binding.descriptionSportCenter.text = sportCenter.getOrNull()?.description.toString()
 
     }

@@ -38,7 +38,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
                     registerSportCenterViewModel.setSportCenter(
                         SportCenter(
-                            name = binding.nameSportCenter.text.toString(),
+                            nameSportCenter = binding.nameSportCenter.text.toString(),
                             address = binding.adressSportCenter.text.toString(),
                             nit = binding.nitSportCenter.text.toString(),
                             price5vs5 = binding.price5vs5.text.toString(),

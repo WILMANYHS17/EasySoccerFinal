@@ -6,4 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.SelectSportCenterActivity">
 
+    <include
+        android:id="@+id/headerUser"
+        layout="@layout/header_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleYourSportCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Tus Centros Deportivos"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerUser" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSelectSportCenter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleYourSportCenter" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCreateSportCenter"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom_button"
+        android:text="Crear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerSelectSportCenter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
