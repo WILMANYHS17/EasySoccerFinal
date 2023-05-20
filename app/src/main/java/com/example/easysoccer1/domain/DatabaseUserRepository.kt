@@ -13,5 +13,6 @@ interface DatabaseUserRepository {
     fun createSportCenter(sportCenter:SportCenter)
     suspend fun getSportCenter(sportCenter:SportCenter):Result<SportCenter>
     suspend fun searchUser(email:String): Result<Users>
+    suspend fun getListSportCenter(email: String?, nit:String?):Result<List<SportCenter>>
 
 }

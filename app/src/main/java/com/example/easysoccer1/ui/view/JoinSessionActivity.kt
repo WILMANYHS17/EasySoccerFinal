@@ -67,10 +67,11 @@ class JoinSessionActivity : AppCompatActivity() {
             if(validateLogin(user.email, user.password)) {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
                 editor.putString("email", user.email)
+                editor.putString("nit", user.nit)
                 editor.apply()
                 if (user.isAdmin) {
                     Log.i("Actividad Admin", "Inició")
-                    val intent = Intent(this, NavigationAdminActivity::class.java)
+                    val intent = Intent(this, SelectSportCenterActivity::class.java)
                     startActivity(intent)
                 } else {
                     Log.i("Actividad User", "Inició")

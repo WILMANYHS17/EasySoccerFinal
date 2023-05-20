@@ -55,7 +55,7 @@ class DataBaseImpl(
         dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
             .document(sportCenter.emailAdmin).set(
                 hashMapOf(
-                    "nameSportCenter" to sportCenter.name,
+                    "nameSportCenter" to sportCenter.nameSportCenter,
                     "address" to sportCenter.address,
                     "description" to sportCenter.description,
                     "nit" to sportCenter.nit,
@@ -76,7 +76,7 @@ class DataBaseImpl(
         var nit = snapshot.get("nit") as? String
         var price5vs5 = snapshot.get("5vs5") as? String
         var price8vs8 = snapshot.get("8vs8") as? String
-        sportCenter.name = nameSportCenter.toString()
+        sportCenter.nameSportCenter = nameSportCenter.toString()
         sportCenter.address = address.toString()
         sportCenter.description = description.toString()
         sportCenter.nit = nit.toString()
@@ -96,26 +96,24 @@ class DataBaseImpl(
 
     }
 
-    fun getListSportCenter() {
-/*
-        val collectionRef = dataBase.collection("Users")
+    override suspend fun getListSportCenter(
+        email: String?,
+        nit: String?
+    ): Result<List<SportCenter>> {
+        val list= mutableListOf<SportCenter>()
+        val snapshot =
+            dataBase.collection("Users").document(email.toString()).collection("SportCenter").get()
+                .await()
 
-        collectionRef.whereEqualTo("isAdmin", true).get().addOnSuccessListener { documents ->
-            if (documents != null) {
-                val tuLista = ArrayList<SportCenter>()
-                for (document in documents) {
-                    val tuObjeto = document.toObject(TuClase::class.java)
-                    tuLista.add(tuObjeto)
-                }
-                // Aquí puedes agregar tu lista a un RecyclerView usando un adaptador personalizado
-            } else {
-                Log.d("Consulta", "No such document")
+        for (document in snapshot.documents) {
+            val sportCenter = document.toObject(SportCenter::class.java)
+            sportCenter?.let {
+                list.add(sportCenter)
             }
-        }.addOnFailureListener { exception ->
-            Log.d("Consulta", "get failed with ", exception)
+
         }
 
- */
+        return Result.success(list)
     }
 
 
