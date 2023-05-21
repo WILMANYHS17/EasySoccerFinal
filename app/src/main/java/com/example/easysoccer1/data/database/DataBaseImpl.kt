@@ -5,6 +5,7 @@ import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
 class DataBaseImpl(
@@ -22,7 +23,6 @@ class DataBaseImpl(
                 "birthday" to users.birthday,
                 "isAdmin" to (users.isAdmin),
                 "identification" to (users.identification),
-                "nit" to (users.nit)
             )
         )
     }
@@ -53,7 +53,7 @@ class DataBaseImpl(
 
     override fun createSportCenter(sportCenter: SportCenter) {
         dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
-            .document(sportCenter.emailAdmin).set(
+            .document(sportCenter.nit).set(
                 hashMapOf(
                     "nameSportCenter" to sportCenter.nameSportCenter,
                     "address" to sportCenter.address,
@@ -65,24 +65,16 @@ class DataBaseImpl(
             )
     }
 
-    override suspend fun getSportCenter(sportCenter: SportCenter): Result<SportCenter> {
+    override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
 
-        val snapshot =
-            dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
-                .document(sportCenter.emailAdmin).get().await()
-        var nameSportCenter = snapshot.get("nameSportCenter") as? String
-        var address = snapshot.get("nameSportCenter") as? String
-        var description = snapshot.get("description") as? String
-        var nit = snapshot.get("nit") as? String
-        var price5vs5 = snapshot.get("5vs5") as? String
-        var price8vs8 = snapshot.get("8vs8") as? String
-        sportCenter.nameSportCenter = nameSportCenter.toString()
-        sportCenter.address = address.toString()
-        sportCenter.description = description.toString()
-        sportCenter.nit = nit.toString()
-        sportCenter.price5vs5 = price5vs5.toString()
-        sportCenter.price8vs8 = price8vs8.toString()
-        return Result.success(sportCenter)
+        val snapshot = dataBase.collection("Users").document(email).collection("SportCenter").document(nit).get().await()
+        val sportCenter = snapshot.toObject(SportCenter::class.java)
+
+        return if (sportCenter != null) {
+            Result.success(sportCenter)
+        } else {
+            Result.failure(Exception("Algo salió mal"))
+        }
     }
 
     override suspend fun searchUser(email: String): Result<Users> {
@@ -96,11 +88,8 @@ class DataBaseImpl(
 
     }
 
-    override suspend fun getListSportCenter(
-        email: String?,
-        nit: String?
-    ): Result<List<SportCenter>> {
-        val list= mutableListOf<SportCenter>()
+    override suspend fun getListSportCenter(email: String?): Result<List<SportCenter>> {
+        val list = mutableListOf<SportCenter>()
         val snapshot =
             dataBase.collection("Users").document(email.toString()).collection("SportCenter").get()
                 .await()

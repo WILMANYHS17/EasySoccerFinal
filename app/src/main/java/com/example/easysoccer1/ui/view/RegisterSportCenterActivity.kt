@@ -3,6 +3,7 @@ package com.example.easysoccer1.ui.view
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easysoccer1.data.models.SportCenter
@@ -14,12 +15,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class RegisterSportCenterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterSportCenterBinding
+    private lateinit var editYes: String
+    private lateinit var nit:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
-
+        editYes = intent.extras!!.getString("Edit") ?: ""
+        if (editYes == "No") {
+            binding.nitSportCenter.visibility = View.VISIBLE
+        }
         binding.buttonRegisterSportCenter.setOnClickListener { onClickCreateSportCenter() }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
         binding.backButton.setOnClickListener { onClickBackActivity() }
@@ -35,12 +41,16 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                     val prefs = getSharedPreferences("easySoccer", MODE_PRIVATE)
                     val emailAdmin = prefs.getString("email", "")
 
-
+                    if(binding.nitSportCenter.text.isEmpty()){
+                        nit=intent.extras!!.getString("Nit") ?: ""
+                    }else{
+                        nit=binding.nitSportCenter.text.toString()
+                    }
                     registerSportCenterViewModel.setSportCenter(
                         SportCenter(
                             nameSportCenter = binding.nameSportCenter.text.toString(),
-                            address = binding.adressSportCenter.text.toString(),
-                            nit = binding.nitSportCenter.text.toString(),
+                            address = binding.addressSportCenter.text.toString(),
+                            nit = nit,
                             price5vs5 = binding.price5vs5.text.toString(),
                             price8vs8 = binding.price8vs8.text.toString(),
                             description = binding.descriptionSportCenter.text.toString(),
@@ -55,21 +65,19 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     }
 
     fun validationRegister(): Boolean {
-        if (binding.nameSportCenter.text?.isEmpty() == true && binding.adressSportCenter.text?.isEmpty() == true &&
-            binding.nitSportCenter.text?.isEmpty() == true && binding.price5vs5.text?.isEmpty() == true &&
+        if (binding.nameSportCenter.text?.isEmpty() == true && binding.addressSportCenter.text?.isEmpty() == true &&
+            binding.price5vs5.text?.isEmpty() == true &&
             binding.price8vs8.text?.isEmpty() == true && binding.descriptionSportCenter.text?.isEmpty() == true
         ) {
             binding.nameSportCenter.setError("El espacio está vacio")
-            binding.adressSportCenter.setError("El espacio está vacio")
-            binding.nitSportCenter.setError("El espacio está vacio")
+            binding.addressSportCenter.setError("El espacio está vacio")
             binding.price5vs5.setError("El espacio está vacio")
             binding.price8vs8.setError("El espacio está vacio")
             binding.descriptionSportCenter.setError("El espacio está vacio")
             return false
         } else {
             binding.nameSportCenter.setError(null)
-            binding.adressSportCenter.setError(null)
-            binding.nitSportCenter.setError(null)
+            binding.addressSportCenter.setError(null)
             binding.price5vs5.setError(null)
             binding.price8vs8.setError(null)
             binding.descriptionSportCenter.setError(null)
@@ -78,7 +86,6 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     }
 
     fun onClickBackActivity() {
-        val intent = Intent(this, NavigationAdminActivity::class.java)
-        startActivity(intent)
+       super.onBackPressed()
     }
 }

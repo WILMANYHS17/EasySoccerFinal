@@ -37,4 +37,9 @@ val viewModelModule: Module = module {
             sportCenterUseCase = get()
         )
     }
+    viewModel{
+        RegisterSportCenterViewModel(
+            sportCenterUseCase = get()
+        )
+    }
 }
