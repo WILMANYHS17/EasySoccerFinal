@@ -8,7 +8,7 @@ class SelectSportCenterViewModel(
     private val sportCenterUseCase: SportCenterUseCase
 ) : ViewModel() {
 
-    suspend fun getListSportCenter(email: String?, nit:String?): Result<List<SportCenter>> {
-        return sportCenterUseCase.getListSportCenter(email,nit)
+    suspend fun getListSportCenter(email: String?): Result<List<SportCenter>> {
+        return sportCenterUseCase.getListSportCenter(email)
     }
 }

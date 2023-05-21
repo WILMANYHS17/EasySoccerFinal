@@ -5,16 +5,16 @@ import com.example.easysoccer1.data.models.SportCenter
 class SportCenterUseCase(
     private val databaseUserRepository: DatabaseUserRepository
 ) {
-    suspend fun getSportCenter(sportCenter: SportCenter): Result<SportCenter> {
-        return databaseUserRepository.getSportCenter(sportCenter)
+    suspend fun getSportCenter(nit: String, email:String): Result<SportCenter> {
+        return databaseUserRepository.getSportCenter(nit,email)
     }
 
     fun setSportCenter(sportCenter: SportCenter) {
         databaseUserRepository.createSportCenter(sportCenter)
     }
 
-    suspend fun getListSportCenter(email: String?, nit:String?): Result<List<SportCenter>> {
-        return databaseUserRepository.getListSportCenter(email,nit)
+    suspend fun getListSportCenter(email: String?): Result<List<SportCenter>> {
+        return databaseUserRepository.getListSportCenter(email)
     }
 
 }

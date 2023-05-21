@@ -8,8 +8,8 @@ import com.example.easysoccer1.domain.SportCenterUseCase
 class HomeAdminViewModel(
     private val sportCenterUseCase: SportCenterUseCase
 ) : ViewModel() {
-    suspend fun getSportCenter(sportCenter: SportCenter) : Result<SportCenter>{
-    return sportCenterUseCase.getSportCenter(sportCenter)
+    suspend fun getSportCenter(nit: String, email:String) : Result<SportCenter>{
+    return sportCenterUseCase.getSportCenter(nit,email)
     }
 
 }

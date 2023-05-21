@@ -20,41 +20,31 @@ class RegisterUserActivity : AppCompatActivity() {
     private lateinit var typeUser: String
     var isAdmin = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
         val registerUserViewModel: RegisterUserViewModel by viewModel()
-
-
         typeUser = intent.extras!!.getString("user") ?: ""
-
         if (typeUser == "Admin") {
             isAdmin = true
             binding.TittleRegister.text = getString(R.string.RegisterAdmin)
             binding.editTextId.visibility = View.VISIBLE
             binding.editTextIdLayout.visibility = View.VISIBLE
-            binding.editTextNitLayout.visibility = View.VISIBLE
-            binding.editTextNit.visibility = View.VISIBLE
+
 
         } else {
             binding.TittleRegister.text = getString(R.string.RegisterUser)
         }
-
-
         binding.buttonRegister.setOnClickListener {
-            if(validationRegister()){
+            if (validationRegister()) {
                 AlertDialog.Builder(this).apply {
                     setTitle("Registro de Usuario")
                     setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
-                    Log.i("Método","Antes")
+                    Log.i("Método", "Antes")
                     setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-
                         registerUserViewModel.createUser(
-
                             Users(
                                 name = binding.editTextName.text.toString(),
                                 phone = binding.editTextPhone.text.toString(),
@@ -63,26 +53,18 @@ class RegisterUserActivity : AppCompatActivity() {
                                 password = binding.editTextPassword.text.toString(),
                                 birthday = binding.editTextDate.text.toString(),
                                 isAdmin = isAdmin,
-                                nit = binding.editTextNit.text.toString(),
                                 identification = binding.editTextId.text.toString()
                             )
                         )
-
                     }
                     setNegativeButton("No", null)
                 }.show()
-                if(typeUser == "Admin"){
-                    goRegisterSportCenter()
-                }
             }
-
-
         }
         binding.editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
         binding.backButton.setOnClickListener { onClickBackActivity() }
-
         binding.buttonRegisterCancel.setOnClickListener {
             AlertDialog.Builder(this).apply {
                 setTitle("Cancelar Registro")
@@ -93,8 +75,6 @@ class RegisterUserActivity : AppCompatActivity() {
                 setNegativeButton("No", null)
             }.show()
         }
-
-
     }
 
     fun validationRegister(): Boolean {
@@ -110,7 +90,6 @@ class RegisterUserActivity : AppCompatActivity() {
             binding.editTextDate.setError("El espacio está vacio")
             return false
         } else {
-
             binding.editTextName.setError(null)
             binding.editTextPhone.setError(null)
             binding.editTextEmailRegister.setError(null)
@@ -121,30 +100,10 @@ class RegisterUserActivity : AppCompatActivity() {
         }
     }
 
-
     private fun onClickBackActivity() {
         val intent = Intent(this, JoinSessionActivity::class.java)
         startActivity(intent)
     }
-
-    private fun goRegisterSportCenter(){
-        AlertDialog.Builder(this).apply {
-            setTitle("Crear Centro deportivo")
-            setMessage("¿Aún no tienes un centro deportivo?¿Quieres crear uno?")
-            setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-                onClickRegisterSportCenter()
-            }
-            setNegativeButton("No", null)
-        }
-
-    }
-
-    private fun onClickRegisterSportCenter(){
-        val intent = Intent(this, RegisterSportCenterActivity::class.java)
-        startActivity(intent)
-    }
-
-
 
     private fun showDatePickerDialog() {
         val datePicker =
@@ -155,6 +114,4 @@ class RegisterUserActivity : AppCompatActivity() {
     fun onDateSelected(day: Int, month: Int, year: Int) {
         binding.editTextDate.setText("$day / $month / $year")
     }
-
-
 }

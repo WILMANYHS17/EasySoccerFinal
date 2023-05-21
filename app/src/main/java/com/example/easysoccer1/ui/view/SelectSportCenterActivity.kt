@@ -42,16 +42,12 @@ class SelectSportCenterActivity : AppCompatActivity() {
             AppCompatActivity.MODE_PRIVATE
         )
         val emailAdmin = prefs.getString("email", "")
-        val nit = prefs.getString("nit", "")
-
-       return selectSportCenterViewModel.getListSportCenter(emailAdmin, nit).getOrNull() ?: emptyList()
-
-
+       return selectSportCenterViewModel.getListSportCenter(emailAdmin).getOrNull() ?: emptyList()
     }
 
     private fun goToCreateSportCenter() {
         val intent = Intent(this, RegisterSportCenterActivity::class.java)
-
+        intent.putExtra("Edit", "No")
         startActivity(intent)
     }
     fun goToSportCenter(nit: String){

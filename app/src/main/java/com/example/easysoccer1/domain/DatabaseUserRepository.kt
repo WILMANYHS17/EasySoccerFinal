@@ -11,8 +11,8 @@ interface DatabaseUserRepository {
     suspend fun getIsAdmin(email: String, isAdmin: Boolean): Result<Boolean>
     fun changePassword(forgotPassword: ForgotPassword)
     fun createSportCenter(sportCenter:SportCenter)
-    suspend fun getSportCenter(sportCenter:SportCenter):Result<SportCenter>
+    suspend fun getSportCenter(nit: String,email:String):Result<SportCenter>
     suspend fun searchUser(email:String): Result<Users>
-    suspend fun getListSportCenter(email: String?, nit:String?):Result<List<SportCenter>>
+    suspend fun getListSportCenter(email: String?):Result<List<SportCenter>>
 
 }
