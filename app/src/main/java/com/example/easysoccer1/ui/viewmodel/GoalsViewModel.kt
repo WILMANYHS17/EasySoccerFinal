@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GoalsViewModel : ViewModel() {
+    fun createGoal(goal: Goal) {
+
+    }
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

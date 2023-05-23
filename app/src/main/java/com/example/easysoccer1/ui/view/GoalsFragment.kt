@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.easysoccer1.data.models.Goal
 import com.example.easysoccer1.databinding.FragmentGoalsBinding
 import com.example.easysoccer1.ui.viewmodel.GoalsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GoalsFragment : Fragment() {
 
@@ -23,17 +23,22 @@ class GoalsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val goalsViewModel =
-            ViewModelProvider(this).get(GoalsViewModel::class.java)
+        binding.bottonCreateGoal.setOnClickListener { createGoal() }
 
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textGoal
-        goalsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        return binding.root
+    }
+
+    private fun createGoal() {
+        val goalsViewModel: GoalsViewModel by viewModel()
+        goalsViewModel.createGoal(
+            Goal(
+                id = binding.inputTextNumberGoal.text.toString(),
+                price = binding.editTextPrice.text.toString(),
+                size = binding.editTextSizeGoal.text.toString()
+                )
+        )
     }
 
     override fun onDestroyView() {
