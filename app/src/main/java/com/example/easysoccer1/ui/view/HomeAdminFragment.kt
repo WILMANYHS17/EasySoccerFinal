@@ -1,5 +1,6 @@
 package com.example.easysoccer1.ui.view
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class HomeAdminFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         nit = activity?.intent?.extras?.getString("Nit") ?: ""
+
         _binding = FragmentHomeAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
         lifecycleScope.launch {
@@ -52,6 +54,9 @@ class HomeAdminFragment() : Fragment() {
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
+        val editor= requireActivity().getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
+        editor.putString("Nit", nit)
+        editor.apply()
         val emailAdmin = prefs.getString("email", "")
         val sportCenter = nit?.let { emailAdmin?.let { it1 ->
             homeAdminViewModel.getSportCenter(it,

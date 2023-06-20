@@ -1,6 +1,7 @@
 package com.example.easysoccer1.data.database
 
 import com.example.easysoccer1.data.models.ForgotPassword
+import com.example.easysoccer1.data.models.Goals
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
@@ -103,6 +104,35 @@ class DataBaseImpl(
         }
 
         return Result.success(list)
+    }
+
+    override suspend fun getListGoals(emailAdmin:String?, nit:String?): Result<List<Goals>> {
+        val list = mutableListOf<Goals>()
+        val snapshot =
+            dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter").document(nit.toString()).collection("Goals").get().await()
+
+        for (document in snapshot.documents) {
+            val goals = document.toObject(Goals::class.java)
+            goals?.let {
+                list.add(goals)
+            }
+
+        }
+
+        return Result.success(list)
+    }
+
+    override fun setGoals(goals:Goals, emailAdmin:String?, nit:String?) {
+        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter").document(nit.toString()).collection("Goals").document(goals.nameOrNumber).set(
+            hashMapOf(
+                "number" to goals.nameOrNumber,
+                "size" to goals.size,
+                "price" to goals.price,
+                "available" to goals.available,
+                "hour" to goals.hour,
+                "date" to goals.date
+            )
+        )
     }
 
 

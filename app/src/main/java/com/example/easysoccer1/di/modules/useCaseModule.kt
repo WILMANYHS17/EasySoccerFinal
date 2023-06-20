@@ -17,5 +17,10 @@ val useCaseModule: Module = module {
             databaseUserRepository = get()
         )
     }
+    factory{
+        GoalsUseCase(
+            databaseUserRepository = get()
+        )
+    }
 
 }
