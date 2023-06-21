@@ -43,6 +43,7 @@ class GoalsFragment : Fragment() {
         setUpAdapter()
         lifecycleScope.launch {
             goalsAdminAdapter.setListGoals(getListGoals())
+
         }
         binding.bottonCreateGoal.setOnClickListener { onClickCreateGoals() }
         return root
