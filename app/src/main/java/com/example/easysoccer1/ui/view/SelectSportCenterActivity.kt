@@ -36,13 +36,10 @@ class SelectSportCenterActivity : AppCompatActivity() {
     }
 
     suspend fun getListSportCenter(): List<SportCenter> {
-    val selectSportCenterViewModel: SelectSportCenterViewModel by viewModel()
-        val prefs = getSharedPreferences(
-            "easySoccer",
-            AppCompatActivity.MODE_PRIVATE
-        )
+        val selectSportCenterViewModel: SelectSportCenterViewModel by viewModel()
+        val prefs = getSharedPreferences("easySoccer", AppCompatActivity.MODE_PRIVATE)
         val emailAdmin = prefs.getString("email", "")
-       return selectSportCenterViewModel.getListSportCenter(emailAdmin).getOrNull() ?: emptyList()
+        return selectSportCenterViewModel.getListSportCenter(emailAdmin).getOrNull() ?: emptyList()
     }
 
     private fun goToCreateSportCenter() {
@@ -50,8 +47,9 @@ class SelectSportCenterActivity : AppCompatActivity() {
         intent.putExtra("Edit", "No")
         startActivity(intent)
     }
-    fun goToSportCenter(nit: String){
-        val intent=Intent(this, NavigationAdminActivity::class.java)
+
+    fun goToSportCenter(nit: String) {
+        val intent = Intent(this, NavigationAdminActivity::class.java)
         intent.putExtra("Nit", nit)
         startActivity(intent)
     }

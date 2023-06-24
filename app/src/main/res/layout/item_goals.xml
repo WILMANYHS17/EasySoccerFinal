@@ -74,6 +74,7 @@
         android:background="@drawable/trashchange"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/imageGoal"
         app:layout_constraintStart_toEndOf="@id/imageGoal"
         app:layout_constraintTop_toBottomOf="@+id/numberGoal"/>
