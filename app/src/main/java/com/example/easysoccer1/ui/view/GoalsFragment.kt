@@ -5,12 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.data.models.Goals
@@ -18,7 +15,6 @@ import com.example.easysoccer1.databinding.FragmentGoalsBinding
 import com.example.easysoccer1.ui.adapter.GoalsAdminAdapter
 import com.example.easysoccer1.ui.viewmodel.GoalsViewModel
 import kotlinx.coroutines.launch
-import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GoalsFragment : Fragment() {
@@ -66,7 +62,7 @@ class GoalsFragment : Fragment() {
                     goalsViewModel.setGoal(
                         Goals(
                             nameOrNumber = binding.inputTextNumberGoal.text.toString(),
-                            size = binding.inputTextSizeGoal.text.toString(),
+                            size = binding.editTextSizeGoal.text.toString(),
                             price = "",
                             available = "Disponible",
                             hour = "",
@@ -84,8 +80,11 @@ class GoalsFragment : Fragment() {
 
     suspend fun getListGoals(): List<Goals> {
         val goalsViewModel: GoalsViewModel by viewModel()
-        val prefs = requireActivity().applicationContext.getSharedPreferences("easySoccer",AppCompatActivity.MODE_PRIVATE)
-        val emailAdmin = prefs.getString("email","")
+        val prefs = requireActivity().applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val emailAdmin = prefs.getString("email", "")
         val nit = prefs.getString("Nit", "")
         return goalsViewModel.getListGoals(emailAdmin, nit).getOrNull() ?: emptyList()
     }
