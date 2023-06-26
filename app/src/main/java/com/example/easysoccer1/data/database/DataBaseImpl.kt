@@ -68,7 +68,9 @@ class DataBaseImpl(
 
     override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
 
-        val snapshot = dataBase.collection("Users").document(email).collection("SportCenter").document(nit).get().await()
+        val snapshot =
+            dataBase.collection("Users").document(email).collection("SportCenter").document(nit)
+                .get().await()
         val sportCenter = snapshot.toObject(SportCenter::class.java)
 
         return if (sportCenter != null) {
@@ -106,10 +108,11 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
-    override suspend fun getListGoals(emailAdmin:String?, nit:String?): Result<List<Goals>> {
+    override suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>> {
         val list = mutableListOf<Goals>()
         val snapshot =
-            dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter").document(nit.toString()).collection("Goals").get().await()
+            dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
+                .document(nit.toString()).collection("Goals").get().await()
 
         for (document in snapshot.documents) {
             val goals = document.toObject(Goals::class.java)
@@ -122,8 +125,9 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
-    override fun setGoals(goals:Goals, emailAdmin:String?, nit:String?) {
-        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter").document(nit.toString()).collection("Goals").document(goals.nameOrNumber).set(
+    override fun setGoals(goals: Goals, emailAdmin: String?, nit: String?) {
+        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
+            .document(nit.toString()).collection("Goals").document(goals.nameOrNumber).set(
             hashMapOf(
                 "number" to goals.nameOrNumber,
                 "size" to goals.size,
@@ -133,6 +137,25 @@ class DataBaseImpl(
                 "date" to goals.date
             )
         )
+    }
+
+    override suspend fun getListSportsCenterUsers(): Result<List<SportCenter>> {
+        val list = mutableListOf<SportCenter>()
+        val snapshot =
+            dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+
+        for (document in snapshot.documents) {
+            val collectionSportCenter = document.reference.collection("SportCenter")
+            val sportCenterSnapshot = collectionSportCenter.get().await()
+            for (sportCenter in sportCenterSnapshot.documents) {
+                val sportCenterSearch = sportCenter.toObject(SportCenter::class.java)
+                sportCenterSearch?.let {
+                    list.add(sportCenterSearch)
+                }
+            }
+        }
+
+        return Result.success(list)
     }
 
 

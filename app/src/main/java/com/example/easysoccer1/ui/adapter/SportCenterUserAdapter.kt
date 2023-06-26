@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.databinding.ItemsSportCenterUserBinding
 import com.example.easysoccer1.data.models.AreaSportCenterUser
+import com.example.easysoccer1.data.models.SportCenter
 
-class SportCenterUserAdapter (private val goToDescription: (AreaSportCenterUser) -> Unit
+class SportCenterUserAdapter (private val goToDescription: (SportCenter) -> Unit
 ) : RecyclerView.Adapter<SportCenterUserAdapter.DescriptionViewHolder>() {
-    private var sportCenterArea: ArrayList<AreaSportCenterUser> = arrayListOf()
+    private var sportCenterArea: ArrayList<SportCenter> = arrayListOf()
 
-    fun setListInYouArea(listStadiumsInYourArea: List<AreaSportCenterUser>) {
+    fun setListInYouArea(listStadiumsInYourArea: List<SportCenter>) {
         clearAdapter()
         sportCenterArea.addAll(listStadiumsInYourArea)
         notifyDataSetChanged()
@@ -44,18 +45,19 @@ class SportCenterUserAdapter (private val goToDescription: (AreaSportCenterUser)
         private var view: ItemsSportCenterUserBinding
     ) : RecyclerView.ViewHolder(view.root) {
         fun bind(
-            stadiumInYourArea: AreaSportCenterUser,
+            stadiumInYourArea: SportCenter,
             context: Context,
-            goToDescription: (AreaSportCenterUser) -> Unit
+            goToDescription: (SportCenter) -> Unit
 
         ) {
             view.apply {
-                textNameStadiumItem.text = stadiumInYourArea.nameStadium
-                textPriceStadiumItem.text = stadiumInYourArea.valueStadium
-                textAdressStadiumItem.text = stadiumInYourArea.directionStadium
+                textNameStadiumItem.text = stadiumInYourArea.nameSportCenter
+                textPriceStadiumItem.text = stadiumInYourArea.price5vs5
+                textAdressStadiumItem.text = stadiumInYourArea.address
                 itemSportCenterUser.setOnClickListener{goToDescription(stadiumInYourArea)}
                 //btnMap.setOnClickListener { selectGoToDetail(stadiumInYourArea) }
                 //btnReserverUser.setOnClickListener { selectGoToReserve(stadiumInYourArea) }
+                /*
                 val identifier =
                     context.resources.getIdentifier(
                         stadiumInYourArea.image,
@@ -65,6 +67,7 @@ class SportCenterUserAdapter (private val goToDescription: (AreaSportCenterUser)
                 if (identifier > 0) {
                     imageSportCenterItem.setImageResource(identifier)
                 }
+                 */
                 itemSportCenterUser.elevation = ELEVATION_CARD
             }
         }

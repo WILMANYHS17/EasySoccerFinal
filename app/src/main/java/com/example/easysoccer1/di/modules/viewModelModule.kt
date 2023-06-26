@@ -47,4 +47,9 @@ val viewModelModule: Module = module {
             goalsUseCase = get()
         )
     }
+    viewModel{
+        HomeUserViewModel(
+            usersUseCase = get()
+        )
+    }
 }

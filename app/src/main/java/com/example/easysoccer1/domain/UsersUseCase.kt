@@ -1,6 +1,7 @@
 package com.example.easysoccer1.domain
 
 import com.example.easysoccer1.data.models.ForgotPassword
+import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.data.models.Users
 import com.google.firebase.firestore.auth.User
 
@@ -25,6 +26,9 @@ class UsersUseCase(
     }
     suspend fun searchUser(email: String): Result<Users>{
         return databaseUserRepository.searchUser(email)
+    }
+    suspend fun getListSportsCenter(): Result<List<SportCenter>>{
+        return databaseUserRepository.getListSportsCenterUsers()
     }
 
 }
