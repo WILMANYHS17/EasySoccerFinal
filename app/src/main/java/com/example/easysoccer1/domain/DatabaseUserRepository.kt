@@ -11,11 +11,11 @@ interface DatabaseUserRepository {
     suspend fun getUser(email: String, password: String): Result<Boolean>
     suspend fun getIsAdmin(email: String, isAdmin: Boolean): Result<Boolean>
     fun changePassword(forgotPassword: ForgotPassword)
-    fun createSportCenter(sportCenter:SportCenter)
-    suspend fun getSportCenter(nit: String,email:String):Result<SportCenter>
-    suspend fun searchUser(email:String): Result<Users>
-    suspend fun getListSportCenter(email: String?):Result<List<SportCenter>>
-    suspend fun getListGoals(emailAdmin:String?, nit:String?):Result<List<Goals>>
-    fun setGoals(goals:Goals, emailAdmin:String?, nit:String?)
-
+    fun createSportCenter(sportCenter: SportCenter)
+    suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
+    suspend fun searchUser(email: String): Result<Users>
+    suspend fun getListSportCenter(email: String?): Result<List<SportCenter>>
+    suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>>
+    fun setGoals(goals: Goals, emailAdmin: String?, nit: String?)
+    suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
 }
