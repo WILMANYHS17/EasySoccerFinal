@@ -18,4 +18,5 @@ interface DatabaseUserRepository {
     suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>>
     fun setGoals(goals: Goals, emailAdmin: String?, nit: String?)
     suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
+    fun getSportCenterUser(nit: String?)
 }

@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.databinding.ItemsSportCenterUserBinding
-import com.example.easysoccer1.data.models.AreaSportCenterUser
 import com.example.easysoccer1.data.models.SportCenter
 
-class SportCenterUserAdapter (private val goToDescription: (SportCenter) -> Unit
+class SportCenterUserAdapter (private val goToDescription: (String) -> Unit
 ) : RecyclerView.Adapter<SportCenterUserAdapter.DescriptionViewHolder>() {
     private var sportCenterArea: ArrayList<SportCenter> = arrayListOf()
 
@@ -47,14 +46,14 @@ class SportCenterUserAdapter (private val goToDescription: (SportCenter) -> Unit
         fun bind(
             stadiumInYourArea: SportCenter,
             context: Context,
-            goToDescription: (SportCenter) -> Unit
+            goToDescription: (String) -> Unit
 
         ) {
             view.apply {
                 textNameStadiumItem.text = stadiumInYourArea.nameSportCenter
                 textPriceStadiumItem.text = stadiumInYourArea.price5vs5
                 textAdressStadiumItem.text = stadiumInYourArea.address
-                itemSportCenterUser.setOnClickListener{goToDescription(stadiumInYourArea)}
+                itemSportCenterUser.setOnClickListener{goToDescription(stadiumInYourArea.nit)}
                 //btnMap.setOnClickListener { selectGoToDetail(stadiumInYourArea) }
                 //btnReserverUser.setOnClickListener { selectGoToReserve(stadiumInYourArea) }
                 /*

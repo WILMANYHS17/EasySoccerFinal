@@ -1,7 +1,6 @@
 package com.example.easysoccer1.ui.view
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
-import com.example.easysoccer1.data.models.AreaSportCenterUser
 import com.example.easysoccer1.data.models.SportCenter
 //import com.example.easysoccer1.ui.view.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
@@ -58,9 +56,10 @@ class HomeUserFragment : Fragment() {
         }
     }
 
-    private fun goToDescription(inYouArea: SportCenter) {
+    private fun goToDescription(nit: String) {
         activity?.let {
             val intent = Intent(this.activity, DescriptionSportCenterActivity::class.java)
+            intent.putExtra("Nit", nit)
             it.startActivity(intent)
         }
     }
