@@ -17,4 +17,8 @@ class SportCenterUseCase(
         return databaseUserRepository.getListSportCenter(email)
     }
 
+    fun getSportCenterUser(nit: String?){
+        return databaseUserRepository.getSportCenterUser(nit)
+    }
+
 }

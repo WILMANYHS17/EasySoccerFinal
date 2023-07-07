@@ -158,5 +158,9 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
+    override fun getSportCenterUser(nit: String?) {
+
+    }
+
 
 }
