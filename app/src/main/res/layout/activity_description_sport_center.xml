@@ -99,12 +99,14 @@
             app:layout_constraintStart_toStartOf="@id/titleDescription"
             app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
 
-        <include
-            android:id="@+id/itemCommentsUser"
-            layout="@layout/item_comments"
-            app:layout_constraintEnd_toEndOf="@id/constraintParent"
-            app:layout_constraintStart_toStartOf="@id/constraintParent"
-            app:layout_constraintTop_toBottomOf="@+id/titleComments" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/titleComments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,6 +37,7 @@ class GoalsFragment : Fragment() {
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setUpAdapter()
+
         lifecycleScope.launch {
             goalsAdminAdapter.setListGoals(getListGoals())
 

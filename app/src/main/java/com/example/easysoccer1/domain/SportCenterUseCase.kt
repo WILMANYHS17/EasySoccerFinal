@@ -17,7 +17,7 @@ class SportCenterUseCase(
         return databaseUserRepository.getListSportCenter(email)
     }
 
-    fun getSportCenterUser(nit: String?){
+    suspend fun getSportCenterUser(nit: String?): Result<SportCenter>{
         return databaseUserRepository.getSportCenterUser(nit)
     }
 

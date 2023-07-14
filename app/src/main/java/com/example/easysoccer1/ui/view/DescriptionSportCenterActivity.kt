@@ -3,9 +3,11 @@ package com.example.easysoccer1.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityDescriptionSportCenterBinding
 import com.example.easysoccer1.ui.viewmodel.DescriptionSportCenterViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DescriptionSportCenterActivity : AppCompatActivity() {
@@ -17,8 +19,10 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         binding = ActivityDescriptionSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
-        nit = intent.extras!!.getString("Nit") ?: ""
-        getSportCenterUser(nit)
+        nit = intent.extras!!.getString("Nit1") ?: ""
+        lifecycleScope.launch {
+            getSportCenterUser(nit)
+        }
 
         binding.buttonlocateSportCenter.setOnClickListener { onLocateSportCenter() }
     }
@@ -28,8 +32,11 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun getSportCenterUser(nit: String?){
+    suspend fun getSportCenterUser(nit: String?) {
         val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
-        descriptionSportCenterUser.getSportCenterUser(nit)
+
+        val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
+        binding.titleSportCenter.text = descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
+        binding.descriptionSportCenter.text = descriptionSportCenter?.getOrNull()?.description.toString()
     }
 }

@@ -23,9 +23,9 @@ class ReserveAdminFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val reserveAdminViewModel =
             ViewModelProvider(this).get(ReserveAdminViewModel::class.java)
-
         _binding = FragmentReserveAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

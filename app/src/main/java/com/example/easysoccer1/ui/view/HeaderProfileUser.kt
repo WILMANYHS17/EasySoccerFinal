@@ -1,26 +1,41 @@
 package com.example.easysoccer1.ui.view
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContextCompat
+import android.content.SharedPreferences
 import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
+import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.HeaderProfileBinding
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 
-class HeaderProfileUser (val binding: HeaderProfileBinding, val fragment: Fragment) {
+class HeaderProfileUser(
+    val binding: HeaderProfileBinding,
+    val context: Context,
+    val headerProfileUserViewModel: HeaderProfileUserViewModel,
+    val prefs: SharedPreferences
+) {
 
-    fun build() {
+    suspend fun build() {
         binding.backButton.setOnClickListener {
-            fragment.requireActivity().onBackPressed()
+            (context as Activity).onBackPressed()
         }
-        binding.nameUserProfile.text =
-            "Wilman Yecid Hernández Suesca"
+
+        val email = prefs.getString("email", "")
+        email?.let {
+            binding.nameUserProfile.text =
+                getNameUser(it).getOrNull()?.nameUser
+        }
+
 
         binding.imvUser.setOnClickListener {
-            val intent = Intent(fragment.activity, RegisterUserActivity::class.java)
+            val intent = Intent(context, RegisterUserActivity::class.java)
             intent.putExtra("user", "User")
-            startActivity(fragment.requireContext(), intent, null)
+            startActivity(context, intent, null)
         }
+    }
 
-
+    suspend fun getNameUser(email: String): Result<Users> {
+        return headerProfileUserViewModel.getNameUser(email)
     }
 }

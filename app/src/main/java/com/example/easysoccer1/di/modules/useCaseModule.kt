@@ -11,7 +11,6 @@ val useCaseModule: Module = module {
             databaseUserRepository = get()
         )
     }
-
     factory {
         SportCenterUseCase(
             databaseUserRepository = get()

@@ -52,4 +52,14 @@ val viewModelModule: Module = module {
             usersUseCase = get()
         )
     }
+    viewModel{
+        DescriptionSportCenterViewModel(
+            sportCenterUseCase = get()
+        )
+    }
+    viewModel{
+        HeaderProfileUserViewModel(
+            usersUseCase = get()
+        )
+    }
 }
