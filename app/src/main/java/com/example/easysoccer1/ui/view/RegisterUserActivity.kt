@@ -101,8 +101,7 @@ class RegisterUserActivity : AppCompatActivity() {
     }
 
     private fun onClickBackActivity() {
-        val intent = Intent(this, JoinSessionActivity::class.java)
-        startActivity(intent)
+        onBackPressed()
     }
 
     private fun showDatePickerDialog() {

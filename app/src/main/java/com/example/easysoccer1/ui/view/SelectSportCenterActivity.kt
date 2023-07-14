@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ActivitySelectSportCenterBinding
 import com.example.easysoccer1.ui.adapter.SportCenterAdminAdapter
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.SelectSportCenterViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,9 +28,21 @@ class SelectSportCenterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
         setUpAdapter()
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+
 
         lifecycleScope.launch {
             sportCenterAdapter.setListSelectSportCenter(getListSportCenter())
+            val prefs = applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(
+                binding!!.headerUser,
+                this@SelectSportCenterActivity,
+                headerProfileUserViewModel,
+                prefs
+            ).build()
         }
 
         binding.buttonCreateSportCenter.setOnClickListener { goToCreateSportCenter() }

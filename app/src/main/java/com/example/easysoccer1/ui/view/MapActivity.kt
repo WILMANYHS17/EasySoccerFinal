@@ -10,10 +10,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityMapBinding
 import com.example.easysoccer1.data.models.RouteResponse
 import com.example.easysoccer1.domain.ApiService
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -44,8 +47,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         setContentView(binding.root)
         supportActionBar!!.hide()
-
-
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+        lifecycleScope.launch {
+            val prefs = applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(
+                binding!!.headerUser,
+                this@MapActivity,
+                headerProfileUserViewModel,
+                prefs
+            ).build()
+        }
 
         createFragment()
 

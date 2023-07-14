@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ActivityRegisterSportCenterBinding
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.RegisterSportCenterViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -21,7 +24,19 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
-
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+        lifecycleScope.launch {
+            val prefs = applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(
+                binding!!.headerUser,
+                this@RegisterSportCenterActivity,
+                headerProfileUserViewModel,
+                prefs
+            ).build()
+        }
 
         editYes = intent.extras!!.getString("Edit") ?: ""
         if (editYes == "No") {

@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.databinding.FragmentHomeUserBinding
 import com.example.easysoccer1.data.models.SportCenter
 //import com.example.easysoccer1.ui.view.HeaderProfileUser
 import com.example.easysoccer1.ui.adapter.SportCenterUserAdapter
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.HomeUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,11 +35,16 @@ class HomeUserFragment : Fragment() {
 
         _binding = FragmentHomeUserBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
 
         setUpAdapter()
         lifecycleScope.launch {
             centerUserAdapter.setListInYouArea(getListStadiumsNearYou())
+            val prefs = requireActivity().applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
         }
 
 

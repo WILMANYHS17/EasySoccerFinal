@@ -174,7 +174,6 @@ class DataBaseImpl(
             }
         }
 
-        // Si no se encuentra ningún documento con el NIT correspondiente, puedes devolver un Result.Error o null, según tus necesidades.
         return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 

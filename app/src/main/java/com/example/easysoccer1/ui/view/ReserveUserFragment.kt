@@ -6,8 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.databinding.FragmentReserveAdminBinding
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.ReserveUserViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReserveUserFragment : Fragment() {
 
@@ -26,7 +31,19 @@ class ReserveUserFragment : Fragment() {
     ): View {
         _binding = FragmentReserveAdminBinding.inflate(layoutInflater)
         val root: View = binding.root
-
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+        lifecycleScope.launch {
+            val prefs = requireActivity().applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(
+                _binding!!.headerUser,
+                requireContext(),
+                headerProfileUserViewModel,
+                prefs
+            ).build()
+        }
         return root
     }
 
