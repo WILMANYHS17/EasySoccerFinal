@@ -27,6 +27,7 @@ class SelectSportCenterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
         setUpAdapter()
+
         lifecycleScope.launch {
             sportCenterAdapter.setListSelectSportCenter(getListSportCenter())
         }

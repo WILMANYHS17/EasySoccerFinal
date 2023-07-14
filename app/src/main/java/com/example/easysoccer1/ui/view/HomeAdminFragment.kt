@@ -2,6 +2,7 @@ package com.example.easysoccer1.ui.view
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +11,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.FragmentHomeAdminBinding
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.HomeAdminViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,11 +29,18 @@ class HomeAdminFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         nit = activity?.intent?.extras?.getString("Nit") ?: ""
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+
 
         _binding = FragmentHomeAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
         lifecycleScope.launch {
-            getSportCenter(nit)
+            val prefs = requireActivity().applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
+            getSportCenter(nit,prefs)
             Log.i("Entra", "Si")
         }
         binding.buttonEditSportCenter.setOnClickListener { goEditSportCenter() }
@@ -48,12 +56,9 @@ class HomeAdminFragment() : Fragment() {
         }
     }
 
-    suspend fun getSportCenter(nit: String) {
+    suspend fun getSportCenter(nit: String, prefs: SharedPreferences) {
         val homeAdminViewModel: HomeAdminViewModel by viewModel()
-        val prefs = requireActivity().applicationContext.getSharedPreferences(
-            "easySoccer",
-            AppCompatActivity.MODE_PRIVATE
-        )
+
         val editor= requireActivity().getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
         editor.putString("Nit", nit)
         editor.apply()

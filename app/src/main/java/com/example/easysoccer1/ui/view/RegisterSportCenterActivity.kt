@@ -1,7 +1,6 @@
 package com.example.easysoccer1.ui.view
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -22,13 +21,15 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
+
+
         editYes = intent.extras!!.getString("Edit") ?: ""
         if (editYes == "No") {
             binding.nitSportCenter.visibility = View.VISIBLE
         }
         binding.buttonRegisterSportCenter.setOnClickListener { onClickCreateSportCenter() }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
-        binding.backButton.setOnClickListener { onClickBackActivity() }
+
     }
 
     fun onClickCreateSportCenter() {

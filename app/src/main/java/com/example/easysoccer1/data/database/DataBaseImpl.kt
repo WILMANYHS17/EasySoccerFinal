@@ -60,8 +60,8 @@ class DataBaseImpl(
                     "address" to sportCenter.address,
                     "description" to sportCenter.description,
                     "nit" to sportCenter.nit,
-                    "5vs5" to sportCenter.price5vs5,
-                    "8vs8" to sportCenter.price8vs8
+                    "price5vs5" to sportCenter.price5vs5,
+                    "price8vs8" to sportCenter.price8vs8
                 )
             )
     }
@@ -158,8 +158,24 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
-    override fun getSportCenterUser(nit: String?) {
+    override suspend fun getSportCenterUser(nit: String?) : Result<SportCenter> {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
 
+        for (document in snapshot.documents) {
+            val collectionSportCenter = document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
+
+            if (!collectionSportCenter.isEmpty) {
+                val sportCenterDocument = collectionSportCenter.documents[0]
+                val sportCenter = sportCenterDocument.toObject(SportCenter::class.java)
+
+                // Aquí puedes realizar cualquier otra manipulación o procesamiento necesario
+
+                return Result.success(sportCenter) as Result<SportCenter>
+            }
+        }
+
+        // Si no se encuentra ningún documento con el NIT correspondiente, puedes devolver un Result.Error o null, según tus necesidades.
+        return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 
 

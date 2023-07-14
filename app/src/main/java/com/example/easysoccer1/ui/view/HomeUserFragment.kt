@@ -33,7 +33,7 @@ class HomeUserFragment : Fragment() {
 
         _binding = FragmentHomeUserBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        HeaderProfileUser(_binding!!.headerUser, this).build()
+
 
         setUpAdapter()
         lifecycleScope.launch {
@@ -59,7 +59,7 @@ class HomeUserFragment : Fragment() {
     private fun goToDescription(nit: String) {
         activity?.let {
             val intent = Intent(this.activity, DescriptionSportCenterActivity::class.java)
-            intent.putExtra("Nit", nit)
+            intent.putExtra("Nit1", nit)
             it.startActivity(intent)
         }
     }
