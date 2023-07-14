@@ -14,6 +14,7 @@ import com.example.easysoccer1.data.models.Goals
 import com.example.easysoccer1.databinding.FragmentGoalsBinding
 import com.example.easysoccer1.ui.adapter.GoalsAdminAdapter
 import com.example.easysoccer1.ui.viewmodel.GoalsViewModel
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,8 +38,14 @@ class GoalsFragment : Fragment() {
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setUpAdapter()
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
 
         lifecycleScope.launch {
+            val prefs = requireActivity().applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
             goalsAdminAdapter.setListGoals(getListGoals())
 
         }

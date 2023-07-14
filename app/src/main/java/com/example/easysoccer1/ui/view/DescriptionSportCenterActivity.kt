@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.ActivityDescriptionSportCenterBinding
 import com.example.easysoccer1.ui.viewmodel.DescriptionSportCenterViewModel
+import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,8 +20,14 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         binding = ActivityDescriptionSportCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
+        val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         nit = intent.extras!!.getString("Nit1") ?: ""
         lifecycleScope.launch {
+            val prefs = applicationContext.getSharedPreferences(
+                "easySoccer",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            HeaderProfileUser(binding!!.headerUser, this@DescriptionSportCenterActivity, headerProfileUserViewModel, prefs).build()
             getSportCenterUser(nit)
         }
 
