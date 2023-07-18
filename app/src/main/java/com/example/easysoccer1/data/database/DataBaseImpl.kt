@@ -1,6 +1,5 @@
 package com.example.easysoccer1.data.database
 
-import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.data.models.Goals
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter

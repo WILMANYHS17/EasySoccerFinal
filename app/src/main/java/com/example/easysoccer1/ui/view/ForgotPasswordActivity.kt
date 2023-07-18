@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.ActivityForgotPasswordBinding
 import com.example.easysoccer1.ui.viewmodel.ForgotPasswordViewModel

@@ -1,7 +1,6 @@
 package com.example.easysoccer1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.easysoccer1.data.models.ForgotPassword
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.domain.UsersUseCase
 
