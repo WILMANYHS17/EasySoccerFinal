@@ -44,10 +44,17 @@ class DataBaseImpl(
         return Result.success(isAdmin == isAdminFromDb)
     }
 
-    override fun changePassword(forgotPassword: ForgotPassword) {
+    override fun changePassword(forgotPassword: Users) {
         dataBase.collection("Users").document(forgotPassword.email).set(
             hashMapOf(
-                "password" to forgotPassword.password
+                "name" to forgotPassword.name,
+                "phone" to forgotPassword.phone,
+                "email" to forgotPassword.email,
+                "nameUser" to forgotPassword.nameUser,
+                "password" to forgotPassword.password,
+                "birthday" to forgotPassword.birthday,
+                "isAdmin" to (forgotPassword.isAdmin),
+                "identification" to (forgotPassword.identification)
             )
         )
     }
