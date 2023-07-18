@@ -16,6 +16,7 @@ class ReserveUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reserve_user)
         binding = ActivityReserveUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar!!.hide()
 
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         lifecycleScope.launch {
@@ -30,5 +31,7 @@ class ReserveUserActivity : AppCompatActivity() {
                 prefs
             ).build()
         }
+
+
     }
 }
