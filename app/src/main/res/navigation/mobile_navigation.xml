@@ -22,4 +22,10 @@
         android:name="com.example.easysoccer1.ui.view.ReserveAdminFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_goals" />
+
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="com.example.easysoccer1.ui.view.StatsAdminFragment"
+        android:label="@string/title_stats"
+        tools:layout="@layout/fragment_stats_admin"/>
 </navigation>
