@@ -21,7 +21,7 @@ class UsersUseCase(
         databaseUserRepository.createUser(users)
     }
 
-    fun changePassword(forgotPassword: ForgotPassword) {
+    fun changePassword(forgotPassword: Users) {
         return databaseUserRepository.changePassword(forgotPassword)
     }
     suspend fun searchUser(email: String): Result<Users>{

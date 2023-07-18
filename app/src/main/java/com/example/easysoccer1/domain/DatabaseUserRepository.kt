@@ -10,7 +10,7 @@ interface DatabaseUserRepository {
     fun createUser(users: Users)
     suspend fun getUser(email: String, password: String): Result<Boolean>
     suspend fun getIsAdmin(email: String, isAdmin: Boolean): Result<Boolean>
-    fun changePassword(forgotPassword: ForgotPassword)
+    fun changePassword(forgotPassword: Users)
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
     suspend fun searchUser(email: String): Result<Users>
