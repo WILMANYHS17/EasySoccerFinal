@@ -32,6 +32,12 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         }
 
         binding.buttonlocateSportCenter.setOnClickListener { onLocateSportCenter() }
+        binding.buttonReserve.setOnClickListener{ goToReserve()}
+    }
+
+    private fun goToReserve() {
+        val intent = Intent(this, ReserveUserActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onLocateSportCenter() {

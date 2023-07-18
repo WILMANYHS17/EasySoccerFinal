@@ -174,7 +174,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:background="@drawable/nequi2"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="@+id/cancelReservation"
         app:layout_constraintStart_toStartOf="@+id/cancelReservation"
         app:layout_constraintTop_toBottomOf="@+id/cancelReservation" />
@@ -184,7 +184,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:background="@drawable/paypal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/nequi"
         app:layout_constraintStart_toStartOf="@+id/nequi"
         app:layout_constraintTop_toBottomOf="@+id/nequi" />
@@ -197,7 +197,8 @@
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="@+id/paypal"
         app:layout_constraintStart_toStartOf="@+id/paypal"
-        app:layout_constraintTop_toBottomOf="@+id/paypal" />
+        app:layout_constraintTop_toBottomOf="@+id/paypal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
