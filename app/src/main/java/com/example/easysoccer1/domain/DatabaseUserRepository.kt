@@ -8,7 +8,6 @@ interface DatabaseUserRepository {
 
     fun createUser(users: Users)
     suspend fun getUser(email: String, password: String): Result<Boolean>
-    suspend fun getIsAdmin(email: String, isAdmin: Boolean): Result<Boolean>
     fun changePassword(forgotPassword: Users)
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
@@ -18,4 +17,5 @@ interface DatabaseUserRepository {
     fun setGoals(goals: Goals, emailAdmin: String?, nit: String?)
     suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
     suspend fun getSportCenterUser(nit: String?): Result<SportCenter>
+    fun deleteGoal(emailAdmin: String?, nit: String?, number: String)
 }

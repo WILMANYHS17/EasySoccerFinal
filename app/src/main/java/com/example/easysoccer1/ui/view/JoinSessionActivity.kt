@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import com.example.easysoccer1.data.models.JoinSessionUsers
 import com.example.easysoccer1.databinding.ActivityMainBinding
 import com.example.easysoccer1.ui.viewmodel.JoinSessionViewModel
 import kotlinx.coroutines.launch

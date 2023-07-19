@@ -12,4 +12,8 @@ class GoalsUseCase(
     suspend fun getListGoals(emailAdmin:String?, nit:String?): Result<List<Goals>> {
         return databaseUserRepository.getListGoals(emailAdmin,nit)
     }
+
+    fun deleteGoal(emailAdmin: String?, nit: String?, number: String) {
+        databaseUserRepository.deleteGoal(emailAdmin, nit, number)
+    }
 }

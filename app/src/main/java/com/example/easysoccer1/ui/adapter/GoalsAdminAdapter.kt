@@ -44,13 +44,15 @@ class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit): RecyclerView
             context: Context,
             deleteGoals: (String) -> Unit
         ) {
+
             view.apply {
                 availableGoal.text = goals.available
                 hourGoal.text = goals.hour
                 dateGoal.text = goals.date
                 sizeGoal.text = goals.size
-                numberGoal.text = goals.nameOrNumber
-                imageTrash.setOnClickListener {deleteGoals(goals.nameOrNumber) }
+                numberGoal.text = goals.number
+                priceGoal.text = goals.price
+                imageTrash.setOnClickListener {deleteGoals(goals.number) }
                 itemGoals.elevation = ELEVATION_CARD
             }
         }

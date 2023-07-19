@@ -39,8 +39,13 @@ class HomeAdminFragment() : Fragment() {
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
             )
-            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
-            getSportCenter(nit,prefs)
+            HeaderProfileUser(
+                _binding!!.headerUser,
+                requireContext(),
+                headerProfileUserViewModel,
+                prefs
+            ).build()
+            getSportCenter(nit, prefs)
             Log.i("Entra", "Si")
         }
         binding.buttonEditSportCenter.setOnClickListener { goEditSportCenter() }
@@ -50,7 +55,7 @@ class HomeAdminFragment() : Fragment() {
     fun goEditSportCenter() {
         activity?.let {
             val intent = Intent(this.activity, RegisterSportCenterActivity::class.java)
-            intent.putExtra("Edit","Yes")
+            intent.putExtra("Edit", "Yes")
             intent.putExtra("Nit", nit)
             startActivity(intent)
         }
@@ -59,15 +64,21 @@ class HomeAdminFragment() : Fragment() {
     suspend fun getSportCenter(nit: String, prefs: SharedPreferences) {
         val homeAdminViewModel: HomeAdminViewModel by viewModel()
 
-        val editor= requireActivity().getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
+        val editor = requireActivity().getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
         editor.putString("Nit", nit)
         editor.apply()
         val emailAdmin = prefs.getString("email", "")
-        val sportCenter = nit?.let { emailAdmin?.let { it1 ->
-            homeAdminViewModel.getSportCenter(it,
-                it1
-            )
-        } }
+        val sportCenter = nit?.let {
+            emailAdmin?.let { it1 ->
+                homeAdminViewModel.getSportCenter(
+                    it,
+                    it1
+                )
+            }
+        }
+        editor.putString("Price5vs5", sportCenter?.getOrNull()?.price5vs5.toString())
+        editor.putString("Price8vs8", sportCenter?.getOrNull()?.price8vs8.toString())
+        editor.apply()
         binding.textNameSportCenter.text = sportCenter?.getOrNull()?.nameSportCenter.toString()
         binding.descriptionSportCenter.text = sportCenter?.getOrNull()?.description.toString()
 

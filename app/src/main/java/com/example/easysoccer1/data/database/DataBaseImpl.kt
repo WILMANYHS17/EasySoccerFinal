@@ -36,13 +36,6 @@ class DataBaseImpl(
 
     }
 
-    override suspend fun getIsAdmin(email: String, isAdmin: Boolean): Result<Boolean> {
-
-        val snapshot = dataBase.collection("Users").document(email).get().await()
-        val isAdminFromDb = snapshot.get("isAdmin") as? Boolean
-        return Result.success(isAdmin == isAdminFromDb)
-    }
-
     override fun changePassword(forgotPassword: Users) {
         dataBase.collection("Users").document(forgotPassword.email).set(
             hashMapOf(
@@ -133,16 +126,16 @@ class DataBaseImpl(
 
     override fun setGoals(goals: Goals, emailAdmin: String?, nit: String?) {
         dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
-            .document(nit.toString()).collection("Goals").document(goals.nameOrNumber).set(
-            hashMapOf(
-                "number" to goals.nameOrNumber,
-                "size" to goals.size,
-                "price" to goals.price,
-                "available" to goals.available,
-                "hour" to goals.hour,
-                "date" to goals.date
+            .document(nit.toString()).collection("Goals").document(goals.number).set(
+                hashMapOf(
+                    "number" to goals.number,
+                    "size" to goals.size,
+                    "price" to goals.price,
+                    "available" to goals.available,
+                    "hour" to goals.hour,
+                    "date" to goals.date
+                )
             )
-        )
     }
 
     override suspend fun getListSportsCenterUsers(): Result<List<SportCenter>> {
@@ -164,11 +157,12 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
-    override suspend fun getSportCenterUser(nit: String?) : Result<SportCenter> {
+    override suspend fun getSportCenterUser(nit: String?): Result<SportCenter> {
         val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
 
         for (document in snapshot.documents) {
-            val collectionSportCenter = document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
+            val collectionSportCenter =
+                document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
 
             if (!collectionSportCenter.isEmpty) {
                 val sportCenterDocument = collectionSportCenter.documents[0]
@@ -181,6 +175,11 @@ class DataBaseImpl(
         }
 
         return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
+    }
+
+    override fun deleteGoal(emailAdmin: String?, nit: String?, number: String) {
+        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
+            .document(nit.toString()).collection("Goals").document(number).delete()
     }
 
 
