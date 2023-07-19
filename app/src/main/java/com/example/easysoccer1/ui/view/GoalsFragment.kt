@@ -45,7 +45,12 @@ class GoalsFragment : Fragment() {
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
             )
-            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
+            HeaderProfileUser(
+                _binding!!.headerUser,
+                requireContext(),
+                headerProfileUserViewModel,
+                prefs
+            ).build()
             goalsAdminAdapter.setListGoals(getListGoals())
 
         }
@@ -59,32 +64,56 @@ class GoalsFragment : Fragment() {
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
+
         val emailAdmin = prefs.getString("email", "")
         val nit = prefs.getString("Nit", "")
+        val price5vs5 = prefs.getString("Price5vs5", "")
+        val price8vs8 = prefs.getString("Price8vs8", "")
+        val size = binding.editTextSizeGoal.text.toString()
+
         activity?.let {
             AlertDialog.Builder(it).apply {
                 setTitle("Crear cancha")
                 setMessage("¿Está seguro de crear esta cancha?")
                 setPositiveButton("Si") { _: DialogInterface, _: Int ->
+                    if (size == "5vs5") {
+                        price5vs5?.let { it1 ->
+                            Goals(
+                                number = binding.inputTextNumberGoal.text.toString(),
+                                size = size,
+                                price = it1,
+                                available = "Disponible",
+                                hour = "",
+                                date = ""
+                            )
+                        }?.let { it2 ->
+                            goalsViewModel.setGoal(
+                                it2, emailAdmin, nit
+                            )
+                        }
+                    } else {
+                        price8vs8?.let { it1 ->
+                            Goals(
+                                number = binding.inputTextNumberGoal.text.toString(),
+                                size = size,
+                                price = it1,
+                                available = "Disponible",
+                                hour = "",
+                                date = ""
+                            )
+                        }?.let { it2 ->
+                            goalsViewModel.setGoal(
+                                it2, emailAdmin, nit
+                            )
+                        }
+                    }
 
-                    goalsViewModel.setGoal(
-                        Goals(
-                            nameOrNumber = binding.inputTextNumberGoal.text.toString(),
-                            size = binding.editTextSizeGoal.text.toString(),
-                            price = "",
-                            available = "Disponible",
-                            hour = "",
-                            date = ""
-                        ), emailAdmin, nit
-                    )
                 }
                 setNegativeButton("No", null)
             }.show()
         }
 
-
     }
-
 
     suspend fun getListGoals(): List<Goals> {
         val goalsViewModel: GoalsViewModel by viewModel()
@@ -98,7 +127,14 @@ class GoalsFragment : Fragment() {
     }
 
     fun deleteGoals(number: String) {
-
+        val goalsViewModel: GoalsViewModel by viewModel()
+        val prefs = requireActivity().applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val emailAdmin = prefs.getString("email", "")
+        val nit = prefs.getString("Nit", "")
+        goalsViewModel.deleteGoal(emailAdmin, nit, number)
     }
 
     fun setUpAdapter() {
@@ -113,3 +149,6 @@ class GoalsFragment : Fragment() {
         _binding = null
     }
 }
+
+
+

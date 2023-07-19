@@ -79,4 +79,15 @@
         app:layout_constraintStart_toEndOf="@id/imageGoal"
         app:layout_constraintTop_toBottomOf="@+id/numberGoal"/>
 
+    <TextView
+        android:id="@+id/priceGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Precio"
+        app:layout_constraintStart_toEndOf="@id/imageTrash"
+        app:layout_constraintEnd_toStartOf="@+id/sizeGoal"
+        app:layout_constraintTop_toTopOf="@id/imageTrash"
+        app:layout_constraintBottom_toBottomOf="@id/imageTrash"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

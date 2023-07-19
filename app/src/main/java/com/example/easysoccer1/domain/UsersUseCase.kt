@@ -7,14 +7,6 @@ class UsersUseCase(
     private val databaseUserRepository: DatabaseUserRepository
 ) {
 
-    suspend fun joinUser(email: String, password: String) : Result<Boolean>{
-    return databaseUserRepository.getUser(email,password)
-    }
-
-    suspend fun isAdmin(email:String, isAdmin:Boolean): Result<Boolean>{
-        return databaseUserRepository.getIsAdmin(email,isAdmin)
-    }
-
     fun createUser(users: Users) {
         databaseUserRepository.createUser(users)
     }

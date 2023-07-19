@@ -1,7 +1,7 @@
 package com.example.easysoccer1.data.models
 
 data class Goals(
-    val nameOrNumber: String = "",
+    val number: String = "",
     val size: String = "",
     val price: String = "",
     val available: String = "",
