@@ -9,7 +9,6 @@ class RegisterUserViewModel(
     private val usersUseCase: UsersUseCase
 ) : ViewModel() {
 
-
     fun createUser(users: Users) {
         usersUseCase.createUser(users)
     }

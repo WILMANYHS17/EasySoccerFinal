@@ -18,7 +18,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterSportCenterBinding
     private lateinit var editYes: String
-    private lateinit var nit:String
+    private lateinit var nit: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
@@ -57,10 +57,10 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                     val prefs = getSharedPreferences("easySoccer", MODE_PRIVATE)
                     val emailAdmin = prefs.getString("email", "")
 
-                    if(binding.nitSportCenter.text.isEmpty()){
-                        nit=intent.extras!!.getString("Nit") ?: ""
-                    }else{
-                        nit=binding.nitSportCenter.text.toString()
+                    if (binding.nitSportCenter.text.isEmpty()) {
+                        nit = intent.extras!!.getString("Nit") ?: ""
+                    } else {
+                        nit = binding.nitSportCenter.text.toString()
                     }
                     registerSportCenterViewModel.setSportCenter(
                         SportCenter(
@@ -102,6 +102,6 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     }
 
     fun onClickBackActivity() {
-       super.onBackPressed()
+        super.onBackPressed()
     }
 }

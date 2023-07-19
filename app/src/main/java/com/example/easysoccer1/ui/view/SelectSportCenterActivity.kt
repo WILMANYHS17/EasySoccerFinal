@@ -29,8 +29,6 @@ class SelectSportCenterActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         setUpAdapter()
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
-
-
         lifecycleScope.launch {
             sportCenterAdapter.setListSelectSportCenter(getListSportCenter())
             val prefs = applicationContext.getSharedPreferences(

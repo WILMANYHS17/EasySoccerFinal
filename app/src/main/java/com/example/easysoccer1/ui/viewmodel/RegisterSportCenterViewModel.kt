@@ -6,8 +6,8 @@ import com.example.easysoccer1.domain.SportCenterUseCase
 
 class RegisterSportCenterViewModel(
     private val sportCenterUseCase: SportCenterUseCase
-): ViewModel() {
-    fun setSportCenter(sportCenter:SportCenter){
+) : ViewModel() {
+    fun setSportCenter(sportCenter: SportCenter) {
         sportCenterUseCase.setSportCenter(sportCenter)
     }
 

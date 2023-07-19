@@ -32,8 +32,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 forgotPassword()
             }
-
-
         }
     }
 

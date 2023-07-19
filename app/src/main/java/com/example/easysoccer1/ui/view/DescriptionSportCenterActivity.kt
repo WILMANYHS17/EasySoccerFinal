@@ -27,12 +27,17 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
             )
-            HeaderProfileUser(binding!!.headerUser, this@DescriptionSportCenterActivity, headerProfileUserViewModel, prefs).build()
+            HeaderProfileUser(
+                binding!!.headerUser,
+                this@DescriptionSportCenterActivity,
+                headerProfileUserViewModel,
+                prefs
+            ).build()
             getSportCenterUser(nit)
         }
 
         binding.buttonlocateSportCenter.setOnClickListener { onLocateSportCenter() }
-        binding.buttonReserve.setOnClickListener{ goToReserve()}
+        binding.buttonReserve.setOnClickListener { goToReserve() }
     }
 
     private fun goToReserve() {
@@ -49,7 +54,9 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
 
         val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
-        binding.titleSportCenter.text = descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
-        binding.descriptionSportCenter.text = descriptionSportCenter?.getOrNull()?.description.toString()
+        binding.titleSportCenter.text =
+            descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
+        binding.descriptionSportCenter.text =
+            descriptionSportCenter?.getOrNull()?.description.toString()
     }
 }

@@ -27,7 +27,6 @@ class HeaderProfileUser(
                 getNameUser(it).getOrNull()?.nameUser
         }
 
-
         binding.imvUser.setOnClickListener {
             val intent = Intent(context, RegisterUserActivity::class.java)
             intent.putExtra("user", "User")

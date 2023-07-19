@@ -8,7 +8,8 @@ import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import java.util.Calendar
 
-class TimePickerFragment(val listener: (String) -> Unit): DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimePickerFragment(val listener: (String) -> Unit) : DialogFragment(),
+    TimePickerDialog.OnTimeSetListener {
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         listener("$hourOfDay")

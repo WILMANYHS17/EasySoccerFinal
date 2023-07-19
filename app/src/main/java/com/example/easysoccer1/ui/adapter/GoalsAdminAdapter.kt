@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.data.models.Goals
 import com.example.easysoccer1.databinding.ItemGoalsBinding
 
-class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit): RecyclerView.Adapter<GoalsAdminAdapter.GoalsViewHolder>() {
+class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit) :
+    RecyclerView.Adapter<GoalsAdminAdapter.GoalsViewHolder>() {
     private var goals: ArrayList<Goals> = arrayListOf()
 
     fun setListGoals(listGoals: List<Goals>) {
@@ -52,14 +53,15 @@ class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit): RecyclerView
                 sizeGoal.text = goals.size
                 numberGoal.text = goals.number
                 priceGoal.text = goals.price
-                imageTrash.setOnClickListener {deleteGoals(goals.number) }
+                imageTrash.setOnClickListener { deleteGoals(goals.number) }
                 itemGoals.elevation = ELEVATION_CARD
             }
         }
 
     }
-companion object{
-    private var ELEVATION_CARD = 4F
-}
+
+    companion object {
+        private var ELEVATION_CARD = 4F
+    }
 
 }

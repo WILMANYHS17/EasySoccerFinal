@@ -6,16 +6,27 @@ import com.example.easysoccer1.data.models.SportCenter
 
 interface DatabaseUserRepository {
 
+
+    // Users Funtions
     fun createUser(users: Users)
     suspend fun getUser(email: String, password: String): Result<Boolean>
     fun changePassword(forgotPassword: Users)
+    suspend fun searchUser(email: String): Result<Users>
+
+    //SportCenter Funtions
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
-    suspend fun searchUser(email: String): Result<Users>
     suspend fun getListSportCenter(email: String?): Result<List<SportCenter>>
-    suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>>
+
+    //Goals Funtions
     fun setGoals(goals: Goals, emailAdmin: String?, nit: String?)
-    suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
-    suspend fun getSportCenterUser(nit: String?): Result<SportCenter>
+    suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>>
     fun deleteGoal(emailAdmin: String?, nit: String?, number: String)
+
+    //SportCenter Users Funtions
+
+    suspend fun getSportCenterUser(nit: String?): Result<SportCenter>
+    suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
+
+
 }

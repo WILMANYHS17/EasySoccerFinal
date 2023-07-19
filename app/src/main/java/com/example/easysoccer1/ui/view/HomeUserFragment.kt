@@ -44,9 +44,13 @@ class HomeUserFragment : Fragment() {
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
             )
-            HeaderProfileUser(_binding!!.headerUser, requireContext(), headerProfileUserViewModel, prefs).build()
+            HeaderProfileUser(
+                _binding!!.headerUser,
+                requireContext(),
+                headerProfileUserViewModel,
+                prefs
+            ).build()
         }
-
 
         return root
     }

@@ -35,7 +35,6 @@ class JoinSessionActivity : AppCompatActivity() {
             }
         }
         binding.textViewForgotPassword.setOnClickListener { onClickForgotPassword() }
-
     }
 
     private fun onClickRegisterUser() {
@@ -63,7 +62,7 @@ class JoinSessionActivity : AppCompatActivity() {
         val joinSuccessful = joinSessionViewModel.searchUsers1(email).getOrNull()
 
         joinSuccessful?.let { user ->
-            if(validateLogin(user.email, user.password)) {
+            if (validateLogin(user.email, user.password)) {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
                 editor.putString("email", user.email)
                 editor.apply()
@@ -83,7 +82,8 @@ class JoinSessionActivity : AppCompatActivity() {
         } ?: binding.editTextEmail.setError("Email o contraseña incorrecta")
 
     }
-    private fun validateLogin(email: String, password : String): Boolean {
+
+    private fun validateLogin(email: String, password: String): Boolean {
         return binding.editTextEmail.text.toString() == email
                 && binding.editTextPassword.text.toString() == password
 
