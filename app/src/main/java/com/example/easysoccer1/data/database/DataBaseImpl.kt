@@ -12,6 +12,7 @@ class DataBaseImpl(
     private val dataBase: FirebaseFirestore
 ) : DatabaseUserRepository {
 
+    // Users Funtions
     override fun createUser(users: Users) {
         dataBase.collection("Users").document(users.email).set(
             hashMapOf(
@@ -27,12 +28,21 @@ class DataBaseImpl(
         )
     }
 
-
     override suspend fun getUser(email: String, password: String): Result<Boolean> {
-
         val snapshot = dataBase.collection("Users").document(email).get().await()
         val passwordDb = snapshot.get("password")
         return Result.success(password == passwordDb)
+
+    }
+
+    override suspend fun searchUser(email: String): Result<Users> {
+        val snapshot = dataBase.collection("Users").document(email).get().await()
+        val users = snapshot.toObject(Users::class.java)
+        return if (users != null) {
+            Result.success(users)
+        } else {
+            Result.failure(Exception("Algo pasó"))
+        }
 
     }
 
@@ -50,6 +60,8 @@ class DataBaseImpl(
             )
         )
     }
+
+    //SportCenter Funtions
 
     override fun createSportCenter(sportCenter: SportCenter) {
         dataBase.collection("Users").document(sportCenter.emailAdmin).collection("SportCenter")
@@ -79,16 +91,6 @@ class DataBaseImpl(
         }
     }
 
-    override suspend fun searchUser(email: String): Result<Users> {
-        val snapshot = dataBase.collection("Users").document(email).get().await()
-        val users = snapshot.toObject(Users::class.java)
-        return if (users != null) {
-            Result.success(users)
-        } else {
-            Result.failure(Exception("Algo pasó"))
-        }
-
-    }
 
     override suspend fun getListSportCenter(email: String?): Result<List<SportCenter>> {
         val list = mutableListOf<SportCenter>()
@@ -105,6 +107,22 @@ class DataBaseImpl(
         }
 
         return Result.success(list)
+    }
+
+    //Goals Funtions
+
+    override fun setGoals(goals: Goals, emailAdmin: String?, nit: String?) {
+        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
+            .document(nit.toString()).collection("Goals").document(goals.number).set(
+                hashMapOf(
+                    "number" to goals.number,
+                    "size" to goals.size,
+                    "price" to goals.price,
+                    "available" to goals.available,
+                    "hour" to goals.hour,
+                    "date" to goals.date
+                )
+            )
     }
 
     override suspend fun getListGoals(emailAdmin: String?, nit: String?): Result<List<Goals>> {
@@ -124,18 +142,25 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
-    override fun setGoals(goals: Goals, emailAdmin: String?, nit: String?) {
+    override fun deleteGoal(emailAdmin: String?, nit: String?, number: String) {
         dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
-            .document(nit.toString()).collection("Goals").document(goals.number).set(
-                hashMapOf(
-                    "number" to goals.number,
-                    "size" to goals.size,
-                    "price" to goals.price,
-                    "available" to goals.available,
-                    "hour" to goals.hour,
-                    "date" to goals.date
-                )
-            )
+            .document(nit.toString()).collection("Goals").document(number).delete()
+    }
+
+    //SportCenter Users Funtions
+
+    override suspend fun getSportCenterUser(nit: String?): Result<SportCenter> {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+        for (document in snapshot.documents) {
+            val collectionSportCenter =
+                document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
+            if (!collectionSportCenter.isEmpty) {
+                val sportCenterDocument = collectionSportCenter.documents[0]
+                val sportCenter = sportCenterDocument.toObject(SportCenter::class.java)
+                return Result.success(sportCenter) as Result<SportCenter>
+            }
+        }
+        return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 
     override suspend fun getListSportsCenterUsers(): Result<List<SportCenter>> {
@@ -156,31 +181,5 @@ class DataBaseImpl(
 
         return Result.success(list)
     }
-
-    override suspend fun getSportCenterUser(nit: String?): Result<SportCenter> {
-        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
-
-        for (document in snapshot.documents) {
-            val collectionSportCenter =
-                document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
-
-            if (!collectionSportCenter.isEmpty) {
-                val sportCenterDocument = collectionSportCenter.documents[0]
-                val sportCenter = sportCenterDocument.toObject(SportCenter::class.java)
-
-                // Aquí puedes realizar cualquier otra manipulación o procesamiento necesario
-
-                return Result.success(sportCenter) as Result<SportCenter>
-            }
-        }
-
-        return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
-    }
-
-    override fun deleteGoal(emailAdmin: String?, nit: String?, number: String) {
-        dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
-            .document(nit.toString()).collection("Goals").document(number).delete()
-    }
-
 
 }

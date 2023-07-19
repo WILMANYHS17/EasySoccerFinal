@@ -6,8 +6,8 @@ import com.example.easysoccer1.domain.UsersUseCase
 
 class HeaderProfileUserViewModel(
     val usersUseCase: UsersUseCase
-) : ViewModel(){
-    suspend fun getNameUser(email: String): Result<Users>{
+) : ViewModel() {
+    suspend fun getNameUser(email: String): Result<Users> {
         return usersUseCase.searchUser(email)
     }
 }

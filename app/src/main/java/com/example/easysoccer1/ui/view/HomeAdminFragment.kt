@@ -31,7 +31,6 @@ class HomeAdminFragment() : Fragment() {
         nit = activity?.intent?.extras?.getString("Nit") ?: ""
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
 
-
         _binding = FragmentHomeAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
         lifecycleScope.launch {

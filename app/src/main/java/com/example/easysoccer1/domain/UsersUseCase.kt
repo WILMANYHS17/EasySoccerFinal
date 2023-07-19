@@ -10,7 +10,6 @@ class UsersUseCase(
     fun createUser(users: Users) {
         databaseUserRepository.createUser(users)
     }
-
     fun changePassword(forgotPassword: Users) {
         return databaseUserRepository.changePassword(forgotPassword)
     }

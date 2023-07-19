@@ -42,8 +42,6 @@ class StatsAdminFragment() : Fragment() {
                 prefs
             ).build()
         }
-
-
         return root
     }
 
