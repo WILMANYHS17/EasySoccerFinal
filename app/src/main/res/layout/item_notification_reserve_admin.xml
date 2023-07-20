@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemNotificationAdmin"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/box_text">
+
+    <TextView
+        android:id="@+id/goalNumberText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Número de la cancha:"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/goalNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@id/goalNumberText"
+        app:layout_constraintTop_toTopOf="@id/goalNumberText"/>
+
+    <TextView
+        android:id="@+id/reserveNumberText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Número de la reserva:"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@+id/goalNumberText"
+        app:layout_constraintTop_toBottomOf="@id/goalNumberText"/>
+
+    <TextView
+        android:id="@+id/reserveNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@id/reserveNumberText"
+        app:layout_constraintTop_toTopOf="@id/reserveNumberText"/>
+
+    <TextView
+        android:id="@+id/reserveByText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Reservado por:"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/reserveNumberText"
+        app:layout_constraintStart_toStartOf="@+id/reserveNumberText"/>
+
+    <TextView
+        android:id="@+id/reserveBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wilman"
+        app:layout_constraintTop_toTopOf="@id/reserveByText"
+        app:layout_constraintStart_toEndOf="@id/reserveByText"/>
+
+    <TextView
+        android:id="@+id/dateAndHourText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Fecha y hora:"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@id/reserveByText"
+        app:layout_constraintTop_toBottomOf="@id/reserveByText"/>
+
+    <TextView
+        android:id="@+id/dateReserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/03/2023"
+        app:layout_constraintTop_toTopOf="@+id/dateAndHourText"
+        app:layout_constraintStart_toEndOf="@id/dateAndHourText"/>
+
+    <TextView
+        android:id="@+id/hourReserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:00"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="@+id/dateReserve"
+        app:layout_constraintStart_toEndOf="@id/dateReserve"/>
+
+    <TextView
+        android:id="@+id/priceReserveText"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Precio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/dateAndHourText"/>
+
+    <TextView
+        android:id="@+id/paidOrNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pagado"
+        android:textColor="@color/red"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/priceReserveText"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
