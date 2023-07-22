@@ -202,4 +202,21 @@ class DataBaseImpl(
             )
     }
 
+    override suspend fun getListReserveUser(emailUser: String?): Result<List<Reserve>> {
+        val list = mutableListOf<Reserve>()
+        val snapshot =
+            dataBase.collection("Users").document(emailUser.toString()).collection("Reservations")
+                .get().await()
+
+        for (document in snapshot.documents) {
+            val reserveSearch = document.toObject(Reserve::class.java)
+            reserveSearch?.let {
+                list.add(reserveSearch)
+
+            }
+        }
+
+        return Result.success(list)
+    }
+
 }
