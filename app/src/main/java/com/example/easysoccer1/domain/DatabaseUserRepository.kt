@@ -1,6 +1,7 @@
 package com.example.easysoccer1.domain
 
 import com.example.easysoccer1.data.models.Goals
+import com.example.easysoccer1.data.models.Reserve
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 
@@ -27,6 +28,9 @@ interface DatabaseUserRepository {
 
     suspend fun getSportCenterUser(nit: String?): Result<SportCenter>
     suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
+
+    //Reserve Users Funtions
+    fun setReserve(reserve: Reserve, emailUser: String?)
 
 
 }

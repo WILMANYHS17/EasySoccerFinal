@@ -1,6 +1,7 @@
 package com.example.easysoccer1.data.database
 
 import com.example.easysoccer1.data.models.Goals
+import com.example.easysoccer1.data.models.Reserve
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
@@ -180,6 +181,25 @@ class DataBaseImpl(
         }
 
         return Result.success(list)
+    }
+
+    //Reserve Users Funtions
+    override fun setReserve(reserve: Reserve, emailUser: String?) {
+
+        dataBase.collection("Users").document(emailUser.toString()).collection("Reservations")
+            .document(reserve.numberReserve).set(
+                hashMapOf(
+                    "numberReserve" to reserve.numberReserve,
+                    "nameSportCenter" to reserve.nameSportCenter,
+                    "nameReserveBy" to reserve.nameReserveBy,
+                    "date" to reserve.date,
+                    "hour" to reserve.hour,
+                    "price" to reserve.price,
+                    "paidOrNot" to reserve.paidOrNot,
+                    "address" to reserve.address,
+                    "numberPlayers" to reserve.numberPlayers
+                )
+            )
     }
 
 }
