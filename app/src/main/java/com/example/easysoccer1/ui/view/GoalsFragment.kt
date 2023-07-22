@@ -21,8 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class GoalsFragment : Fragment() {
 
     private var _binding: FragmentGoalsBinding? = null
-
     private val binding get() = _binding!!
+
     private val goalsAdminAdapter by lazy {
         GoalsAdminAdapter(
             ::deleteGoals
@@ -39,7 +39,6 @@ class GoalsFragment : Fragment() {
         val root: View = binding.root
         setUpAdapter()
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
-
         lifecycleScope.launch {
             val prefs = requireActivity().applicationContext.getSharedPreferences(
                 "easySoccer",

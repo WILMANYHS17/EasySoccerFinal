@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.easysoccer1.data.models.Reserve
 import com.example.easysoccer1.databinding.FragmentReserveAdminBinding
+import com.example.easysoccer1.ui.adapter.ReserveAdminAdapter
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.ReserveAdminViewModel
 import kotlinx.coroutines.launch
@@ -18,10 +21,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ReserveAdminFragment : Fragment() {
 
     private var _binding: FragmentReserveAdminBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private val reserveAdminAdapter by lazy {
+        ReserveAdminAdapter(
+            ::goToReserve
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +35,9 @@ class ReserveAdminFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val reserveAdminViewModel =
-            ViewModelProvider(this).get(ReserveAdminViewModel::class.java)
         _binding = FragmentReserveAdminBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        setUpAdapter()
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         lifecycleScope.launch {
             val prefs = requireActivity().applicationContext.getSharedPreferences(
@@ -45,12 +50,25 @@ class ReserveAdminFragment : Fragment() {
                 headerProfileUserViewModel,
                 prefs
             ).build()
+      //      reserveAdminAdapter.setListReserveAdmin(getListReserveAdmin())
         }
-        val textView: TextView = binding.textReserveAdmin
-        reserveAdminViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
         return root
+    }
+
+   // private fun getListReserveAdmin(): List<Reserve> {
+
+    //}
+
+    fun goToReserve(numberReserveAdmin: String) {
+
+    }
+
+    private fun setUpAdapter() {
+        binding.recyclerViewNotificationReserveAdmin.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = reserveAdminAdapter
+        }
     }
 
     override fun onDestroyView() {
