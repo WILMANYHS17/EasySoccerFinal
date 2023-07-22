@@ -42,6 +42,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
 
     private fun goToReserve() {
         val intent = Intent(this, ReserveUserActivity::class.java)
+        intent.putExtra("Nit", nit)
         startActivity(intent)
     }
 
@@ -52,7 +53,6 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
 
     suspend fun getSportCenterUser(nit: String?) {
         val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
-
         val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
         binding.titleSportCenter.text =
             descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
