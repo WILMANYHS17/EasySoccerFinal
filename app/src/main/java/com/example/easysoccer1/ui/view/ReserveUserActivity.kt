@@ -1,7 +1,9 @@
 package com.example.easysoccer1.ui.view
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.data.models.Reserve
@@ -40,7 +42,7 @@ class ReserveUserActivity : AppCompatActivity() {
             loadDataReserve()
         }
 
-        binding.buttonReserve.setOnClickListener { generateRandomNumber() }
+        binding.buttonReserve.setOnClickListener { createReserve() }
 
     }
 
@@ -53,6 +55,37 @@ class ReserveUserActivity : AppCompatActivity() {
     }
 
 
+    private fun createReserve() {
+        val reserveUserViewModel: ReserveUserViewModel by viewModel()
+        val number = generateRandomNumber()
+        val prefs = applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val properName = prefs.getString("Name", "")
+        val emailUser = prefs.getString("email", "")
+        AlertDialog.Builder(this).apply {
+            setTitle("Reservando la cancha")
+            setMessage("Está seguro de reservar la cancha?")
+            setPositiveButton("Si") { _: DialogInterface, _: Int ->
+                reserveUserViewModel.setReserve(
+                    Reserve(
+                        nameSportCenter = binding.nameSportCenterReservation.text.toString(),
+                        address = binding.adressSportCenterReservation.text.toString(),
+                        numberPlayers = binding.numberPlayersReservation.text.toString(),
+                        date = binding.reservationDate.text.toString(),
+                        hour = binding.reservationHour.text.toString(),
+                        price = binding.reservationPrice.text.toString(),
+                        nameReserveBy = properName.toString(),
+                        numberReserve = number.toString()
+                    ), emailUser
+                )
+            }
+            setNegativeButton("No", null)
+        }.show()
+
+    }
+
     fun generateRandomNumber(): Int {
         val generatedNumbers = mutableSetOf<Int>()
         var number: Int
@@ -60,30 +93,6 @@ class ReserveUserActivity : AppCompatActivity() {
             number = (100000..999999).random()
         } while (generatedNumbers.contains(number))
         generatedNumbers.add(number)
-        createReserve(number)
         return number
-    }
-
-    private fun createReserve(number: Int) {
-        val reserveUserViewModel: ReserveUserViewModel by viewModel()
-        val prefs = applicationContext.getSharedPreferences(
-            "easySoccer",
-            AppCompatActivity.MODE_PRIVATE
-        )
-        val properName = prefs.getString("Name", "")
-        val emailUser = prefs.getString("email", "")
-
-        reserveUserViewModel.setReserve(
-            Reserve(
-                nameSportCenter = binding.nameSportCenterReservation.text.toString(),
-                address = binding.adressSportCenterReservation.text.toString(),
-                numberPlayers = binding.numberPlayersReservation.text.toString(),
-                date = binding.reservationDate.text.toString(),
-                hour = binding.reservationHour.text.toString(),
-                price = binding.reservationPrice.text.toString(),
-                nameReserveBy = properName.toString(),
-                numberReserve = number.toString()
-            ), emailUser
-        )
     }
 }
