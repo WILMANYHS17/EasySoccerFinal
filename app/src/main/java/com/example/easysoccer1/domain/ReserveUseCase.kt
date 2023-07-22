@@ -9,4 +9,8 @@ class ReserveUseCase(
     fun setReserve(reserve: Reserve, emailUser: String?) {
         databaseUserRepository.setReserve(reserve, emailUser)
     }
+
+    suspend fun getListReserveUser(emailUser: String?): Result<List<Reserve>> {
+        return databaseUserRepository.getListReserveUser(emailUser)
+    }
 }

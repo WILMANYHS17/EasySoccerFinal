@@ -31,6 +31,7 @@ interface DatabaseUserRepository {
 
     //Reserve Users Funtions
     fun setReserve(reserve: Reserve, emailUser: String?)
+    suspend fun getListReserveUser(emailUser: String?): Result<List<Reserve>>
 
 
 }
