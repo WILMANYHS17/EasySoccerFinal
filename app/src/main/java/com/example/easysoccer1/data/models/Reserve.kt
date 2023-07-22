@@ -10,4 +10,5 @@ data class Reserve(
     val paidOrNot: String = "",
     val address: String = "",
     val numberPlayers: String = "",
+    val numberGoal: String = ""
 )
