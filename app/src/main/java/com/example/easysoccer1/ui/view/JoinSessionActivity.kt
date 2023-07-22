@@ -65,6 +65,7 @@ class JoinSessionActivity : AppCompatActivity() {
             if (validateLogin(user.email, user.password)) {
                 val editor = getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
                 editor.putString("email", user.email)
+                editor.putString("Name", user.name)
                 editor.apply()
                 if (user.isAdmin) {
                     Log.i("Actividad Admin", "Inició")

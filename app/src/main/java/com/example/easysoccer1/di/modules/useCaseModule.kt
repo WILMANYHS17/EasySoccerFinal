@@ -21,5 +21,10 @@ val useCaseModule: Module = module {
             databaseUserRepository = get()
         )
     }
+    factory{
+        ReserveUseCase(
+            databaseUserRepository = get()
+        )
+    }
 
 }
