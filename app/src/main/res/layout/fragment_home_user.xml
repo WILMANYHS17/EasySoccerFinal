@@ -35,6 +35,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nearYou" />
 
+<Spinner
+    android:id="@+id/spinnerSizePlayers"
+    android:layout_width="100dp"
+    android:layout_height="20dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/selectDate"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
@@ -44,7 +53,7 @@
         android:text="Buscar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectDate"/>
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSizePlayers"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

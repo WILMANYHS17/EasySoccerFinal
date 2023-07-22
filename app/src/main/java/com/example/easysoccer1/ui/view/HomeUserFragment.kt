@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +59,27 @@ class HomeUserFragment : Fragment() {
 
     private suspend fun getListStadiumsNearYou(): List<SportCenter> {
         val homeUserViewModel: HomeUserViewModel by viewModel()
+        val listOptions = listOf("5vs5", "8vs8")
+        val options = binding.spinnerSizePlayers
+        val adapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, listOptions)
+        options.adapter = adapter
+        options.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                options.selectedItem.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
         return homeUserViewModel.getListSportsCenter().getOrNull() ?: emptyList()
     }
 
