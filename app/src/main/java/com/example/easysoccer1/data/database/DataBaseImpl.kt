@@ -6,7 +6,6 @@ import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
 class DataBaseImpl(
@@ -164,7 +163,11 @@ class DataBaseImpl(
         return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 
-    override suspend fun getListSportsCenterUsers(): Result<List<SportCenter>> {
+    override suspend fun getListSportsCenterUsers(
+        date: String,
+        hour: String,
+        optionsFinal: String
+    ): Result<List<SportCenter>> {
         val list = mutableListOf<SportCenter>()
         val snapshot =
             dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
@@ -173,9 +176,16 @@ class DataBaseImpl(
             val collectionSportCenter = document.reference.collection("SportCenter")
             val sportCenterSnapshot = collectionSportCenter.get().await()
             for (sportCenter in sportCenterSnapshot.documents) {
-                val sportCenterSearch = sportCenter.toObject(SportCenter::class.java)
-                sportCenterSearch?.let {
-                    list.add(sportCenterSearch)
+                val collectionGoals = sportCenter.reference.collection("Goals")
+                    .whereEqualTo("available", "Disponible").whereEqualTo("size", "8vs8")
+                    .whereNotEqualTo("date", date).whereNotEqualTo("hour", hour)
+                val goalsSnapshot = collectionGoals.get().await()
+                //val goalsSearch = goals.toObject(Goals::class.java)
+                if (goalsSnapshot.documents.isNotEmpty()) {
+                    val sportCenterSearch = sportCenter.toObject(SportCenter::class.java)
+                    sportCenterSearch?.let {
+                        list.add(sportCenterSearch)
+                    }
                 }
             }
         }

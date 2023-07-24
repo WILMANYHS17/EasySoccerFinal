@@ -16,8 +16,8 @@ class UsersUseCase(
     suspend fun searchUser(email: String): Result<Users>{
         return databaseUserRepository.searchUser(email)
     }
-    suspend fun getListSportsCenter(): Result<List<SportCenter>>{
-        return databaseUserRepository.getListSportsCenterUsers()
+    suspend fun getListSportsCenter(date: String, hour: String, optionsFinal: String): Result<List<SportCenter>>{
+        return databaseUserRepository.getListSportsCenterUsers(date, hour, optionsFinal)
     }
 
 }

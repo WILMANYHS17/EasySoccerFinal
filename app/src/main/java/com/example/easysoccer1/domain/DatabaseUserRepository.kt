@@ -27,7 +27,7 @@ interface DatabaseUserRepository {
     //SportCenter Users Funtions
 
     suspend fun getSportCenterUser(nit: String?): Result<SportCenter>
-    suspend fun getListSportsCenterUsers(): Result<List<SportCenter>>
+    suspend fun getListSportsCenterUsers(date: String, hour: String, optionsFinal: String): Result<List<SportCenter>>
 
     //Reserve Users Funtions
     fun setReserve(reserve: Reserve, emailUser: String?)

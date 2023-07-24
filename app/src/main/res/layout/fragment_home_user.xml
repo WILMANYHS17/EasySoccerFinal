@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,38 +9,199 @@
     <include
         android:id="@+id/header_user"
         layout="@layout/header_profile"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/nearYou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Cerca Tuyo"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_user" />
 
-    <include
-        android:id="@+id/selectDate"
-        layout="@layout/item_select_date_hour"
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Fecha:"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/nearYou"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/custom_input"
+        android:hint="DD/MM/YYYY"
+        android:paddingStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textDate"
+        app:layout_constraintStart_toEndOf="@+id/textDate"
+        app:layout_constraintTop_toTopOf="@+id/textDate" />
+
+    <TextView
+        android:id="@+id/hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Hora:"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textDate"
+        app:layout_constraintStart_toStartOf="@+id/textDate"
+        app:layout_constraintTop_toBottomOf="@+id/textDate" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour12"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="12"
+        app:layout_constraintBottom_toBottomOf="@+id/hour"
+        app:layout_constraintStart_toEndOf="@+id/hour"
+        app:layout_constraintTop_toTopOf="@+id/hour" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour13"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@+id/hour12"
+        app:layout_constraintStart_toEndOf="@+id/hour12"
+        app:layout_constraintTop_toTopOf="@+id/hour12" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour14"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="14"
+        app:layout_constraintBottom_toBottomOf="@+id/hour13"
+        app:layout_constraintStart_toEndOf="@+id/hour13"
+        app:layout_constraintTop_toTopOf="@+id/hour13" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour15"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="15"
+        app:layout_constraintBottom_toBottomOf="@+id/hour14"
+        app:layout_constraintStart_toEndOf="@+id/hour14"
+        app:layout_constraintTop_toTopOf="@+id/hour14" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour16"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="16"
+        app:layout_constraintBottom_toBottomOf="@+id/hour15"
+        app:layout_constraintStart_toEndOf="@+id/hour15"
+        app:layout_constraintTop_toTopOf="@+id/hour15" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour17"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="17"
+        app:layout_constraintBottom_toBottomOf="@+id/hour16"
+        app:layout_constraintStart_toEndOf="@+id/hour16"
+        app:layout_constraintTop_toTopOf="@+id/hour16" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour18"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="18"
+        app:layout_constraintBottom_toBottomOf="@+id/hour17"
+        app:layout_constraintStart_toEndOf="@+id/hour17"
+        app:layout_constraintTop_toTopOf="@+id/hour17" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour19"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="19"
+        app:layout_constraintBottom_toBottomOf="@+id/hour18"
+        app:layout_constraintStart_toEndOf="@+id/hour18"
+        app:layout_constraintTop_toTopOf="@+id/hour18" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour20"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="20"
+        app:layout_constraintBottom_toBottomOf="@+id/hour19"
+        app:layout_constraintStart_toEndOf="@+id/hour19"
+        app:layout_constraintTop_toTopOf="@+id/hour19" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour21"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="21"
+        app:layout_constraintEnd_toEndOf="@+id/hour12"
+        app:layout_constraintStart_toStartOf="@+id/hour12"
+        app:layout_constraintTop_toBottomOf="@+id/hour12" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour22"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="22"
+        app:layout_constraintBottom_toBottomOf="@+id/hour21"
+        app:layout_constraintStart_toEndOf="@+id/hour21"
+        app:layout_constraintTop_toTopOf="@+id/hour21" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour23"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="23"
+        app:layout_constraintBottom_toBottomOf="@+id/hour22"
+        app:layout_constraintStart_toEndOf="@+id/hour22"
+        app:layout_constraintTop_toTopOf="@+id/hour22" />
+
+    <Spinner
+        android:id="@+id/spinnerSizePlayers"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nearYou" />
-
-<Spinner
-    android:id="@+id/spinnerSizePlayers"
-    android:layout_width="100dp"
-    android:layout_height="20dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/selectDate"
-    app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/hour23"/>
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -53,7 +213,7 @@
         android:text="Buscar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerSizePlayers"/>
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSizePlayers" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -61,6 +221,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
-        app:layout_constraintBottom_toBottomOf="parent"/>
- </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearch" />
+</androidx.constraintlayout.widget.ConstraintLayout>
