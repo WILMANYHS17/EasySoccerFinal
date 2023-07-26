@@ -23,7 +23,6 @@ class JoinSessionActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar!!.hide()
         screenSplash.setKeepOnScreenCondition { false }
-
         binding.TextViewCreateUser.setOnClickListener { onClickRegisterUser() }
         binding.TextViewCreateAdmin.setOnClickListener { onClickRegisterAdmin() }
         binding.buttonLogin.setOnClickListener {
