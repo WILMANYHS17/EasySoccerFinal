@@ -120,6 +120,7 @@ class HomeUserFragment : Fragment() {
                     }
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
@@ -127,7 +128,9 @@ class HomeUserFragment : Fragment() {
     private suspend fun getListStadiumsNearYou(hour: String, size: String): List<SportCenter> {
         val homeUserViewModel: HomeUserViewModel by viewModel()
         val date = binding.date.text.toString()
-        val editor = requireActivity().getSharedPreferences("easySoccer", AppCompatActivity.MODE_PRIVATE).edit()
+        val editor =
+            requireActivity().getSharedPreferences("easySoccer", AppCompatActivity.MODE_PRIVATE)
+                .edit()
         editor.putString("Hour", hour)
         editor.putString("Date", date)
         editor.putString("Size", size)

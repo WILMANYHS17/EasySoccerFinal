@@ -65,7 +65,7 @@ class ReserveUserFragment : Fragment() {
         return reserveUserFragmentViewModel.getListReserveUser(emailUser).getOrNull() ?: emptyList()
     }
 
-    fun setUpAdapter(){
+    fun setUpAdapter() {
         binding.recyclerViewNotificationReserveUser.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = reserveUserAdapter

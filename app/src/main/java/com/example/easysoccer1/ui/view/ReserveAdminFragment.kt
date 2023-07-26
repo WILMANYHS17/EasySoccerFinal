@@ -60,8 +60,10 @@ class ReserveAdminFragment : Fragment() {
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
-        val nameSportCenter = prefs.getString("NameSportCenter","")
-        return nameSportCenter?.let { reserveAdminViewModel.getListAdminNotificationReserve(it).getOrNull() }
+        val nameSportCenter = prefs.getString("NameSportCenter", "")
+        return nameSportCenter?.let {
+            reserveAdminViewModel.getListAdminNotificationReserve(it).getOrNull()
+        }
             ?: emptyList()
     }
 

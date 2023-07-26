@@ -52,7 +52,7 @@ class ReserveAdminAdapter(private val goToReserve: (String) -> Unit) :
                 dateReserve.text = reserveAdmin.date
                 hourReserve.text = reserveAdmin.hour
                 priceReserve.text = reserveAdmin.price
-                itemNotificationAdmin.setOnClickListener{goToReserve(reserveAdmin.numberGoal)}
+                itemNotificationAdmin.setOnClickListener { goToReserve(reserveAdmin.numberGoal) }
                 itemNotificationAdmin.elevation = ELEVATION_CARD
             }
         }

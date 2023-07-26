@@ -25,7 +25,7 @@ class ReserveUserViewModel(
         return goalsUseCase.getGoal(nit, size)
     }
 
-    suspend fun updateGoal(updateGoal: Goals, number: String, nit:String) {
+    suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
         goalsUseCase.updateGoal(updateGoal, number, nit)
     }
 
