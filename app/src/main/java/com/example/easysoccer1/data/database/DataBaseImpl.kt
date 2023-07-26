@@ -7,6 +7,8 @@ import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DataBaseImpl(
     private val dataBase: FirebaseFirestore
@@ -171,17 +173,28 @@ class DataBaseImpl(
         val list = mutableListOf<SportCenter>()
         val snapshot =
             dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
-
         for (document in snapshot.documents) {
             val collectionSportCenter = document.reference.collection("SportCenter")
             val sportCenterSnapshot = collectionSportCenter.get().await()
             for (sportCenter in sportCenterSnapshot.documents) {
-                val collectionGoals = sportCenter.reference.collection("Goals")
-                    .whereEqualTo("available", "Disponible").whereEqualTo("size", "8vs8")
-                    .whereNotEqualTo("date", date).whereNotEqualTo("hour", hour)
-                val goalsSnapshot = collectionGoals.get().await()
-                //val goalsSearch = goals.toObject(Goals::class.java)
-                if (goalsSnapshot.documents.isNotEmpty()) {
+                val collectionGoalsDate = sportCenter.reference.collection("Goals")
+                    .whereEqualTo("available", "Disponible")
+                    .whereEqualTo("size", optionsFinal)
+                    .whereNotEqualTo("date", date)
+                val goalsSnapshotDate = collectionGoalsDate.get().await()
+                val collectionGoalsHour = sportCenter.reference.collection("Goals")
+                    .whereEqualTo("available", "Disponible")
+                    .whereEqualTo("size", optionsFinal)
+                    .whereNotEqualTo("hour", hour)
+                val goalsSnapshotHour = collectionGoalsHour.get().await()
+                var foundMatchingGoal = false
+                for (document in goalsSnapshotDate.documents) {
+                    if (goalsSnapshotHour.documents.any { it["id"] == document["id"] }) {
+                        foundMatchingGoal = true
+                        break
+                    }
+                }
+                if (foundMatchingGoal) {
                     val sportCenterSearch = sportCenter.toObject(SportCenter::class.java)
                     sportCenterSearch?.let {
                         list.add(sportCenterSearch)

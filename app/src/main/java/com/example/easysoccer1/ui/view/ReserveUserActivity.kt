@@ -48,10 +48,24 @@ class ReserveUserActivity : AppCompatActivity() {
 
     suspend fun loadDataReserve() {
         val reserveUserViewModel: ReserveUserViewModel by viewModel()
+        val prefs = applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val date = prefs.getString("Date", "")
+        val hour = prefs.getString("hour", "")
+        val size = prefs.getString("Size", "")
         val sportCenter = reserveUserViewModel.getSportCenter(nit)
+        if(size == "5vs5"){
+            binding.reservationPrice.text = sportCenter.getOrNull()?.price5vs5
+        }else{
+            binding.reservationPrice.text = sportCenter.getOrNull()?.price8vs8
+        }
         binding.nameSportCenterReservation.text = sportCenter.getOrNull()?.nameSportCenter
         binding.adressSportCenterReservation.text = sportCenter.getOrNull()?.address
-        binding.reservationPrice.text = sportCenter.getOrNull()?.price5vs5
+        binding.numberPlayersReservation.text = size
+        binding.reservationDate.text = date
+        binding.reservationHour.text = hour
     }
 
 
