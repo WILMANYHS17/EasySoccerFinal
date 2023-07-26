@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
+import com.example.easysoccer1.data.models.Goals
 import com.example.easysoccer1.data.models.Reserve
-import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ActivityReserveUserBinding
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.ReserveUserViewModel
@@ -41,8 +41,11 @@ class ReserveUserActivity : AppCompatActivity() {
         lifecycleScope.launch {
             loadDataReserve()
         }
-
-        binding.buttonReserve.setOnClickListener { createReserve() }
+        binding.buttonReserve.setOnClickListener {
+            lifecycleScope.launch {
+                createReserve()
+            }
+        }
 
     }
 
@@ -53,12 +56,12 @@ class ReserveUserActivity : AppCompatActivity() {
             AppCompatActivity.MODE_PRIVATE
         )
         val date = prefs.getString("Date", "")
-        val hour = prefs.getString("hour", "")
+        val hour = prefs.getString("Hour", "")
         val size = prefs.getString("Size", "")
         val sportCenter = reserveUserViewModel.getSportCenter(nit)
-        if(size == "5vs5"){
+        if (size == "5vs5") {
             binding.reservationPrice.text = sportCenter.getOrNull()?.price5vs5
-        }else{
+        } else {
             binding.reservationPrice.text = sportCenter.getOrNull()?.price8vs8
         }
         binding.nameSportCenterReservation.text = sportCenter.getOrNull()?.nameSportCenter
@@ -68,9 +71,10 @@ class ReserveUserActivity : AppCompatActivity() {
         binding.reservationHour.text = hour
     }
 
-
-    private fun createReserve() {
+    private suspend fun createReserve() {
         val reserveUserViewModel: ReserveUserViewModel by viewModel()
+        val size = binding.numberPlayersReservation.text.toString()
+        val goal = reserveUserViewModel.getGoal(nit, size)
         val number = generateRandomNumber()
         val prefs = applicationContext.getSharedPreferences(
             "easySoccer",
@@ -82,7 +86,7 @@ class ReserveUserActivity : AppCompatActivity() {
             setTitle("Reservando la cancha")
             setMessage("Está seguro de reservar la cancha?")
             setPositiveButton("Si") { _: DialogInterface, _: Int ->
-                reserveUserViewModel.setReserve(
+                goal.getOrNull()?.let {
                     Reserve(
                         nameSportCenter = binding.nameSportCenterReservation.text.toString(),
                         address = binding.adressSportCenterReservation.text.toString(),
@@ -91,9 +95,29 @@ class ReserveUserActivity : AppCompatActivity() {
                         hour = binding.reservationHour.text.toString(),
                         price = binding.reservationPrice.text.toString(),
                         nameReserveBy = properName.toString(),
-                        numberReserve = number.toString()
-                    ), emailUser
-                )
+                        numberReserve = number.toString(),
+                        numberGoal = it.number
+                    )
+                }?.let {
+                    reserveUserViewModel.setReserve(
+                        it, emailUser
+                    )
+                }
+                lifecycleScope.launch {
+                    goal.getOrNull()?.let {
+                        reserveUserViewModel.updateGoal(
+                            Goals(
+                                number = it.number,
+                                size = binding.numberPlayersReservation.text.toString(),
+                                price = binding.reservationPrice.text.toString(),
+                                available = "Reservado",
+                                hour = binding.reservationHour.text.toString(),
+                                date = binding.reservationDate.text.toString()
+                            ), it.number, nit
+                        )
+                    }
+                }
+
             }
             setNegativeButton("No", null)
         }.show()

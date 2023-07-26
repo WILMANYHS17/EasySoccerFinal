@@ -7,8 +7,6 @@ import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DataBaseImpl(
     private val dataBase: FirebaseFirestore
@@ -132,7 +130,6 @@ class DataBaseImpl(
         val snapshot =
             dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
                 .document(nit.toString()).collection("Goals").get().await()
-
         for (document in snapshot.documents) {
             val goals = document.toObject(Goals::class.java)
             goals?.let {
@@ -220,7 +217,8 @@ class DataBaseImpl(
                     "price" to reserve.price,
                     "paidOrNot" to reserve.paidOrNot,
                     "address" to reserve.address,
-                    "numberPlayers" to reserve.numberPlayers
+                    "numberPlayers" to reserve.numberPlayers,
+                    "numberGoal" to reserve.numberGoal
                 )
             )
     }
@@ -241,5 +239,47 @@ class DataBaseImpl(
 
         return Result.success(list)
     }
+
+    //Goals User Funtions
+    override suspend fun getGoal(nit: String, size: String): Result<Goals> {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+        for (document in snapshot.documents) {
+            val collectionSportCenter =
+                document.reference.collection("SportCenter").whereEqualTo("nit", nit)
+            val snapshotSportCenter = collectionSportCenter.get().await()
+            for (sportCenter in snapshotSportCenter.documents) {
+                val collectionGoals = sportCenter.reference.collection("Goals")
+                    .whereEqualTo("available", "Disponible").whereEqualTo("size", size)
+                val snapshotGoals = collectionGoals.get().await()
+                if (snapshotGoals.documents.isNotEmpty()) {
+                    if (snapshotGoals.documents.isNotEmpty()) {
+                        val goalDocument = snapshotGoals.documents[0]
+                        val goal = goalDocument.toObject(Goals::class.java)
+                        return Result.success(goal) as Result<Goals>
+                    }
+                }
+            }
+        }
+        return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
+    }
+
+    override suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+        for (document in snapshot.documents) {
+            dataBase.collection("SportCenter").document(nit).collection("Goals")
+                .document(updateGoal.number)
+                .set(
+                    hashMapOf(
+                        "number" to updateGoal.number,
+                        "size" to updateGoal.size,
+                        "price" to updateGoal.price,
+                        "available" to updateGoal.available,
+                        "hour" to updateGoal.hour,
+                        "date" to updateGoal.date
+                    )
+                )
+        }
+    }
+
 
 }

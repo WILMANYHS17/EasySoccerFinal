@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Lugar:"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="1dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/titledateNotification"
         android:text="Fecha:"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="1dp"
         android:layout_marginStart="15dp"
         app:layout_constraintTop_toBottomOf="@+id/titleSportCenterNotification"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -48,10 +48,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/titleHourNotification"
         android:text="Hora:"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="1dp"
         android:layout_marginStart="15dp"
         app:layout_constraintTop_toBottomOf="@id/titledateNotification"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/titleNumberGoalNotification"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="Número de la cancha:"
+        app:layout_constraintStart_toStartOf="@+id/titleHourNotification"
+        app:layout_constraintTop_toBottomOf="@+id/titleHourNotification"
+        />
+
+    <TextView
+        android:id="@+id/numberGoalNotification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@+id/titleNumberGoalNotification"
+        app:layout_constraintTop_toTopOf="@+id/titleNumberGoalNotification"/>
 
     <TextView
         android:id="@+id/hourNotification"
@@ -68,7 +86,7 @@
         android:id="@+id/titlePriceNotification"
         android:text="Precio:"
         android:layout_marginStart="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleHourNotification"
+        app:layout_constraintTop_toBottomOf="@+id/titleNumberGoalNotification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
