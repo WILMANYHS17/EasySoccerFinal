@@ -6,6 +6,7 @@ import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
 class DataBaseImpl(
@@ -144,6 +145,24 @@ class DataBaseImpl(
     override fun deleteGoal(emailAdmin: String?, nit: String?, number: String) {
         dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
             .document(nit.toString()).collection("Goals").document(number).delete()
+    }
+
+    //Reserve Admin Funtions
+    override suspend fun getListReserveAdmin(nameSportCenter: String): Result<List<Reserve>> {
+        val list = mutableListOf<Reserve>()
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", false).get().await()
+        for (document in snapshot.documents) {
+            val collectionReserve = document.reference.collection("Reservations")
+                .whereEqualTo("nameSportCenter", nameSportCenter)
+            val snapshotReserve = collectionReserve.get().await()
+            for (reserve in snapshotReserve.documents) {
+                val reserveList = reserve.toObject(Reserve::class.java)
+                reserveList?.let {
+                    list.add(reserveList)
+                }
+            }
+        }
+        return Result.success(list)
     }
 
     //SportCenter Users Funtions

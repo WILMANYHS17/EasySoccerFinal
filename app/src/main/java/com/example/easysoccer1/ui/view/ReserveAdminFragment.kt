@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.easysoccer1.data.models.Reserve
@@ -50,15 +48,22 @@ class ReserveAdminFragment : Fragment() {
                 headerProfileUserViewModel,
                 prefs
             ).build()
-      //      reserveAdminAdapter.setListReserveAdmin(getListReserveAdmin())
+            reserveAdminAdapter.setListReserveAdmin(getListReserveAdmin())
         }
 
         return root
     }
 
-   // private fun getListReserveAdmin(): List<Reserve> {
-
-    //}
+    private suspend fun getListReserveAdmin(): List<Reserve> {
+        val reserveAdminViewModel: ReserveAdminViewModel by viewModel()
+        val prefs = requireActivity().applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val nameSportCenter = prefs.getString("NameSportCenter","")
+        return nameSportCenter?.let { reserveAdminViewModel.getListAdminNotificationReserve(it).getOrNull() }
+            ?: emptyList()
+    }
 
     fun goToReserve(numberReserveAdmin: String) {
 

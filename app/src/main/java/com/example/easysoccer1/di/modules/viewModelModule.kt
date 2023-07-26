@@ -74,4 +74,9 @@ val viewModelModule: Module = module {
             reserveUseCase = get()
         )
     }
+    viewModel{
+        ReserveAdminViewModel(
+            reserveUseCase = get()
+        )
+    }
 }
