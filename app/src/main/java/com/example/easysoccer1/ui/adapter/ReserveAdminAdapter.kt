@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.data.models.Reserve
-import com.example.easysoccer1.databinding.ItemGoalsBinding
 import com.example.easysoccer1.databinding.ItemNotificationReserveAdminBinding
 
 class ReserveAdminAdapter(private val goToReserve: (String) -> Unit) :
@@ -47,6 +46,13 @@ class ReserveAdminAdapter(private val goToReserve: (String) -> Unit) :
             goToReserve: (String) -> Unit
         ) {
             view.apply {
+                goalNumber.text = reserveAdmin.numberGoal
+                reserveNumber.text = reserveAdmin.numberReserve
+                reserveBy.text = reserveAdmin.nameReserveBy
+                dateReserve.text = reserveAdmin.date
+                hourReserve.text = reserveAdmin.hour
+                priceReserve.text = reserveAdmin.price
+                itemNotificationAdmin.setOnClickListener{goToReserve(reserveAdmin.numberGoal)}
                 itemNotificationAdmin.elevation = ELEVATION_CARD
             }
         }

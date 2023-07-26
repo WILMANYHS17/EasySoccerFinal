@@ -77,6 +77,7 @@ class HomeAdminFragment() : Fragment() {
         }
         editor.putString("Price5vs5", sportCenter?.getOrNull()?.price5vs5.toString())
         editor.putString("Price8vs8", sportCenter?.getOrNull()?.price8vs8.toString())
+        editor.putString("NameSportCenter", sportCenter?.getOrNull()?.nameSportCenter.toString())
         editor.apply()
         binding.textNameSportCenter.text = sportCenter?.getOrNull()?.nameSportCenter.toString()
         binding.descriptionSportCenter.text = sportCenter?.getOrNull()?.description.toString()
