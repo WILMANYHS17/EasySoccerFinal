@@ -55,6 +55,7 @@ class ReserveUserAdapter(private val goToReserve: (String) -> Unit) :
                 hourNotification.text = reserveUser.hour
                 priceNotification.text = reserveUser.price
                 payNotification.text = reserveUser.paidOrNot
+                numberGoalNotification.text = reserveUser.numberGoal
                 itemNotificationReserve.elevation = ELEVATION_CARD
             }
         }

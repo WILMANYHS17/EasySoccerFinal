@@ -32,6 +32,8 @@ interface DatabaseUserRepository {
     //Reserve Users Funtions
     fun setReserve(reserve: Reserve, emailUser: String?)
     suspend fun getListReserveUser(emailUser: String?): Result<List<Reserve>>
+    suspend fun getGoal(nit: String, size: String): Result<Goals>
+    suspend fun updateGoal(updateGoal: Goals, number: String, nit: String)
 
 
 }

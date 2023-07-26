@@ -65,7 +65,8 @@ val viewModelModule: Module = module {
     viewModel{
         ReserveUserViewModel(
             reserveUseCase = get(),
-            sportCenterUseCase = get()
+            sportCenterUseCase = get(),
+            goalsUseCase = get()
         )
     }
     viewModel{
