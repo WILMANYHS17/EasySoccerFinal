@@ -21,6 +21,7 @@
         android:layout_marginTop="8dp"
         android:text="Cerca Tuyo"
         android:textSize="15dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,21 +32,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:text="Fecha:"
+        android:fontFamily="@font/source_sans_pro_bold"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/nearYou"
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <EditText
+    <TextView
         android:id="@+id/date"
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_marginStart="40dp"
         android:background="@drawable/custom_input"
         android:hint="DD/MM/YYYY"
-        android:paddingStart="20dp"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:paddingStart="35dp"
         app:layout_constraintBottom_toBottomOf="@+id/textDate"
         app:layout_constraintStart_toEndOf="@+id/textDate"
         app:layout_constraintTop_toTopOf="@+id/textDate" />
@@ -56,8 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Hora:"
+        android:fontFamily="@font/source_sans_pro_bold"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="@+id/textDate"
         app:layout_constraintStart_toStartOf="@+id/textDate"
         app:layout_constraintTop_toBottomOf="@+id/textDate" />
@@ -69,6 +75,7 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/custom_button_hour"
         android:text="12"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour"
         app:layout_constraintStart_toEndOf="@+id/hour"
         app:layout_constraintTop_toTopOf="@+id/hour" />
@@ -80,6 +87,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="13"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour12"
         app:layout_constraintStart_toEndOf="@+id/hour12"
         app:layout_constraintTop_toTopOf="@+id/hour12" />
@@ -91,6 +99,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="14"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour13"
         app:layout_constraintStart_toEndOf="@+id/hour13"
         app:layout_constraintTop_toTopOf="@+id/hour13" />
@@ -102,6 +111,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="15"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour14"
         app:layout_constraintStart_toEndOf="@+id/hour14"
         app:layout_constraintTop_toTopOf="@+id/hour14" />
@@ -113,6 +123,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="16"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour15"
         app:layout_constraintStart_toEndOf="@+id/hour15"
         app:layout_constraintTop_toTopOf="@+id/hour15" />
@@ -124,6 +135,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="17"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour16"
         app:layout_constraintStart_toEndOf="@+id/hour16"
         app:layout_constraintTop_toTopOf="@+id/hour16" />
@@ -135,6 +147,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="18"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour17"
         app:layout_constraintStart_toEndOf="@+id/hour17"
         app:layout_constraintTop_toTopOf="@+id/hour17" />
@@ -146,6 +159,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="19"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour18"
         app:layout_constraintStart_toEndOf="@+id/hour18"
         app:layout_constraintTop_toTopOf="@+id/hour18" />
@@ -157,6 +171,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="20"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour19"
         app:layout_constraintStart_toEndOf="@+id/hour19"
         app:layout_constraintTop_toTopOf="@+id/hour19" />
@@ -168,6 +183,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="21"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="@+id/hour12"
         app:layout_constraintStart_toStartOf="@+id/hour12"
         app:layout_constraintTop_toBottomOf="@+id/hour12" />
@@ -179,6 +195,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="22"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour21"
         app:layout_constraintStart_toEndOf="@+id/hour21"
         app:layout_constraintTop_toTopOf="@+id/hour21" />
@@ -190,17 +207,29 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="23"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour22"
         app:layout_constraintStart_toEndOf="@+id/hour22"
         app:layout_constraintTop_toTopOf="@+id/hour22" />
+
+    <TextView
+        android:id="@+id/titleSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tamaño de la cancha:"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintTop_toTopOf="@+id/spinnerSizePlayers"
+        app:layout_constraintBottom_toBottomOf="@id/spinnerSizePlayers"
+        app:layout_constraintStart_toStartOf="@+id/hour"/>
 
     <Spinner
         android:id="@+id/spinnerSizePlayers"
         android:layout_width="150dp"
         android:layout_height="20dp"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/titleSize"
         app:layout_constraintTop_toBottomOf="@id/hour23"/>
 
 
@@ -211,6 +240,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/custom_button"
         android:text="Buscar"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerSizePlayers" />

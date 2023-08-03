@@ -20,6 +20,7 @@
         android:id="@+id/titleSportCenter"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageSelectSportCenter"
         app:layout_constraintTop_toTopOf="@+id/imageSelectSportCenter"/>
@@ -29,6 +30,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="@+id/titleSportCenter"
         app:layout_constraintEnd_toEndOf="@+id/titleSportCenter"
         app:layout_constraintTop_toBottomOf="@+id/titleSportCenter"/>
@@ -37,6 +39,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="@+id/titleNitSportCenter"
         app:layout_constraintEnd_toEndOf="@id/titleNitSportCenter"
         app:layout_constraintTop_toBottomOf="@+id/titleNitSportCenter"/>

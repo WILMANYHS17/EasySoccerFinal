@@ -20,6 +20,7 @@
         android:gravity="center"
         android:text="Tus Centros Deportivos"
         android:textSize="18dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerUser" />
@@ -38,6 +39,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_button"
         android:text="Crear"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerSelectSportCenter" />
