@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Centro deportivo"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintEnd_toEndOf="@id/constraintParent"
             app:layout_constraintStart_toStartOf="@id/constraintParent"
             app:layout_constraintTop_toBottomOf="@+id/header_user" />
@@ -55,6 +56,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/custom_button"
             android:text="Ubicar"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintEnd_toEndOf="@+id/viewPageSportCenterUser"
             app:layout_constraintStart_toStartOf="@+id/viewPageSportCenterUser"
             app:layout_constraintTop_toBottomOf="@+id/viewPageSportCenterUser" />
@@ -66,6 +68,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/custom_button"
             android:text="Reservar"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintEnd_toEndOf="@+id/buttonlocateSportCenter"
             app:layout_constraintStart_toStartOf="@+id/buttonlocateSportCenter"
             app:layout_constraintTop_toBottomOf="@+id/buttonlocateSportCenter" />
@@ -77,6 +80,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:text="Descripción:"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintStart_toStartOf="@id/constraintParent"
             app:layout_constraintTop_toBottomOf="@+id/buttonReserve" />
 
@@ -85,6 +89,7 @@
             android:layout_width="250dp"
             android:layout_height="200dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintEnd_toEndOf="@id/constraintParent"
             app:layout_constraintStart_toStartOf="@id/constraintParent"
             app:layout_constraintTop_toBottomOf="@+id/titleDescription" />
@@ -95,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Comentarios:"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintEnd_toEndOf="@id/titleDescription"
             app:layout_constraintStart_toStartOf="@id/titleDescription"
             app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />

@@ -32,6 +32,7 @@
             android:background="@drawable/custom_register_title"
             android:gravity="center"
             android:text="Registro de Usuario"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:textColor="@color/black"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +66,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Nombre:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -89,6 +91,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Teléfono:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:inputType="phone"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp" />
@@ -109,6 +112,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Email:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -128,6 +132,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Nombre de Usuario:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -148,6 +153,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Contraseña:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:inputType="textPassword"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp" />
@@ -169,6 +175,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/custom_input"
                 android:hint="Identificación:"
+                android:fontFamily="@font/source_sans_pro_bold"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:visibility="gone" />
@@ -181,6 +188,7 @@
             android:layout_height="60dp"
             android:background="@drawable/custom_input"
             android:hint="Nacimiento: DD/MM/YYYY"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:paddingStart="10dp"
             android:paddingTop="8dp"
             android:paddingEnd="10dp"
@@ -196,6 +204,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/custom_button"
             android:text="Registrar"
+            android:fontFamily="@font/source_sans_pro_bold"
             android:layout_marginStart="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
@@ -207,6 +216,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/custom_button"
             android:text="Cancelar"
+            android:fontFamily="@font/source_sans_pro_bold"
             app:layout_constraintBottom_toBottomOf="@+id/buttonRegister"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonRegister"

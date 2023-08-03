@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EasySoccer1</string>
+    <string name="app_name">EasySoccer</string>
     <string name="forgotPassword"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="createUser"><u>Registrarse como Usuario</u></string>
     <string name="createAdmin"><u>Registrarse como administrador</u></string>

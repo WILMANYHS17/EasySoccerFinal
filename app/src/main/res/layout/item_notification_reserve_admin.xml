@@ -13,6 +13,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:text="Número de la cancha:"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toEndOf="@id/goalNumberText"
         app:layout_constraintTop_toTopOf="@id/goalNumberText" />
 
@@ -29,6 +31,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:fontFamily="@font/source_sans_pro_bold"
         android:text="Número de la reserva:"
         app:layout_constraintStart_toStartOf="@+id/goalNumberText"
         app:layout_constraintTop_toBottomOf="@id/goalNumberText" />
@@ -38,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toEndOf="@id/reserveNumberText"
         app:layout_constraintTop_toTopOf="@id/reserveNumberText" />
 
@@ -47,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Reservado por:"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="@+id/reserveNumberText"
         app:layout_constraintTop_toBottomOf="@+id/reserveNumberText" />
 
@@ -55,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wilman"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toEndOf="@id/reserveByText"
         app:layout_constraintTop_toTopOf="@id/reserveByText" />
 
@@ -64,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Fecha y hora:"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toStartOf="@id/reserveByText"
         app:layout_constraintTop_toBottomOf="@id/reserveByText" />
 
@@ -72,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12/03/2023"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toEndOf="@id/dateAndHourText"
         app:layout_constraintTop_toTopOf="@+id/dateAndHourText" />
 
@@ -81,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="12:00"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintStart_toEndOf="@id/dateReserve"
         app:layout_constraintTop_toTopOf="@+id/dateReserve" />
 
@@ -89,6 +98,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Precio"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateAndHourText"
         app:layout_constraintStart_toStartOf="@id/dateAndHourText" />
@@ -98,6 +108,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="200000"
+        android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/priceReserveText"
         app:layout_constraintTop_toTopOf="@+id/priceReserveText" />
@@ -108,6 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:text="Pagado"
+        android:fontFamily="@font/source_sans_pro_bold"
         android:textColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/priceReserveText" />
