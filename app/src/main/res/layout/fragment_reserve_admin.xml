@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reservas"
+        android:textSize="20dp"
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="center"
         android:layout_marginTop="10dp"
