@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.data.models.Comments
-import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.ActivityDescriptionSportCenterBinding
 import com.example.easysoccer1.ui.adapter.CommentsUserAdapter
 import com.example.easysoccer1.ui.viewmodel.DescriptionSportCenterViewModel
@@ -32,7 +31,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         nit = intent.extras!!.getString("Nit1") ?: ""
         lifecycleScope.launch {
-            commentsUserAdapter.setListComment(getListComment())
+           //commentsUserAdapter.setListComment(getListComment())
             val prefs = applicationContext.getSharedPreferences(
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
@@ -55,10 +54,11 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         }
     }
 
-    private fun getListComment(): List<Users> {
-        val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
+    //private fun getListComment(): List<Comments> {
+      // val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
+        //return
 
-    }
+    //}
 
 
     suspend fun createComment() {
@@ -73,7 +73,8 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val idComment = generateRandomNumber()
         descriptionSportCenterViewModel.setComment(
             Comments(
-                nameUser = user!!.getOrNull()!!.nameUser,
+                emailUser = user!!.getOrNull()!!.email,
+                nameUser = user.getOrNull()!!.nameUser,
                 comment = binding.textComment.text.toString(),
                 nameSportCenter = sportCenter.getOrNull()!!.nameSportCenter,
                 id = idComment.toString()
@@ -86,6 +87,10 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val intent = Intent(this, ReserveUserActivity::class.java)
         intent.putExtra("Nit", nit)
         startActivity(intent)
+    }
+
+    fun goComment(comments: Comments){
+
     }
 
     private fun onLocateSportCenter() {

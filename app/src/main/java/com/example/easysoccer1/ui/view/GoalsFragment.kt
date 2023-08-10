@@ -34,10 +34,10 @@ class GoalsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        setUpAdapter()
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        setUpAdapter()
+
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         lifecycleScope.launch {
             val prefs = requireActivity().applicationContext.getSharedPreferences(

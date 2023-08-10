@@ -35,6 +35,7 @@ interface DatabaseUserRepository {
 
     //Comments Users Funtions
     fun setComment(comment: Comments)
+    suspend fun getListComments(nameSportCenter: String): Result<List<Comments>>
 
 
 }

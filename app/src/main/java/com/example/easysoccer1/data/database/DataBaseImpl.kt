@@ -299,6 +299,33 @@ class DataBaseImpl(
 
     //Comments Users Funtions
     override fun setComment(comment: Comments) {
-        TODO("Not yet implemented")
+        dataBase.collection("Users").document(comment.emailUser).collection("Comments")
+            .document(comment.id).set(
+                hashMapOf(
+                    "id" to comment.id,
+                    "nameUser" to comment.nameUser,
+                    "emailUser" to comment.emailUser,
+                    "nameSportCenter" to comment.nameSportCenter,
+                    "comment" to comment.comment
+                )
+            )
     }
+
+    override suspend fun getListComments(nameSportCenter: String): Result<List<Comments>> {
+        val list = mutableListOf<Comments>()
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", false).get().await()
+        for (document in snapshot.documents) {
+            val collectionComments = document.reference.collection("Comments")
+                .whereEqualTo("nameSportCenter", nameSportCenter)
+            val snapshotComments = collectionComments.get().await()
+            for (comment in snapshotComments.documents) {
+                val commentsList = comment.toObject(Comments::class.java)
+                commentsList?.let {
+                    list.add(commentsList)
+                }
+            }
+        }
+        return Result.success(list)
+    }
+
 }

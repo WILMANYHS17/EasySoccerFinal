@@ -28,7 +28,8 @@ val viewModelModule: Module = module {
 
     viewModel{
         HomeAdminViewModel(
-            sportCenterUseCase = get()
+            sportCenterUseCase = get(),
+            commentsUseCase = get()
         )
     }
 
@@ -54,7 +55,9 @@ val viewModelModule: Module = module {
     }
     viewModel{
         DescriptionSportCenterViewModel(
-            sportCenterUseCase = get()
+            sportCenterUseCase = get(),
+            usersUseCase = get(),
+            commentsUseCase = get()
         )
     }
     viewModel{

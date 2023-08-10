@@ -8,4 +8,8 @@ class CommentsUseCase(
     fun setComment(comment: Comments) {
         databaseUserRepository.setComment(comment)
     }
+
+    suspend fun getListComments(nameSportCenter: String): Result<List<Comments>> {
+        return databaseUserRepository.getListComments(nameSportCenter)
+    }
 }
