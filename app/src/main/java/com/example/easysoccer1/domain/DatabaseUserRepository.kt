@@ -1,9 +1,6 @@
 package com.example.easysoccer1.domain
 
-import com.example.easysoccer1.data.models.Goals
-import com.example.easysoccer1.data.models.Reserve
-import com.example.easysoccer1.data.models.Users
-import com.example.easysoccer1.data.models.SportCenter
+import com.example.easysoccer1.data.models.*
 
 interface DatabaseUserRepository {
 
@@ -35,6 +32,9 @@ interface DatabaseUserRepository {
     suspend fun getGoal(nit: String, size: String): Result<Goals>
     suspend fun updateGoal(updateGoal: Goals, number: String, nit: String)
     suspend fun getListReserveAdmin(nameSportCenter:String): Result<List<Reserve>>
+
+    //Comments Users Funtions
+    fun setComment(comment: Comments)
 
 
 }
