@@ -26,5 +26,11 @@ val useCaseModule: Module = module {
             databaseUserRepository = get()
         )
     }
+    factory{
+        CommentsUseCase(
+            databaseUserRepository = get()
+        )
+    }
+
 
 }

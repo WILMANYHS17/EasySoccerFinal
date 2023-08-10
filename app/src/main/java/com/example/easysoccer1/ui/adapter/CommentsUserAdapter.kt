@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easysoccer1.data.models.Comments
-import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.ItemCommentsBinding
+import kotlin.reflect.KFunction0
 
 
 class CommentsUserAdapter(private val goComment: (Comments) -> Unit) :
