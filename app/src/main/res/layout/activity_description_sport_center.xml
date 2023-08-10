@@ -138,7 +138,7 @@
             android:text="Comentar"
             android:layout_marginTop="8dp"
             android:background="@drawable/custom_button"
-            app:layout_constraintStart_toStartOf="id/textComment"
+            app:layout_constraintStart_toStartOf="@id/textComment"
             app:layout_constraintEnd_toEndOf="@id/textComment"
             app:layout_constraintTop_toBottomOf="@id/textComment"/>
 
@@ -149,7 +149,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleComments" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonCreateComment" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
