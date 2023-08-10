@@ -10,6 +10,6 @@ data class Users(
     // Por si la variable booleana comienza en "is"
     @field:JvmField
     var isAdmin: Boolean = false,
-    val email: String = ""
+    val email: String = "",
 )
 

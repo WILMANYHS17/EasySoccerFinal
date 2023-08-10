@@ -1,9 +1,6 @@
 package com.example.easysoccer1.data.database
 
-import com.example.easysoccer1.data.models.Goals
-import com.example.easysoccer1.data.models.Reserve
-import com.example.easysoccer1.data.models.Users
-import com.example.easysoccer1.data.models.SportCenter
+import com.example.easysoccer1.data.models.*
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -300,5 +297,8 @@ class DataBaseImpl(
         }
     }
 
-
+    //Comments Users Funtions
+    override fun setComment(comment: Comments) {
+        TODO("Not yet implemented")
+    }
 }
