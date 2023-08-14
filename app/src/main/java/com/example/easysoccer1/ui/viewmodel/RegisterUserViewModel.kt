@@ -1,6 +1,6 @@
 package com.example.easysoccer1.ui.viewmodel
 
-import android.util.Log
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.domain.UsersUseCase
@@ -11,5 +11,9 @@ class RegisterUserViewModel(
 
     fun createUser(users: Users) {
         usersUseCase.createUser(users)
+    }
+
+    fun setImageUser(uriImageUser: Uri, emailUser: String) {
+        usersUseCase.setImageUser(uriImageUser, emailUser)
     }
 }

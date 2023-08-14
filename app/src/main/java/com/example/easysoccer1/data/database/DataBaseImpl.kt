@@ -1,13 +1,17 @@
 package com.example.easysoccer1.data.database
 
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import com.example.easysoccer1.data.models.*
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 
 class DataBaseImpl(
-    private val dataBase: FirebaseFirestore
+    private val dataBase: FirebaseFirestore,
+    private val dataBaseStorage: FirebaseStorage
 ) : DatabaseUserRepository {
 
     // Users Funtions
@@ -20,10 +24,39 @@ class DataBaseImpl(
                 "nameUser" to users.nameUser,
                 "password" to users.password,
                 "birthday" to users.birthday,
-                "isAdmin" to (users.isAdmin),
-                "identification" to (users.identification),
+                "isAdmin" to users.isAdmin,
+                "identification" to users.identification,
+                "imageUserUri" to users.imageUserUri
             )
         )
+    }
+
+    override fun setImageUser(uriImageUser: Uri, emailUser: String) {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesUsers")
+        val imageReference = imagesReference.child(emailUser)
+        val uploadTask = imageReference.putFile(uriImageUser)
+        uploadTask.addOnSuccessListener {
+            // La tarea se completó con éxito
+            Log.d("TAG", "Imagen subida exitosamente")
+
+
+            // Obtenemos la uri de descarga de la imagen
+            imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                // La uri de descarga se obtuvo con éxito
+                Log.d("TAG", "La uri de descarga es: $downloadUri")
+
+            }.addOnFailureListener {
+                // La uri de descarga no se pudo obtener
+                Log.e("TAG", "Error al obtener la uri de descarga", it)
+
+            }
+        }.addOnFailureListener {
+            // La tarea falló con una excepción
+            Log.e("TAG", "Error al subir la imagen", it)
+
+        }
+
     }
 
     override suspend fun getUser(email: String, password: String): Result<Boolean> {
@@ -328,4 +361,7 @@ class DataBaseImpl(
         return Result.success(list)
     }
 
+
 }
+
+

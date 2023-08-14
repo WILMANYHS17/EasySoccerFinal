@@ -11,5 +11,6 @@ data class Users(
     @field:JvmField
     var isAdmin: Boolean = false,
     val email: String = "",
+    val imageUserUri: String = ""
 )
 

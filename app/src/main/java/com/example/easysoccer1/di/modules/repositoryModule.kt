@@ -10,6 +10,7 @@ val repositoryModule: Module = module {
     factory<DatabaseUserRepository> {
         DataBaseImpl(
             dataBase = get(),
+            dataBaseStorage = get()
         )
     }
 }
