@@ -1,5 +1,6 @@
 package com.example.easysoccer1.domain
 
+import android.net.Uri
 import com.example.easysoccer1.data.models.*
 
 interface DatabaseUserRepository {
@@ -36,6 +37,7 @@ interface DatabaseUserRepository {
     //Comments Users Funtions
     fun setComment(comment: Comments)
     suspend fun getListComments(nameSportCenter: String): Result<List<Comments>>
+    fun setImageUser(uriImageUser: Uri, emailUser: String)
 
 
 }

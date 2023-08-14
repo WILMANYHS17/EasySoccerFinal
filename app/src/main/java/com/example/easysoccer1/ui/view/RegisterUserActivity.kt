@@ -1,31 +1,45 @@
 package com.example.easysoccer1.ui.view
 
 import android.content.DialogInterface
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.R
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.ActivityRegisterUserBinding
 import com.example.easysoccer1.ui.calendarUser.DatePickerAgeFragment
 import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RegisterUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterUserBinding
     private lateinit var typeUser: String
+    private lateinit var uriImageUser: Uri
+    private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     var isAdmin = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.hide()
-        val registerUserViewModel: RegisterUserViewModel by viewModel()
+        pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
+            if (uri != null) {
+                binding.imageCircle.setImageURI(uri)
+                uriImageUser = uri
+            }
+        }
         typeUser = intent.extras!!.getString("user") ?: ""
         if (typeUser == "Admin") {
             isAdmin = true
@@ -37,33 +51,16 @@ class RegisterUserActivity : AppCompatActivity() {
         } else {
             binding.TittleRegister.text = getString(R.string.RegisterUser)
         }
+
         binding.buttonRegister.setOnClickListener {
-            if (validationRegister()) {
-                AlertDialog.Builder(this).apply {
-                    setTitle("Registro de Usuario")
-                    setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
-                    Log.i("Método", "Antes")
-                    setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-                        registerUserViewModel.createUser(
-                            Users(
-                                name = binding.editTextName.text.toString(),
-                                phone = binding.editTextPhone.text.toString(),
-                                email = binding.editTextEmailRegister.text.toString(),
-                                nameUser = binding.editTextNameUser.text.toString(),
-                                password = binding.editTextPassword.text.toString(),
-                                birthday = binding.editTextDate.text.toString(),
-                                isAdmin = isAdmin,
-                                identification = binding.editTextId.text.toString()
-                            )
-                        )
-                    }
-                    setNegativeButton("No", null)
-                }.show()
-            }
+            registerUser()
         }
         binding.editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
+        binding.imageCircle.setOnClickListener { imageUser() }
+
+
         binding.backButton.setOnClickListener { onClickBackActivity() }
         binding.buttonRegisterCancel.setOnClickListener {
             AlertDialog.Builder(this).apply {
@@ -75,7 +72,42 @@ class RegisterUserActivity : AppCompatActivity() {
                 setNegativeButton("No", null)
             }.show()
         }
+
     }
+
+    fun registerUser() {
+        val registerUserViewModel: RegisterUserViewModel by viewModel()
+        if (validationRegister()) {
+            AlertDialog.Builder(this).apply {
+                setTitle("Registro de Usuario")
+                setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
+                Log.i("Método", "Antes")
+                setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                    registerUserViewModel.createUser(
+                        Users(
+                            name = binding.editTextName.text.toString(),
+                            phone = binding.editTextPhone.text.toString(),
+                            email = binding.editTextEmailRegister.text.toString(),
+                            nameUser = binding.editTextNameUser.text.toString(),
+                            password = binding.editTextPassword.text.toString(),
+                            birthday = binding.editTextDate.text.toString(),
+                            isAdmin = isAdmin,
+                            identification = binding.editTextId.text.toString(),
+                            imageUserUri = uriImageUser.toString()
+                        )
+                    )
+                    registerUserViewModel.setImageUser(
+                        uriImageUser,
+                        binding.editTextEmailRegister.toString()
+                    )
+                }
+                setNegativeButton("No", null)
+            }.show()
+        }
+
+
+    }
+
 
     fun validationRegister(): Boolean {
         if (binding.editTextName.text?.isEmpty() == true && binding.editTextPhone.text?.isEmpty() == true &&
@@ -102,6 +134,12 @@ class RegisterUserActivity : AppCompatActivity() {
 
     private fun onClickBackActivity() {
         onBackPressed()
+    }
+
+    fun imageUser() {
+        binding.imageCircle.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        }
     }
 
     private fun showDatePickerDialog() {

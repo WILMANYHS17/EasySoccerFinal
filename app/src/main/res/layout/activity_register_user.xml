@@ -39,26 +39,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageViewUser"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCircle"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="30dp"
             android:background="@drawable/user"
-            app:layout_constraintEnd_toEndOf="@+id/TittleRegister"
-            app:layout_constraintStart_toStartOf="@+id/TittleRegister"
-            app:layout_constraintTop_toBottomOf="@+id/TittleRegister" />
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            app:layout_constraintTop_toBottomOf="@+id/TittleRegister"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextNameLayout"
             android:layout_width="250dp"
             android:layout_height="80dp"
+            android:layout_marginTop="8dp"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="@id/imageViewUser"
-            app:layout_constraintStart_toStartOf="@id/imageViewUser"
-            app:layout_constraintTop_toBottomOf="@id/imageViewUser">
+            app:layout_constraintEnd_toEndOf="@id/imageCircle"
+            app:layout_constraintStart_toStartOf="@id/imageCircle"
+            app:layout_constraintTop_toBottomOf="@id/imageCircle">
 
             <EditText
                 android:id="@+id/editTextName"
@@ -193,6 +195,7 @@
             android:paddingTop="8dp"
             android:paddingEnd="10dp"
             android:textSize="17dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="@+id/editTextIdLayout"
             app:layout_constraintStart_toStartOf="@+id/editTextIdLayout"
             app:layout_constraintTop_toBottomOf="@+id/editTextIdLayout" />
