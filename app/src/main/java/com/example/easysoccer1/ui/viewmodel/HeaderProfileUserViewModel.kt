@@ -10,4 +10,8 @@ class HeaderProfileUserViewModel(
     suspend fun getNameUser(email: String): Result<Users> {
         return usersUseCase.searchUser(email)
     }
+
+    suspend fun getImageUser(email: String): Result<String?> {
+    return usersUseCase.getImageUser(email)
+    }
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.easysoccer1.data.models.*
 import com.example.easysoccer1.domain.DatabaseUserRepository
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
@@ -58,6 +59,20 @@ class DataBaseImpl(
         }
 
     }
+
+    override suspend fun getImageUser(email: String): Result<String?> {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesUsers")
+        val goImage = imagesReference.child(email)
+        return try {
+            val task = goImage.downloadUrl.await()
+            val imageUrl = task.toString()
+            Result.success(imageUrl)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     override suspend fun getUser(email: String, password: String): Result<Boolean> {
         val snapshot = dataBase.collection("Users").document(email).get().await()
