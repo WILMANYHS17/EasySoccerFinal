@@ -77,6 +77,7 @@ class RegisterUserActivity : AppCompatActivity() {
 
     fun registerUser() {
         val registerUserViewModel: RegisterUserViewModel by viewModel()
+        val emailUser = binding.editTextEmailRegister.text.toString()
         if (validationRegister()) {
             AlertDialog.Builder(this).apply {
                 setTitle("Registro de Usuario")
@@ -87,7 +88,7 @@ class RegisterUserActivity : AppCompatActivity() {
                         Users(
                             name = binding.editTextName.text.toString(),
                             phone = binding.editTextPhone.text.toString(),
-                            email = binding.editTextEmailRegister.text.toString(),
+                            email = emailUser,
                             nameUser = binding.editTextNameUser.text.toString(),
                             password = binding.editTextPassword.text.toString(),
                             birthday = binding.editTextDate.text.toString(),
@@ -98,7 +99,7 @@ class RegisterUserActivity : AppCompatActivity() {
                     )
                     registerUserViewModel.setImageUser(
                         uriImageUser,
-                        binding.editTextEmailRegister.toString()
+                        emailUser
                     )
                 }
                 setNegativeButton("No", null)

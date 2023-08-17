@@ -32,4 +32,8 @@ class UsersUseCase(
         databaseUserRepository.setImageUser(uriImageUser, emailUser)
     }
 
+    suspend fun getImageUser(email: String): Result<String?> {
+        return databaseUserRepository.getImageUser(email)
+    }
+
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.content.ContextCompat.startActivity
+import com.bumptech.glide.Glide
 import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.HeaderProfileBinding
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
@@ -14,20 +15,24 @@ class HeaderProfileUser(
     val context: Context,
     val headerProfileUserViewModel: HeaderProfileUserViewModel,
     val prefs: SharedPreferences
+
 ) {
 
     suspend fun build() {
+
         binding.backButton.setOnClickListener {
             (context as Activity).onBackPressed()
         }
 
         val email = prefs.getString("email", "")
         email?.let {
-            binding.nameUserProfile.text =
-                getNameUser(it).getOrNull()?.nameUser
-        }
+            binding.nameUserProfile.text = getNameUser(it).getOrNull()?.nameUser
 
+        }
+        val url = email?.let { getImageUser(it) }
+        Glide.with(context).load(url?.getOrNull().toString()).into(binding.imvUser)
         binding.imvUser.setOnClickListener {
+
             val intent = Intent(context, RegisterUserActivity::class.java)
             intent.putExtra("user", "User")
             startActivity(context, intent, null)
@@ -36,5 +41,9 @@ class HeaderProfileUser(
 
     suspend fun getNameUser(email: String): Result<Users> {
         return headerProfileUserViewModel.getNameUser(email)
+    }
+
+    suspend fun getImageUser(email: String): Result<String?> {
+        return headerProfileUserViewModel.getImageUser(email)
     }
 }
