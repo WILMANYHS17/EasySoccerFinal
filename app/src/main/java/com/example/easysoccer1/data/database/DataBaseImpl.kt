@@ -81,6 +81,17 @@ class DataBaseImpl(
 
     }
 
+    override suspend fun getUserComplete(emailUser: String): Result<Users> {
+        val snapshot =
+            dataBase.collection("Users").document(emailUser).get().await()
+        val users = snapshot.toObject(Users::class.java)
+        return if (users != null) {
+            Result.success(users)
+        } else {
+            Result.failure(Exception("Algo salió mal"))
+        }
+    }
+
     override suspend fun searchUser(email: String): Result<Users> {
         val snapshot = dataBase.collection("Users").document(email).get().await()
         val users = snapshot.toObject(Users::class.java)
@@ -141,7 +152,6 @@ class DataBaseImpl(
             Log.e("TAG", "Error al subir la imagen", it)
         }
     }
-
 
     override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
 

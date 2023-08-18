@@ -11,7 +11,7 @@ interface DatabaseUserRepository {
     suspend fun getUser(email: String, password: String): Result<Boolean>
     fun changePassword(forgotPassword: Users)
     suspend fun searchUser(email: String): Result<Users>
-
+    suspend fun getUserComplete(emailUser: String): Result<Users>
     //SportCenter Funtions
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
@@ -40,6 +40,7 @@ interface DatabaseUserRepository {
     fun setImageUser(uriImageUser: Uri, emailUser: String)
     suspend fun getImageUser(email: String): Result<String?>
     fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
+
 
 
 }
