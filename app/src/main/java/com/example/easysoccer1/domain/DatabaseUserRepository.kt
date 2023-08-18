@@ -39,6 +39,7 @@ interface DatabaseUserRepository {
     suspend fun getListComments(nameSportCenter: String): Result<List<Comments>>
     fun setImageUser(uriImageUser: Uri, emailUser: String)
     suspend fun getImageUser(email: String): Result<String?>
+    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
 
 
 }

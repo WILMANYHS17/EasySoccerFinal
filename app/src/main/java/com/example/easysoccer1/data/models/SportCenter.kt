@@ -7,5 +7,7 @@ data class SportCenter(
     var price5vs5: String = "",
     var price8vs8: String = "",
     var description: String = "",
-    val emailAdmin: String = ""
+    val emailAdmin: String = "",
+    val imageSportCenterUrl: String = "",
+    val imagesSportCenterList: MutableList<String> = mutableListOf()
 )
