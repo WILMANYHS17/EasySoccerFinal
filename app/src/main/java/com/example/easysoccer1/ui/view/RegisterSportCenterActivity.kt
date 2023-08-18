@@ -1,8 +1,12 @@
 package com.example.easysoccer1.ui.view
 
 import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +23,8 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterSportCenterBinding
     private lateinit var editYes: String
     private lateinit var nit: String
+    private lateinit var uriImageSportCenter: Uri
+    private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
@@ -37,11 +43,17 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                 prefs
             ).build()
         }
-
+        pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                binding.imageSportCenter.setImageURI(uri)
+                uriImageSportCenter = uri
+            }
+        }
         editYes = intent.extras!!.getString("Edit") ?: ""
         if (editYes == "No") {
             binding.nitSportCenter.visibility = View.VISIBLE
         }
+        binding.imageSportCenter.setOnClickListener { imageSportCenter() }
         binding.buttonRegisterSportCenter.setOnClickListener { onClickCreateSportCenter() }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
 
@@ -62,17 +74,21 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                     } else {
                         nit = binding.nitSportCenter.text.toString()
                     }
-                    registerSportCenterViewModel.setSportCenter(
-                        SportCenter(
-                            nameSportCenter = binding.nameSportCenter.text.toString(),
-                            address = binding.addressSportCenter.text.toString(),
-                            nit = nit,
-                            price5vs5 = binding.price5vs5.text.toString(),
-                            price8vs8 = binding.price8vs8.text.toString(),
-                            description = binding.descriptionSportCenter.text.toString(),
-                            emailAdmin = emailAdmin.toString()
-                        )
+                    val sportCenter = SportCenter(
+                        nameSportCenter = binding.nameSportCenter.text.toString(),
+                        address = binding.addressSportCenter.text.toString(),
+                        nit = nit,
+                        price5vs5 = binding.price5vs5.text.toString(),
+                        price8vs8 = binding.price8vs8.text.toString(),
+                        description = binding.descriptionSportCenter.text.toString(),
+                        emailAdmin = emailAdmin.toString(),
+                        imageSportCenter = uriImageSportCenter.toString()
                     )
+                    sportCenter.imagesSportCenterList.add("")
+                    registerSportCenterViewModel.setSportCenter(
+                        sportCenter
+                    )
+                    registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
                 }
                 setNegativeButton("No", null)
             }.show()
@@ -98,6 +114,12 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             binding.price8vs8.setError(null)
             binding.descriptionSportCenter.setError(null)
             return true
+        }
+    }
+
+    fun imageSportCenter() {
+        binding.imageSportCenter.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
 

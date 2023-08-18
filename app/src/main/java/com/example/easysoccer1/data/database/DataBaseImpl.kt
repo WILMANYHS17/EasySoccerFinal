@@ -27,7 +27,7 @@ class DataBaseImpl(
                 "birthday" to users.birthday,
                 "isAdmin" to users.isAdmin,
                 "identification" to users.identification,
-                "imageUserUri" to users.imageUserUri
+                "imageUserUri" to users.imageUserUrl
             )
         )
     }
@@ -59,7 +59,7 @@ class DataBaseImpl(
         }
 
     }
-
+// GetImge se puede colocar dentro de cualquier función get
     override suspend fun getImageUser(email: String): Result<String?> {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesUsers")
@@ -118,10 +118,30 @@ class DataBaseImpl(
                     "description" to sportCenter.description,
                     "nit" to sportCenter.nit,
                     "price5vs5" to sportCenter.price5vs5,
-                    "price8vs8" to sportCenter.price8vs8
+                    "price8vs8" to sportCenter.price8vs8,
+                    "urlImageSportCenter" to sportCenter.imageSportCenterUrl
                 )
             )
+
     }
+// Se puede colocar la función setImage dentro de cualquier función set
+    override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesSportCenter")
+        val imageReference = imagesReference.child(nit)
+        val uploadTask = imageReference.putFile(uriImageSportCenter)
+        uploadTask.addOnSuccessListener {
+            Log.d("TAG", "Imagen subida exitosamente")
+            imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                Log.d("TAG", "La uri de descarga es: $downloadUri")
+            }.addOnFailureListener {
+                Log.e("TAG", "Error al obtener la uri de descarga", it)
+            }
+        }.addOnFailureListener {
+            Log.e("TAG", "Error al subir la imagen", it)
+        }
+    }
+
 
     override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
 
@@ -146,6 +166,7 @@ class DataBaseImpl(
 
         for (document in snapshot.documents) {
             val sportCenter = document.toObject(SportCenter::class.java)
+            //sportCenter.imageSportCenter = get
             sportCenter?.let {
                 list.add(sportCenter)
             }
