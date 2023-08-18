@@ -35,6 +35,8 @@ class HeaderProfileUser(
 
             val intent = Intent(context, RegisterUserActivity::class.java)
             intent.putExtra("user", "User")
+            intent.putExtra("EditUser", "Yes")
+            intent.putExtra("EmailUser", email)
             startActivity(context, intent, null)
         }
     }

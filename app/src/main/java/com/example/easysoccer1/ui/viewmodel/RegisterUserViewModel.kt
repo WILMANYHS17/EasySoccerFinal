@@ -16,4 +16,8 @@ class RegisterUserViewModel(
     fun setImageUser(uriImageUser: Uri, emailUser: String) {
         usersUseCase.setImageUser(uriImageUser, emailUser)
     }
+
+    suspend fun getUser(emailUser: String): Result<Users> {
+        return usersUseCase.getUser(emailUser)
+    }
 }
