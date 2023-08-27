@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.easysoccer1.databinding.ItemsSportCenterUserBinding
 import com.example.easysoccer1.data.models.SportCenter
 
@@ -54,6 +55,7 @@ class SportCenterUserAdapter(
                 textNameStadiumItem.text = stadiumInYourArea.nameSportCenter
                 textPriceStadiumItem.text = stadiumInYourArea.price5vs5
                 textAdressStadiumItem.text = stadiumInYourArea.address
+                Glide.with(context).load(stadiumInYourArea.imageSportCenterUrl).into(imageSportCenterItem)
                 itemSportCenterUser.setOnClickListener { goToDescription(stadiumInYourArea.nit) }
                 //btnMap.setOnClickListener { selectGoToDetail(stadiumInYourArea) }
                 //btnReserverUser.setOnClickListener { selectGoToReserve(stadiumInYourArea) }
