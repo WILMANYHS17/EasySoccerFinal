@@ -61,7 +61,16 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     fun onClickCreateSportCenter() {
         val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
-        var url: String = ""
+        if (binding.nitSportCenter.text.isEmpty()) {
+            nit = intent.extras!!.getString("Nit") ?: ""
+        } else {
+            nit = binding.nitSportCenter.text.toString()
+        }
+        registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
+        var url = ""
+        lifecycleScope.launch {
+            url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
+        }
         if (validationRegister()) {
             AlertDialog.Builder(this).apply {
                 setTitle("Registro de Centro deportivo")
@@ -69,17 +78,6 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                 setPositiveButton("Sí") { _: DialogInterface, _: Int ->
                     val prefs = getSharedPreferences("easySoccer", MODE_PRIVATE)
                     val emailAdmin = prefs.getString("email", "")
-
-                    if (binding.nitSportCenter.text.isEmpty()) {
-                        nit = intent.extras!!.getString("Nit") ?: ""
-                    } else {
-                        nit = binding.nitSportCenter.text.toString()
-                    }
-                    registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
-                    lifecycleScope.launch {
-                        url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
-                    }
-
                     val sportCenter = SportCenter(
                         nameSportCenter = binding.nameSportCenter.text.toString(),
                         address = binding.addressSportCenter.text.toString(),

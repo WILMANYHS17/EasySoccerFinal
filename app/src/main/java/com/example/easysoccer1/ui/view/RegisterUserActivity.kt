@@ -97,17 +97,23 @@ class RegisterUserActivity : AppCompatActivity() {
 
     fun registerUser() {
         val registerUserViewModel: RegisterUserViewModel by viewModel()
-        val emailUser = binding.editTextEmailRegister.text.toString()
         var url = ""
+        registerUserViewModel.setImageUser(
+            uriImageUser,
+            emailUser
+        )
+        lifecycleScope.launch {
+            url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
+        }
+        val emailUser = binding.editTextEmailRegister.text.toString()
+
         if (validationRegister()) {
             AlertDialog.Builder(this).apply {
                 setTitle("Registro de Usuario")
                 setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
                 Log.i("Método", "Antes")
                 setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-                    lifecycleScope.launch {
-                        url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
-                    }
+
                     registerUserViewModel.createUser(
                         Users(
                             name = binding.editTextName.text.toString(),
@@ -120,10 +126,6 @@ class RegisterUserActivity : AppCompatActivity() {
                             identification = binding.editTextId.text.toString(),
                             imageUserUrl = url
                         )
-                    )
-                    registerUserViewModel.setImageUser(
-                        uriImageUser,
-                        emailUser
                     )
                 }
                 setNegativeButton("No", null)
