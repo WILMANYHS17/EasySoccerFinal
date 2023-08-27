@@ -30,7 +30,6 @@ class RegisterUserActivity : AppCompatActivity() {
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     var isAdmin = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
