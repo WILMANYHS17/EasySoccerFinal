@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ItemSelectSportCenterBinding
 
@@ -50,6 +51,7 @@ class SportCenterAdminAdapter(private val goToSportCenter: (String) -> Unit) :
                 titleSportCenter.text = sportCenter.nameSportCenter
                 titleNitSportCenter.text = sportCenter.nit
                 titleAddressSportCenter.text = sportCenter.address
+                Glide.with(context).load(sportCenter.imageSportCenterUrl).into(imageSelectSportCenter)
                 itemSelectSportCenter.setOnClickListener { goToSportCenter(sportCenter.nit) }
                 //val identifier =
                 //context.resources.getIdentifier(
@@ -64,6 +66,8 @@ class SportCenterAdminAdapter(private val goToSportCenter: (String) -> Unit) :
             }
 
         }
+
+
     }
 
     companion object {

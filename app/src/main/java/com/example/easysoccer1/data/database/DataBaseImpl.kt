@@ -2,10 +2,8 @@ package com.example.easysoccer1.data.database
 
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import com.example.easysoccer1.data.models.*
 import com.example.easysoccer1.domain.DatabaseUserRepository
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
@@ -27,7 +25,7 @@ class DataBaseImpl(
                 "birthday" to users.birthday,
                 "isAdmin" to users.isAdmin,
                 "identification" to users.identification,
-                "imageUserUri" to users.imageUserUri
+                "imageUserUri" to users.imageUserUrl
             )
         )
     }
@@ -59,7 +57,7 @@ class DataBaseImpl(
         }
 
     }
-
+// GetImge se puede colocar dentro de cualquier función get
     override suspend fun getImageUser(email: String): Result<String?> {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesUsers")
@@ -79,6 +77,17 @@ class DataBaseImpl(
         val passwordDb = snapshot.get("password")
         return Result.success(password == passwordDb)
 
+    }
+
+    override suspend fun getUserComplete(emailUser: String): Result<Users> {
+        val snapshot =
+            dataBase.collection("Users").document(emailUser).get().await()
+        val users = snapshot.toObject(Users::class.java)
+        return if (users != null) {
+            Result.success(users)
+        } else {
+            Result.failure(Exception("Algo salió mal"))
+        }
     }
 
     override suspend fun searchUser(email: String): Result<Users> {
@@ -118,13 +127,43 @@ class DataBaseImpl(
                     "description" to sportCenter.description,
                     "nit" to sportCenter.nit,
                     "price5vs5" to sportCenter.price5vs5,
-                    "price8vs8" to sportCenter.price8vs8
+                    "price8vs8" to sportCenter.price8vs8,
+                    "imageSportCenterUrl" to sportCenter.imageSportCenterUrl
                 )
             )
     }
+// Se puede colocar la función setImage dentro de cualquier función set
+    override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri){
+    val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesSportCenter")
+        val imageReference = imagesReference.child(nit)
+        val uploadTask = imageReference.putFile(uriImageSportCenter)
+        uploadTask.addOnSuccessListener {
+            Log.d("TAG", "Imagen subida exitosamente")
+            imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                Log.d("TAG", "La uri de descarga es: $downloadUri")
+            }.addOnFailureListener {
+                Log.e("TAG", "Error al obtener la uri de descarga", it)
+            }
+        }.addOnFailureListener {
+            Log.e("TAG", "Error al subir la imagen", it)
+        }
+    }
+
+    override suspend fun getImageSportCenter(nit: String): Result<String> {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesSportCenter")
+        val goImage = imagesReference.child(nit)
+        return try {
+            val task = goImage.downloadUrl.await()
+            val imageUrl = task.toString()
+            Result.success(imageUrl)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 
     override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
-
         val snapshot =
             dataBase.collection("Users").document(email).collection("SportCenter").document(nit)
                 .get().await()
@@ -146,6 +185,7 @@ class DataBaseImpl(
 
         for (document in snapshot.documents) {
             val sportCenter = document.toObject(SportCenter::class.java)
+            //sportCenter.imageSportCenter = get
             sportCenter?.let {
                 list.add(sportCenter)
             }

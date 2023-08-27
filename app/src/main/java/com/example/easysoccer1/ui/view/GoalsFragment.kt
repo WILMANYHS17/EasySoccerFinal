@@ -34,11 +34,12 @@ class GoalsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setUpAdapter()
+
         _binding = FragmentGoalsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
+        setUpAdapter()
         lifecycleScope.launch {
             val prefs = requireActivity().applicationContext.getSharedPreferences(
                 "easySoccer",
@@ -53,6 +54,7 @@ class GoalsFragment : Fragment() {
             goalsAdminAdapter.setListGoals(getListGoals())
 
         }
+
         binding.bottonCreateGoal.setOnClickListener { onClickCreateGoals() }
         return root
     }

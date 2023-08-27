@@ -33,6 +33,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
+        android:scaleType="fitXY"
         android:background="@drawable/sportcenter"
         app:layout_constraintEnd_toEndOf="@+id/titleRegisterSportCenter"
         app:layout_constraintStart_toStartOf="@+id/titleRegisterSportCenter"

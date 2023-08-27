@@ -25,6 +25,8 @@ class RegisterUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterUserBinding
     private lateinit var typeUser: String
     private lateinit var uriImageUser: Uri
+    private lateinit var editUser: String
+    private lateinit var emailUser: String
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     var isAdmin = false
 
@@ -46,10 +48,15 @@ class RegisterUserActivity : AppCompatActivity() {
             binding.TittleRegister.text = getString(R.string.RegisterAdmin)
             binding.editTextId.visibility = View.VISIBLE
             binding.editTextIdLayout.visibility = View.VISIBLE
-
-
         } else {
             binding.TittleRegister.text = getString(R.string.RegisterUser)
+        }
+        lifecycleScope.launch {
+            editUser = intent.extras!!.getString("EditUser") ?: ""
+            if (editUser == "Yes") {
+                emailUser = intent.extras!!.getString("EmailUser") ?: ""
+                getUser()
+            }
         }
 
         binding.buttonRegister.setOnClickListener {
@@ -75,15 +82,33 @@ class RegisterUserActivity : AppCompatActivity() {
 
     }
 
+    private suspend fun getUser() {
+        val registerUserViewModel: RegisterUserViewModel by viewModel()
+        val user = registerUserViewModel.getUser(emailUser)
+        user?.let {
+            binding.editTextName.setText(user.getOrNull()?.name)
+            binding.editTextEmailRegister.setText(user.getOrNull()?.email)
+            binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
+            binding.editTextPassword.setText(user.getOrNull()?.password)
+            binding.editTextPhone.setText(user.getOrNull()?.phone)
+            binding.editTextDate.text = user.getOrNull()?.birthday
+            binding.editTextId.setText(user.getOrNull()?.identification)
+        }
+    }
+
     fun registerUser() {
         val registerUserViewModel: RegisterUserViewModel by viewModel()
         val emailUser = binding.editTextEmailRegister.text.toString()
+        var url = ""
         if (validationRegister()) {
             AlertDialog.Builder(this).apply {
                 setTitle("Registro de Usuario")
                 setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
                 Log.i("Método", "Antes")
                 setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                    lifecycleScope.launch {
+                        url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
+                    }
                     registerUserViewModel.createUser(
                         Users(
                             name = binding.editTextName.text.toString(),
@@ -94,7 +119,7 @@ class RegisterUserActivity : AppCompatActivity() {
                             birthday = binding.editTextDate.text.toString(),
                             isAdmin = isAdmin,
                             identification = binding.editTextId.text.toString(),
-                            imageUserUri = uriImageUser.toString()
+                            imageUserUrl = url
                         )
                     )
                     registerUserViewModel.setImageUser(
