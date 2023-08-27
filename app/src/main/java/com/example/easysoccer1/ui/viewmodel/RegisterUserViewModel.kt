@@ -20,4 +20,8 @@ class RegisterUserViewModel(
     suspend fun getUser(emailUser: String): Result<Users> {
         return usersUseCase.getUser(emailUser)
     }
+
+    suspend fun getImageUser(emailUser: String): Result<String?> {
+        return usersUseCase.getImageUser(emailUser)
+    }
 }

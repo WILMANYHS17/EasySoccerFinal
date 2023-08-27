@@ -26,4 +26,8 @@ class SportCenterUseCase(
         databaseUserRepository.setImageSportCenter(nit, uriImageSportCenter)
     }
 
+    suspend fun getImageSportCenter(nit: String): Result<String> {
+        return databaseUserRepository.getImageSportCenter(nit)
+    }
+
 }
