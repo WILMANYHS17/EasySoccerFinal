@@ -16,4 +16,8 @@ class RegisterSportCenterViewModel(
         sportCenterUseCase.setImageSportCenter(nit, uriImageSportCenter)
     }
 
+    suspend fun getImageSportCenter(nit: String): Result<String> {
+        return sportCenterUseCase.getImageSportCenter(nit)
+    }
+
 }

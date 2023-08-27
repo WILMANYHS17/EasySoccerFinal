@@ -51,8 +51,7 @@ class SportCenterAdminAdapter(private val goToSportCenter: (String) -> Unit) :
                 titleSportCenter.text = sportCenter.nameSportCenter
                 titleNitSportCenter.text = sportCenter.nit
                 titleAddressSportCenter.text = sportCenter.address
-                //val url = getImageSportCenter(sportCenter.nit)
-                //Glide.with(context).load(url?.getOrNull().toString()).into(imageSelectSportCenter)
+                Glide.with(context).load(sportCenter.imageSportCenterUrl).into(imageSelectSportCenter)
                 itemSelectSportCenter.setOnClickListener { goToSportCenter(sportCenter.nit) }
                 //val identifier =
                 //context.resources.getIdentifier(
