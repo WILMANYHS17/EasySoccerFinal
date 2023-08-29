@@ -12,10 +12,17 @@ interface DatabaseUserRepository {
     fun changePassword(forgotPassword: Users)
     suspend fun searchUser(email: String): Result<Users>
     suspend fun getUserComplete(emailUser: String): Result<Users>
+    fun setImageUser(uriImageUser: Uri, emailUser: String)
+    suspend fun getImageUser(email: String): Result<String?>
+
     //SportCenter Funtions
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
     suspend fun getListSportCenter(email: String?): Result<List<SportCenter>>
+    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
+    suspend fun getImageSportCenter(nit: String): Result<String>
+    fun setListImageSportCenter(uriList: MutableList<Uri>, nit: String)
+    suspend fun getListImageSportCenter(nit: String): Result<List<String>>
 
     //Goals Funtions
     fun setGoals(goals: Goals, emailAdmin: String?, nit: String?)
@@ -37,10 +44,8 @@ interface DatabaseUserRepository {
     //Comments Users Funtions
     fun setComment(comment: Comments)
     suspend fun getListComments(nameSportCenter: String): Result<List<Comments>>
-    fun setImageUser(uriImageUser: Uri, emailUser: String)
-    suspend fun getImageUser(email: String): Result<String?>
-    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
-    suspend fun getImageSportCenter(nit: String): Result<String>
+
+
 
 
 }

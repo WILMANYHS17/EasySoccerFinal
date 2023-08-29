@@ -30,4 +30,12 @@ class SportCenterUseCase(
         return databaseUserRepository.getImageSportCenter(nit)
     }
 
+    fun setListImageSportCenter(uriList: MutableList<Uri>, nit: String) {
+        databaseUserRepository.setListImageSportCenter(uriList, nit)
+    }
+
+    suspend fun getListImageSportCenter(nit: String): Result<List<String>>{
+        return databaseUserRepository.getListImageSportCenter(nit)
+    }
+
 }

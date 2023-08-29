@@ -9,5 +9,4 @@ data class SportCenter(
     var description: String = "",
     val emailAdmin: String = "",
     val imageSportCenterUrl: String = "",
-    val imagesSportCenterList: MutableList<String> = mutableListOf()
 )
