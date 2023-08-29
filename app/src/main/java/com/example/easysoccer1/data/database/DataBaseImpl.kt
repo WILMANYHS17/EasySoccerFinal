@@ -57,7 +57,8 @@ class DataBaseImpl(
         }
 
     }
-// GetImge se puede colocar dentro de cualquier función get
+
+    // GetImge se puede colocar dentro de cualquier función get
     override suspend fun getImageUser(email: String): Result<String?> {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesUsers")
@@ -132,9 +133,10 @@ class DataBaseImpl(
                 )
             )
     }
-// Se puede colocar la función setImage dentro de cualquier función set
-    override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri){
-    val storageReference = dataBaseStorage.reference
+
+    // Se puede colocar la función setImage dentro de cualquier función set
+    override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
+        val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesSportCenter")
         val imageReference = imagesReference.child(nit)
         val uploadTask = imageReference.putFile(uriImageSportCenter)
@@ -162,6 +164,43 @@ class DataBaseImpl(
             Result.failure(e)
         }
     }
+
+    override fun setListImageSportCenter(uriList: MutableList<Uri>, nit: String) {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesSportCenter").child(nit)
+        for ((index, uri) in uriList.withIndex()) {
+            val imageName = "image$index.jpg"
+            val imageReference = imagesReference.child(imageName)
+            val uploadTask = imageReference.putFile(uri)
+            uploadTask.addOnSuccessListener {
+                Log.d("TAG", "Imagen subida exitosamente")
+                imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                    Log.d("TAG", "La uri de descarga es: $downloadUri")
+                }.addOnFailureListener {
+                    Log.e("TAG", "Error al obtener la uri de descarga", it)
+                }
+            }.addOnFailureListener {
+                Log.e("TAG", "Error al subir la imagen", it)
+            }
+        }
+    }
+
+    override suspend fun getListImageSportCenter(nit: String): Result<List<String>> {
+        val storageReference = dataBaseStorage.reference
+        val imagesReference = storageReference.child("ImagesSportCenter").child(nit)
+        return try {
+            val imageList = mutableListOf<String>()
+            val imageRefs = imagesReference.listAll().await().items
+            for (imageRef in imageRefs) {
+                val imageUrl = imageRef.downloadUrl.await().toString()
+                imageList.add(imageUrl)
+            }
+            Result.success(imageList)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     override suspend fun getSportCenter(nit: String, email: String): Result<SportCenter> {
         val snapshot =

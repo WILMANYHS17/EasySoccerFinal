@@ -1,8 +1,11 @@
 package com.example.easysoccer1.ui.view
 
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -25,6 +28,9 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     private lateinit var nit: String
     private lateinit var uriImageSportCenter: Uri
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var pickMediaImageMultiple: ActivityResultLauncher<Intent>
+    private val uriList = mutableListOf<Uri>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterSportCenterBinding.inflate(layoutInflater)
@@ -49,11 +55,33 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                 uriImageSportCenter = uri
             }
         }
+
+        pickMediaImageMultiple =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val clipData = result.data?.clipData
+                    if (clipData != null) {
+                        for (i in 0 until clipData.itemCount) {
+                            val uri = clipData.getItemAt(i).uri
+                            uriList.add(uri)
+                        }
+                    } else {
+                        val uri = result.data?.data
+                        if (uri != null) {
+                            uriList.add(uri)
+                        }
+                    }
+                    Log.d("Lista", uriList.toString())
+                }
+            }
+
+
         editYes = intent.extras!!.getString("Edit") ?: ""
         if (editYes == "No") {
             binding.nitSportCenter.visibility = View.VISIBLE
         }
         binding.imageSportCenter.setOnClickListener { imageSportCenter() }
+        binding.buttonListImagesSportCenter.setOnClickListener { listImages() }
         binding.buttonRegisterSportCenter.setOnClickListener { onClickCreateSportCenter() }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
 
@@ -67,9 +95,12 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             nit = binding.nitSportCenter.text.toString()
         }
         registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
+        registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
         var url = ""
+        var urlList = emptyList<String>()
         lifecycleScope.launch {
             url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
+
         }
         if (validationRegister()) {
             AlertDialog.Builder(this).apply {
@@ -88,7 +119,6 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                         emailAdmin = emailAdmin.toString(),
                         imageSportCenterUrl = url
                     )
-                    //sportCenter.imagesSportCenterList.add("")
                     registerSportCenterViewModel.setSportCenter(
                         sportCenter
                     )
@@ -122,9 +152,14 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     }
 
     fun imageSportCenter() {
-        binding.imageSportCenter.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-        }
+        pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    fun listImages() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        pickMediaImageMultiple.launch(intent)
     }
 
     fun onClickBackActivity() {

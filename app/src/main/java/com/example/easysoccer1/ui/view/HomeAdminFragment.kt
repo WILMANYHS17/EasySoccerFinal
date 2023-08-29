@@ -12,25 +12,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.easysoccer1.data.models.Comments
 import com.example.easysoccer1.databinding.FragmentHomeAdminBinding
 import com.example.easysoccer1.ui.adapter.CommentsUserAdapter
+import com.example.easysoccer1.ui.adapter.ImagesDetailAdapter
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import com.example.easysoccer1.ui.viewmodel.HomeAdminViewModel
 import com.example.easysoccer1.ui.viewmodel.HomeUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.abs
 
 class HomeAdminFragment() : Fragment() {
 
     private var _binding: FragmentHomeAdminBinding? = null
     private lateinit var nit: String
+    private val homeAdminViewModel: HomeAdminViewModel by viewModel()
     private val binding get() = _binding!!
 
     private val commentsUserAdapter by lazy {
         CommentsUserAdapter(
             ::goToComments
         )
+    }
+
+    private val imagesDetailAdapter by lazy {
+        ImagesDetailAdapter()
     }
 
     override fun onCreateView(
@@ -47,7 +57,8 @@ class HomeAdminFragment() : Fragment() {
         val root: View = binding.root
         setUpAdapter()
         lifecycleScope.launch {
-           commentsUserAdapter.setListComment(getListComments())
+            commentsUserAdapter.setListComment(getListComments())
+            imagesDetailAdapter.setListImage(getListImageSportCenter())
             val prefs = requireActivity().applicationContext.getSharedPreferences(
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
@@ -76,7 +87,7 @@ class HomeAdminFragment() : Fragment() {
     }
 
     suspend fun getSportCenter(nit: String, prefs: SharedPreferences) {
-        val homeAdminViewModel: HomeAdminViewModel by viewModel()
+
 
         val editor = requireActivity().getSharedPreferences("easySoccer", MODE_PRIVATE).edit()
         editor.putString("Nit", nit)
@@ -99,21 +110,43 @@ class HomeAdminFragment() : Fragment() {
 
     }
 
-    suspend fun getListComments(): List<Comments>{
-        val homeAdminViewModel : HomeAdminViewModel by viewModel()
+    suspend fun getListComments(): List<Comments> {
+        val homeAdminViewModel: HomeAdminViewModel by viewModel()
         val prefs = requireActivity().applicationContext.getSharedPreferences(
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
         val emailAdmin = prefs.getString("email", "")
         val sportCenter = emailAdmin?.let { homeAdminViewModel.getSportCenter(nit, it) }
-        return homeAdminViewModel.getListComments(sportCenter!!.getOrNull()!!.nameSportCenter).getOrNull() ?: emptyList()
+        return homeAdminViewModel.getListComments(sportCenter!!.getOrNull()!!.nameSportCenter)
+            .getOrNull() ?: emptyList()
     }
 
     fun goToComments(comments: Comments) {
 
     }
+
+    suspend fun getListImageSportCenter(): List<String> {
+        return homeAdminViewModel.getListImageSportCenter(nit).getOrNull() ?: emptyList()
+    }
+
     fun setUpAdapter() {
+        binding.viewPageSportCenter.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            adapter = imagesDetailAdapter
+            val compositePageTransformer = CompositePageTransformer()
+            val pageTransformer = ViewPager2.PageTransformer { page, position ->
+                var r = 1 - abs(position)
+                page.scaleY = 0.85f + r * 0.15f
+            }
+            with(compositePageTransformer) {
+                addTransformer(MarginPageTransformer(40))
+                addTransformer(pageTransformer)
+            }
+            setPageTransformer(compositePageTransformer)
+        }
         binding.recyclerViewCommentsAdmin.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = commentsUserAdapter

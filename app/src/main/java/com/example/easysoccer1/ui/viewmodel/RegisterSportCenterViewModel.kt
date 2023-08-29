@@ -20,4 +20,12 @@ class RegisterSportCenterViewModel(
         return sportCenterUseCase.getImageSportCenter(nit)
     }
 
+    fun setListImageSportCenter(uriList: MutableList<Uri>, nit: String) {
+        sportCenterUseCase.setListImageSportCenter(uriList, nit)
+    }
+
+    suspend fun getListImageSportCenter(nit: String): Result<List<String>> {
+        return sportCenterUseCase.getListImageSportCenter(nit)
+    }
+
 }
