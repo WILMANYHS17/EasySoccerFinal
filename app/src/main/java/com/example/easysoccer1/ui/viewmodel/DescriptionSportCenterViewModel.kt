@@ -25,4 +25,8 @@ class DescriptionSportCenterViewModel(
     fun setComment(comment: Comments) {
         commentsUseCase.setComment(comment)
     }
+
+    suspend fun getListImageSportCenter(nit: String): Result<List<String>> {
+        return sportCenterUseCase.getListImageSportCenter(nit)
+    }
 }

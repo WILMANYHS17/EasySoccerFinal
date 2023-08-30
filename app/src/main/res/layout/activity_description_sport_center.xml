@@ -40,12 +40,12 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPageSportCenterUser"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="8dp"
             android:background="@color/gray"
-            android:paddingStart="200dp"
-            android:paddingEnd="200dp"
+            android:paddingStart="80dp"
+            android:paddingEnd="80dp"
             app:layout_constraintEnd_toEndOf="@id/constraintParent"
             app:layout_constraintStart_toStartOf="@id/constraintParent"
             app:layout_constraintTop_toBottomOf="@+id/titleSportCenter" />
