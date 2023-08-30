@@ -4,14 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.easysoccer1.R
 import com.example.easysoccer1.data.models.Comments
 import com.example.easysoccer1.databinding.ActivityDescriptionSportCenterBinding
 import com.example.easysoccer1.ui.adapter.CommentsUserAdapter
+import com.example.easysoccer1.ui.adapter.ImagesDetailAdapter
 import com.example.easysoccer1.ui.viewmodel.DescriptionSportCenterViewModel
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.abs
 
 class DescriptionSportCenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDescriptionSportCenterBinding
@@ -22,6 +28,10 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         )
     }
 
+    private val imagesDetailAdapter by lazy {
+        ImagesDetailAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_description_sport_center)
@@ -30,8 +40,11 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         val headerProfileUserViewModel: HeaderProfileUserViewModel by viewModel()
         nit = intent.extras!!.getString("Nit1") ?: ""
+        setUpAdapter()
         lifecycleScope.launch {
            //commentsUserAdapter.setListComment(getListComment())
+            getSportCenterUser(nit)
+            imagesDetailAdapter.setListImage(getListImageSportCenter())
             val prefs = applicationContext.getSharedPreferences(
                 "easySoccer",
                 AppCompatActivity.MODE_PRIVATE
@@ -42,7 +55,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
                 headerProfileUserViewModel,
                 prefs
             ).build()
-            getSportCenterUser(nit)
+
         }
 
         binding.buttonlocateSportCenter.setOnClickListener { onLocateSportCenter() }
@@ -98,6 +111,11 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    suspend fun getListImageSportCenter(): List<String> {
+        val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
+        return descriptionSportCenterUser.getListImageSportCenter(nit).getOrNull() ?: emptyList()
+    }
+
     suspend fun getSportCenterUser(nit: String?) {
         val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
         val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
@@ -105,6 +123,29 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
             descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
         binding.descriptionSportCenter.text =
             descriptionSportCenter?.getOrNull()?.description.toString()
+    }
+
+    fun setUpAdapter() {
+        binding.viewPageSportCenterUser.apply {
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 3
+            adapter = imagesDetailAdapter
+            val compositePageTransformer = CompositePageTransformer()
+            val pageTransformer = ViewPager2.PageTransformer { page, position ->
+                var r = 1 - abs(position)
+                page.scaleY = 0.85f + r * 0.15f
+            }
+            with(compositePageTransformer) {
+                addTransformer(MarginPageTransformer(40))
+                addTransformer(pageTransformer)
+            }
+            setPageTransformer(compositePageTransformer)
+        }
+        binding.recyclerViewComments.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = commentsUserAdapter
+        }
     }
 
     fun generateRandomNumber(): Int {
