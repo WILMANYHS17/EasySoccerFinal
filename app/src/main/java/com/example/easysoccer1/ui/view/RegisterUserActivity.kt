@@ -17,6 +17,7 @@ import com.example.easysoccer1.data.models.Users
 import com.example.easysoccer1.databinding.ActivityRegisterUserBinding
 import com.example.easysoccer1.ui.calendarUser.DatePickerAgeFragment
 import com.example.easysoccer1.ui.viewmodel.RegisterUserViewModel
+import com.google.firebase.firestore.auth.User
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,6 +30,8 @@ class RegisterUserActivity : AppCompatActivity() {
     private lateinit var emailUser: String
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     var isAdmin = false
+    private val registerUserViewModel: RegisterUserViewModel by viewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +62,12 @@ class RegisterUserActivity : AppCompatActivity() {
         }
 
         binding.buttonRegister.setOnClickListener {
-            registerUser()
+            lifecycleScope.launch {
+                registerUser()
+            }
         }
+
+
         binding.editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
@@ -82,7 +89,6 @@ class RegisterUserActivity : AppCompatActivity() {
     }
 
     private suspend fun getUser() {
-        val registerUserViewModel: RegisterUserViewModel by viewModel()
         val user = registerUserViewModel.getUser(emailUser)
         user?.let {
             binding.editTextName.setText(user.getOrNull()?.name)
@@ -95,69 +101,104 @@ class RegisterUserActivity : AppCompatActivity() {
         }
     }
 
-    fun registerUser() {
-        val registerUserViewModel: RegisterUserViewModel by viewModel()
-        var url = ""
-        registerUserViewModel.setImageUser(
-            uriImageUser,
-            emailUser
-        )
-        lifecycleScope.launch {
-            url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
-        }
-        val emailUser = binding.editTextEmailRegister.text.toString()
-
-        if (validationRegister()) {
-            AlertDialog.Builder(this).apply {
-                setTitle("Registro de Usuario")
-                setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
-                Log.i("Método", "Antes")
-                setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-
-                    registerUserViewModel.createUser(
-                        Users(
-                            name = binding.editTextName.text.toString(),
-                            phone = binding.editTextPhone.text.toString(),
-                            email = emailUser,
-                            nameUser = binding.editTextNameUser.text.toString(),
-                            password = binding.editTextPassword.text.toString(),
-                            birthday = binding.editTextDate.text.toString(),
-                            isAdmin = isAdmin,
-                            identification = binding.editTextId.text.toString(),
-                            imageUserUrl = url
-                        )
+    suspend fun registerUser() {
+        val emailUsers = binding.editTextEmailRegister.text.toString()
+        if (validationRegister(emailUsers)) {
+            val validation = registerUserViewModel.getUser(emailUsers)
+            if (validation?.isSuccess == true) {
+                binding.editTextEmailRegister.setError("Ya existe ese email")
+            }
+            val emailPattern = "[a-zA-Z0-9._-]+@[gmail|hotmail]+\\.[a-z]+".toRegex()
+            if (binding.editTextEmailRegister.text.toString().matches(emailPattern)) {
+                binding.editTextEmailRegister.setError("La dirección de correo electrónico no es válida")
+            } else {
+                var url = ""
+                if (uriImageUser != null) {
+                    registerUserViewModel.setImageUser(
+                        uriImageUser,
+                        emailUsers
                     )
+                    url = registerUserViewModel.getImageUser(emailUsers).getOrNull().toString()
+
+                    val users = Users(
+                        name = binding.editTextName.text.toString(),
+                        phone = binding.editTextPhone.text.toString(),
+                        email = emailUsers,
+                        nameUser = binding.editTextNameUser.text.toString(),
+                        password = binding.editTextPassword.text.toString(),
+                        birthday = binding.editTextDate.text.toString(),
+                        isAdmin = isAdmin,
+                        identification = binding.editTextId.text.toString(),
+                        imageUserUrl = url
+                    )
+
+                    AlertDialog.Builder(this@RegisterUserActivity).apply {
+                        setTitle("Registro de Usuario")
+                        setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
+                        Log.i("Método", "Antes")
+                        setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                            registerUserViewModel.createUser(users)
+                        }
+                        setNegativeButton("No", null)
+                    }.show()
+                } else {
+                    AlertDialog.Builder(this@RegisterUserActivity).apply {
+                        setTitle("Imagen de perfil")
+                        setMessage("Por favor seleccione una imagen de perfil")
+                        setPositiveButton("Aceptar", null)
+                    }.show()
                 }
-                setNegativeButton("No", null)
-            }.show()
+            }
         }
-
-
     }
 
-
-    fun validationRegister(): Boolean {
-        if (binding.editTextName.text?.isEmpty() == true && binding.editTextPhone.text?.isEmpty() == true &&
-            binding.editTextEmailRegister.text?.isEmpty() == true && binding.editTextNameUser.text?.isEmpty() == true &&
-            binding.editTextPassword.text?.isEmpty() == true && binding.editTextDate.text?.isEmpty() == true
-        ) {
+    fun validationRegister(emailUsers: String): Boolean {
+        var isValid = true
+        if (binding.editTextName.text?.isEmpty() == true) {
             binding.editTextName.setError("El espacio está vacio")
-            binding.editTextPhone.setError("El espacio está vacio")
-            binding.editTextEmailRegister.setError("El espacio está vacio")
-            binding.editTextNameUser.setError("El espacio está vacio")
-            binding.editTextPassword.setError("El espacio está vacio")
-            binding.editTextDate.setError("El espacio está vacio")
-            return false
+            isValid = false
         } else {
             binding.editTextName.setError(null)
-            binding.editTextPhone.setError(null)
-            binding.editTextEmailRegister.setError(null)
-            binding.editTextNameUser.setError(null)
-            binding.editTextPassword.setError(null)
-            binding.editTextDate.setError(null)
-            return true
         }
+
+        if (binding.editTextPhone.text?.isEmpty() == true) {
+            binding.editTextPhone.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.editTextPhone.setError(null)
+        }
+
+        if (binding.editTextEmailRegister.text?.isEmpty() == true) {
+            binding.editTextEmailRegister.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.editTextEmailRegister.setError(null)
+        }
+
+        if (binding.editTextNameUser.text?.isEmpty() == true) {
+            binding.editTextNameUser.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.editTextNameUser.setError(null)
+        }
+
+        if (binding.editTextPassword.text?.isEmpty() == true) {
+            binding.editTextPassword.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.editTextPassword.setError(null)
+        }
+
+        if (binding.editTextDate.text?.isEmpty() == true) {
+            binding.editTextDate.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.editTextDate.setError(null)
+        }
+
+        return isValid
     }
+
 
     private fun onClickBackActivity() {
         onBackPressed()
@@ -178,4 +219,6 @@ class RegisterUserActivity : AppCompatActivity() {
     fun onDateSelected(day: Int, month: Int, year: Int) {
         binding.editTextDate.setText("$day / $month / $year")
     }
+
+
 }
