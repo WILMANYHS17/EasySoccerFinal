@@ -2,6 +2,7 @@ package com.example.easysoccer1.data.database
 
 import android.net.Uri
 import android.util.Log
+import kotlin.Result
 import com.example.easysoccer1.data.models.*
 import com.example.easysoccer1.domain.DatabaseUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
