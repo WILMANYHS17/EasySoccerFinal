@@ -36,6 +36,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var myLocation: String = ""
     private var start: String = ""
     private var end: String = ""
+    private lateinit var locationSportCenter: String
 
     companion object {
         const val REQUEST_CODE_LOCATION = 0
@@ -161,11 +162,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     fun sendRoute() {
+        locationSportCenter = intent.extras!!.getString("Coordinates") ?: ""
         getLocationCoordinates(this)
-
         if (start.isEmpty()) {
             start = myLocation
-            end = "-73.3587758,5.5262644"
+            end = locationSportCenter
             createRoute()
         }
     }

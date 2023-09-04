@@ -1,8 +1,12 @@
 package com.example.easysoccer1.ui.view
 
+import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +16,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.easysoccer1.data.models.SportCenter
 import com.example.easysoccer1.databinding.ActivityRegisterSportCenterBinding
@@ -30,6 +35,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var pickMediaImageMultiple: ActivityResultLauncher<Intent>
     private val uriList = mutableListOf<Uri>()
+    private lateinit var locationSportCenter: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +95,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     fun onClickCreateSportCenter() {
         val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
+        getLocationCoordinates(this)
         if (binding.nitSportCenter.text.isEmpty()) {
             nit = intent.extras!!.getString("Nit") ?: ""
         } else {
@@ -97,7 +104,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
         registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
         var url = ""
-        var urlList = emptyList<String>()
+
         lifecycleScope.launch {
             url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
 
@@ -117,7 +124,8 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                         price8vs8 = binding.price8vs8.text.toString(),
                         description = binding.descriptionSportCenter.text.toString(),
                         emailAdmin = emailAdmin.toString(),
-                        imageSportCenterUrl = url
+                        imageSportCenterUrl = url,
+                        locationSportCenter = locationSportCenter
                     )
                     registerSportCenterViewModel.setSportCenter(
                         sportCenter
@@ -153,6 +161,31 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     fun imageSportCenter() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+    fun getLocationCoordinates(context: Context): Pair<Double, Double>? {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return null // Si no se han concedido los permisos necesarios, devuelve null
+        }
+        val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        if (location != null) {
+            val latitute = location.latitude
+            val longitute = location.longitude
+            locationSportCenter = "${longitute},${latitute}"
+            return Pair(
+                location.latitude,
+                location.longitude
+            ) // Devuelve un par con las coordenadas
+        } else {
+            return null // Si no se puede obtener la ubicación, devuelve null
+        }
     }
 
     fun listImages() {
