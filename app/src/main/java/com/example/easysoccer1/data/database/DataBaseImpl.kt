@@ -130,7 +130,8 @@ class DataBaseImpl(
                     "nit" to sportCenter.nit,
                     "price5vs5" to sportCenter.price5vs5,
                     "price8vs8" to sportCenter.price8vs8,
-                    "imageSportCenterUrl" to sportCenter.imageSportCenterUrl
+                    "imageSportCenterUrl" to sportCenter.imageSportCenterUrl,
+                    "locationSportCenter" to sportCenter.locationSportCenter
                 )
             )
     }

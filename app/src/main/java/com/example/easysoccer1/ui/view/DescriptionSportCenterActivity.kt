@@ -42,7 +42,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         nit = intent.extras!!.getString("Nit1") ?: ""
         setUpAdapter()
         lifecycleScope.launch {
-           //commentsUserAdapter.setListComment(getListComment())
+            //commentsUserAdapter.setListComment(getListComment())
             getSportCenterUser(nit)
             imagesDetailAdapter.setListImage(getListImageSportCenter())
             val prefs = applicationContext.getSharedPreferences(
@@ -57,8 +57,12 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
             ).build()
 
         }
+        binding.buttonlocateSportCenter.setOnClickListener {
+            lifecycleScope.launch {
+                onLocateSportCenter()
+            }
+        }
 
-        binding.buttonlocateSportCenter.setOnClickListener { onLocateSportCenter() }
         binding.buttonReserve.setOnClickListener { goToReserve() }
         binding.buttonCreateComment.setOnClickListener {
             lifecycleScope.launch {
@@ -68,8 +72,8 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
     }
 
     //private fun getListComment(): List<Comments> {
-      // val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
-        //return
+    // val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
+    //return
 
     //}
 
@@ -102,12 +106,15 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun goComment(comments: Comments){
+    fun goComment(comments: Comments) {
 
     }
 
-    private fun onLocateSportCenter() {
+    private suspend fun onLocateSportCenter() {
+        val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
+        val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
         val intent = Intent(this, MapActivity::class.java)
+        intent.putExtra("Coordinates", descriptionSportCenter.getOrNull()?.locationSportCenter)
         startActivity(intent)
     }
 
