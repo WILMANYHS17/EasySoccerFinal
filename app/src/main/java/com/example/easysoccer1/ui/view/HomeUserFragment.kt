@@ -75,7 +75,7 @@ class HomeUserFragment : Fragment() {
             binding.hour20,
             binding.hour21,
             binding.hour22,
-            binding.hour13
+            binding.hour23
         )
         for (button in buttons) {
             button.setOnClickListener {
