@@ -64,6 +64,12 @@ class HomeUserFragment : Fragment() {
         var isClicked = false
         var hour = ""
         val buttons = listOf(
+            binding.hour6,
+            binding.hour7,
+            binding.hour8,
+            binding.hour9,
+            binding.hour10,
+            binding.hour11,
             binding.hour12,
             binding.hour13,
             binding.hour14,

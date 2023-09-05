@@ -69,16 +69,88 @@
         app:layout_constraintTop_toBottomOf="@+id/textDate" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/hour12"
+        android:id="@+id/hour6"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:background="@drawable/custom_button_hour"
-        android:text="12"
+        android:text="6"
         android:fontFamily="@font/source_sans_pro_bold"
         app:layout_constraintBottom_toBottomOf="@+id/hour"
         app:layout_constraintStart_toEndOf="@+id/hour"
         app:layout_constraintTop_toTopOf="@+id/hour" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour7"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="7"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour6"
+        app:layout_constraintStart_toEndOf="@+id/hour6"
+        app:layout_constraintTop_toTopOf="@+id/hour6" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour8"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="8"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour7"
+        app:layout_constraintStart_toEndOf="@+id/hour7"
+        app:layout_constraintTop_toTopOf="@+id/hour7" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour9"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="9"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour8"
+        app:layout_constraintStart_toEndOf="@+id/hour8"
+        app:layout_constraintTop_toTopOf="@+id/hour8" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="10"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour9"
+        app:layout_constraintStart_toEndOf="@+id/hour9"
+        app:layout_constraintTop_toTopOf="@+id/hour9" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour11"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="11"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour10"
+        app:layout_constraintStart_toEndOf="@+id/hour10"
+        app:layout_constraintTop_toTopOf="@+id/hour10" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hour12"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/custom_button_hour"
+        android:text="12"
+        android:fontFamily="@font/source_sans_pro_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hour11"
+        app:layout_constraintStart_toEndOf="@+id/hour11"
+        app:layout_constraintTop_toTopOf="@+id/hour11" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hour13"
@@ -108,13 +180,13 @@
         android:id="@+id/hour15"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="15"
         android:fontFamily="@font/source_sans_pro_bold"
-        app:layout_constraintBottom_toBottomOf="@+id/hour14"
-        app:layout_constraintStart_toEndOf="@+id/hour14"
-        app:layout_constraintTop_toTopOf="@+id/hour14" />
+        app:layout_constraintEnd_toEndOf="@+id/hour6"
+        app:layout_constraintStart_toStartOf="@+id/hour6"
+        app:layout_constraintTop_toBottomOf="@+id/hour6" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hour16"
@@ -180,13 +252,13 @@
         android:id="@+id/hour21"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/custom_button_hour"
         android:text="21"
         android:fontFamily="@font/source_sans_pro_bold"
-        app:layout_constraintEnd_toEndOf="@+id/hour12"
-        app:layout_constraintStart_toStartOf="@+id/hour12"
-        app:layout_constraintTop_toBottomOf="@+id/hour12" />
+        app:layout_constraintBottom_toBottomOf="@+id/hour20"
+        app:layout_constraintStart_toEndOf="@+id/hour20"
+        app:layout_constraintTop_toTopOf="@+id/hour20" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hour22"
@@ -237,7 +309,7 @@
         android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_button"
         android:text="Buscar"
         android:fontFamily="@font/source_sans_pro_bold"
