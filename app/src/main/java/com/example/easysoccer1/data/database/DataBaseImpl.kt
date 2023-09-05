@@ -217,6 +217,20 @@ class DataBaseImpl(
         }
     }
 
+    override suspend fun getNitSportCenter(nit: String): Result<SportCenter> {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+        for (document in snapshot.documents) {
+            val collectionSportCenter =
+                document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
+            if (!collectionSportCenter.isEmpty) {
+                val sportCenterDocument = collectionSportCenter.documents[0]
+                val sportCenter = sportCenterDocument.toObject(SportCenter::class.java)
+                return Result.success(sportCenter) as Result<SportCenter>
+            }
+        }
+        return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
+    }
+
 
     override suspend fun getListSportCenter(email: String?): Result<List<SportCenter>> {
         val list = mutableListOf<SportCenter>()

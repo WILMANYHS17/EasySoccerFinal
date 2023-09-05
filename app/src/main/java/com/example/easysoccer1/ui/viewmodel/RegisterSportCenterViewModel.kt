@@ -28,4 +28,12 @@ class RegisterSportCenterViewModel(
         return sportCenterUseCase.getListImageSportCenter(nit)
     }
 
+    suspend fun getSportCenter(nit: String, emailAdmin: String): Result<SportCenter> {
+        return sportCenterUseCase.getSportCenter(nit, emailAdmin)
+    }
+
+    suspend fun getNitSportCenter(nit: String): Result<SportCenter> {
+        return sportCenterUseCase.getNitSportCenter(nit)
+    }
+
 }

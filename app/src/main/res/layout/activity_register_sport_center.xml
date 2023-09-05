@@ -1,159 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.view.RegisterSportCenterActivity">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/header_user"
-        layout="@layout/header_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <TextView
-        android:id="@+id/titleRegisterSportCenter"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="Registro del Centro Deportivo"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:textColor="@color/black"
-        android:textSize="25dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_user" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".ui.view.RegisterSportCenterActivity">
+
+        <include
+            android:id="@+id/header_user"
+            layout="@layout/header_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/imageSportCenter"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:scaleType="fitXY"
-        android:background="@drawable/sportcenter"
-        app:layout_constraintEnd_toEndOf="@+id/titleRegisterSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/titleRegisterSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/titleRegisterSportCenter" />
+        <TextView
+            android:id="@+id/titleRegisterSportCenter"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:gravity="center"
+            android:text="Registro del Centro Deportivo"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_user" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonListImagesSportCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:text="Agregar imágenes"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/imageSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/imageSportCenter"
-        app:layout_constraintEnd_toEndOf="@id/imageSportCenter"/>
 
-    <EditText
-        android:id="@+id/nameSportCenter"
-        android:layout_width="250dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_input"
-        android:hint="Nombre:"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:layout_marginTop="30dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonListImagesSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/buttonListImagesSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/buttonListImagesSportCenter" />
+        <ImageView
+            android:id="@+id/imageSportCenter"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/sportcenter"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="@+id/titleRegisterSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/titleRegisterSportCenter"
+            app:layout_constraintTop_toBottomOf="@+id/titleRegisterSportCenter" />
 
-    <EditText
-        android:id="@+id/addressSportCenter"
-        android:layout_width="250dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_input"
-        android:hint="Dirección:"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/nameSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/nameSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/nameSportCenter" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonListImagesSportCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Agregar imágenes"
+            app:layout_constraintEnd_toEndOf="@id/imageSportCenter"
+            app:layout_constraintStart_toStartOf="@+id/imageSportCenter"
+            app:layout_constraintTop_toBottomOf="@id/imageSportCenter" />
 
-    <EditText
-        android:id="@+id/nitSportCenter"
-        android:layout_width="250dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_input"
-        android:hint="NIT:"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginTop="30dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/addressSportCenter"
-        app:layout_constraintStart_toStartOf="@+id/addressSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/addressSportCenter" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextNameSportCenterLayout"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="8dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/buttonListImagesSportCenter"
+            app:layout_constraintStart_toStartOf="@id/buttonListImagesSportCenter"
+            app:layout_constraintTop_toBottomOf="@id/buttonListImagesSportCenter">
 
-    <EditText
-        android:id="@+id/price5vs5"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_input"
-        android:hint="Precio 5vs5"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:layout_marginTop="30dp"
-        android:paddingStart="30dp"
-        android:layout_marginStart="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nitSportCenter"/>
+            <EditText
+                android:id="@+id/nameSportCenter"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="Nombre:"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
 
-    <EditText
-        android:id="@+id/price8vs8"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_input"
-        android:hint="Precio 8vs8"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:paddingStart="30dp"
-        app:layout_constraintStart_toEndOf="@+id/price5vs5"
-        app:layout_constraintTop_toTopOf="@+id/price5vs5"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/descriptionSportCenter"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:background="@drawable/custom_input"
-        android:hint="Descripción:"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/price5vs5"
-        app:layout_constraintStart_toStartOf="@+id/price5vs5"
-        app:layout_constraintEnd_toEndOf="@id/price8vs8"
-         />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextAddressSportCenterLayout"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/editTextNameSportCenterLayout"
+            app:layout_constraintStart_toStartOf="@id/editTextNameSportCenterLayout"
+            app:layout_constraintTop_toBottomOf="@id/editTextNameSportCenterLayout">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonRegisterSportCenter"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:text="Registrar"
-        android:fontFamily="@font/source_sans_pro_bold"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/descriptionSportCenter"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionSportCenter" />
+            <EditText
+                android:id="@+id/addressSportCenter"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="Dirección:"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonRegisterSportCenterCancel"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:text="Cancelar"
-        android:fontFamily="@font/source_sans_pro_bold"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonRegisterSportCenter"
-        app:layout_constraintEnd_toEndOf="@+id/descriptionSportCenter"
-        app:layout_constraintTop_toTopOf="@+id/buttonRegisterSportCenter" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextNitSportCenterLayout"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/editTextAddressSportCenterLayout"
+            app:layout_constraintStart_toStartOf="@id/editTextAddressSportCenterLayout"
+            app:layout_constraintTop_toBottomOf="@id/editTextAddressSportCenterLayout">
+
+            <EditText
+                android:id="@+id/nitSportCenter"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="NIT:"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:visibility="gone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextPrice5vs5SportCenterLayout"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="25dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextNitSportCenterLayout">
+
+            <EditText
+                android:id="@+id/price5vs5"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="Precio 5vs5"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextPrice8vs8SportCenterLayout"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="25dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toEndOf="@+id/editTextPrice5vs5SportCenterLayout"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNitSportCenterLayout">
+
+            <EditText
+                android:id="@+id/price8vs8"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="Precio 8vs8"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextDescriptionSportCenterLayout"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="8dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="200"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@+id/editTextPrice8vs8SportCenterLayout"
+            app:layout_constraintStart_toStartOf="@+id/editTextPrice5vs5SportCenterLayout"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrice5vs5SportCenterLayout">
+
+            <EditText
+                android:id="@+id/descriptionSportCenter"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:hint="Descripción:"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonRegisterSportCenter"
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Registrar"
+            app:layout_constraintStart_toStartOf="@+id/editTextDescriptionSportCenterLayout"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescriptionSportCenterLayout" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonRegisterSportCenterCancel"
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Cancelar"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonRegisterSportCenter"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDescriptionSportCenterLayout"
+            app:layout_constraintTop_toTopOf="@+id/buttonRegisterSportCenter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

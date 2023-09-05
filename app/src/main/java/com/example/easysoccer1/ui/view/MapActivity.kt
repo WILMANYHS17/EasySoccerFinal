@@ -16,6 +16,7 @@ import com.example.easysoccer1.databinding.ActivityMapBinding
 import com.example.easysoccer1.data.models.RouteResponse
 import com.example.easysoccer1.domain.ApiService
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
+import com.example.easysoccer1.ui.viewmodel.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -35,8 +36,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private var myLocation: String = ""
     private var start: String = ""
-    private var end: String = ""
     private lateinit var locationSportCenter: String
+    private lateinit var nameSportCenter: String
 
     companion object {
         const val REQUEST_CODE_LOCATION = 0
@@ -61,7 +62,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 prefs
             ).build()
         }
-
+        locationSportCenter = intent.extras!!.getString("Coordinates") ?: ""
         createFragment()
 
 
@@ -75,15 +76,20 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        sendRoute()
-        createMarker()
-        enableLocation()
+        lifecycleScope.launch {
+            sendRoute()
+            createMarker()
+            enableLocation()
+        }
+
     }
 
     fun createMarker() {
-
-        val coordinates = LatLng(5.5262644, -73.3587758)
-        val marker = MarkerOptions().position(coordinates).title("Invitus Fútbol 5")
+        nameSportCenter = intent.extras!!.getString("NameSportCenter") ?: ""
+        val longitude = locationSportCenter.split(",")[0].toDouble()
+        val latitude = locationSportCenter.split(",")[1].toDouble()
+        val coordinates = LatLng(latitude,longitude)
+        val marker = MarkerOptions().position(coordinates).title(nameSportCenter)
         map.addMarker(marker)
         map.animateCamera(
             CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
@@ -94,18 +100,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     fun isLocationPermission() =
-
         ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
 
     fun enableLocation() {
-
         if (!::map.isInitialized) return
         if (isLocationPermission()) {
             map.isMyLocationEnabled = true
-
         } else {
             requestLocationPermission()
         }
@@ -142,6 +145,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             else -> {}
         }
     }
@@ -161,17 +165,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    fun sendRoute() {
-        locationSportCenter = intent.extras!!.getString("Coordinates") ?: ""
-        getLocationCoordinates(this)
-        if (start.isEmpty()) {
-            start = myLocation
-            end = locationSportCenter
-            createRoute()
+    suspend fun sendRoute() {
+
+        getLocationCoordinates(this)?.let {
+            if (start.isEmpty()) {
+                start = it
+                createRoute(start, locationSportCenter)
+            }
         }
     }
 
-    fun getLocationCoordinates(context: Context): Pair<Double, Double>? {
+    fun getLocationCoordinates(context: Context): String? {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(
                 context,
@@ -188,24 +192,23 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             val latitute = location.latitude
             val longitute = location.longitude
             myLocation = "${longitute},${latitute}"
-            return Pair(
-                location.latitude,
-                location.longitude
-            ) // Devuelve un par con las coordenadas
+            return myLocation
         } else {
             return null // Si no se puede obtener la ubicación, devuelve null
         }
     }
 
-    fun createRoute() {
+    suspend fun createRoute(start: String, end: String) {
+        val mapViewModel: MapViewModel by viewModel()
         CoroutineScope(Dispatchers.IO).launch {
-            //createRoute()
-            val call = getRetrofit().create(ApiService::class.java)
-                .getRoute("5b3ce3597851110001cf62481f51957ab1d149de8fd09afeac3c6080", start, end)
+            val call = mapViewModel.getRoute(
+                "5b3ce3597851110001cf62481f51957ab1d149de8fd09afeac3c6080",
+                start,
+                end
+            )
             if (call.isSuccessful) {
-                Log.i("aris", "OK")
+                //Log.i("aris", "OK")
                 drawRoute(call.body())
-
             } else {
                 Log.i("aris", "KO")
             }
@@ -223,11 +226,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     }
+    /*
+        fun getRetrofit(): Retrofit {
+            return Retrofit.Builder().baseUrl("https://api.openrouteservice.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
 
-    fun getRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl("https://api.openrouteservice.org/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    }
+     */
 }
