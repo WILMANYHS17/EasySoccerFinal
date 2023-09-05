@@ -9,77 +9,82 @@ import org.koin.dsl.module
 val viewModelModule: Module = module {
 
 
-    viewModel{
+    viewModel {
         JoinSessionViewModel(
             usersUseCase = get()
 
         )
     }
-    viewModel{
+    viewModel {
         RegisterUserViewModel(
             usersUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         ForgotPasswordViewModel(
             usersUseCase = get()
         )
     }
 
-    viewModel{
+    viewModel {
         HomeAdminViewModel(
             sportCenterUseCase = get(),
             commentsUseCase = get()
         )
     }
 
-    viewModel{
+    viewModel {
         SelectSportCenterViewModel(
             sportCenterUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         RegisterSportCenterViewModel(
             sportCenterUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         GoalsViewModel(
             goalsUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         HomeUserViewModel(
             usersUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         DescriptionSportCenterViewModel(
             sportCenterUseCase = get(),
             usersUseCase = get(),
             commentsUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         HeaderProfileUserViewModel(
             usersUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         ReserveUserViewModel(
             reserveUseCase = get(),
             sportCenterUseCase = get(),
             goalsUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         ReserveUserFragmentViewModel(
             reserveUseCase = get()
         )
     }
-    viewModel{
+    viewModel {
         ReserveAdminViewModel(
             reserveUseCase = get()
+        )
+    }
+    viewModel {
+        MapViewModel(
+            mapUseCase = get()
         )
     }
 }

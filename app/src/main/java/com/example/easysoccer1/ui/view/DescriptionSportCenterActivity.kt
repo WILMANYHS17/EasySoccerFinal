@@ -115,6 +115,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
         val intent = Intent(this, MapActivity::class.java)
         intent.putExtra("Coordinates", descriptionSportCenter.getOrNull()?.locationSportCenter)
+        intent.putExtra("SportCenter", descriptionSportCenter.getOrNull()?.nameSportCenter)
         startActivity(intent)
     }
 

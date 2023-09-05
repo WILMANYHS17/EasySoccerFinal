@@ -18,6 +18,7 @@ interface DatabaseUserRepository {
     //SportCenter Funtions
     fun createSportCenter(sportCenter: SportCenter)
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
+    suspend fun getNitSportCenter(nit: String): Result<SportCenter>
     suspend fun getListSportCenter(email: String?): Result<List<SportCenter>>
     fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
     suspend fun getImageSportCenter(nit: String): Result<String>
@@ -44,7 +45,6 @@ interface DatabaseUserRepository {
     //Comments Users Funtions
     fun setComment(comment: Comments)
     suspend fun getListComments(nameSportCenter: String): Result<List<Comments>>
-
 
 
 

@@ -103,7 +103,7 @@ class RegisterUserActivity : AppCompatActivity() {
 
     suspend fun registerUser() {
         val emailUsers = binding.editTextEmailRegister.text.toString()
-        if (validationRegister(emailUsers)) {
+        if (validationRegister()) {
             val validation = registerUserViewModel.getUser(emailUsers)
             if (validation?.isSuccess == true) {
                 binding.editTextEmailRegister.setError("Ya existe ese email")
@@ -152,7 +152,7 @@ class RegisterUserActivity : AppCompatActivity() {
         }
     }
 
-    fun validationRegister(emailUsers: String): Boolean {
+    fun validationRegister(): Boolean {
         var isValid = true
         if (binding.editTextName.text?.isEmpty() == true) {
             binding.editTextName.setError("El espacio está vacio")

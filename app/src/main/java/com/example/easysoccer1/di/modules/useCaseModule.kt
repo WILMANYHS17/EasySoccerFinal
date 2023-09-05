@@ -31,6 +31,11 @@ val useCaseModule: Module = module {
             databaseUserRepository = get()
         )
     }
+    factory {
+        MapUseCase(
+            mapRepository = get()
+        )
+    }
 
 
 }
