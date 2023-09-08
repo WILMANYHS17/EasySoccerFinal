@@ -53,15 +53,6 @@ class SportCenterAdminAdapter(private val goToSportCenter: (String) -> Unit) :
                 titleAddressSportCenter.text = sportCenter.address
                 Glide.with(context).load(sportCenter.imageSportCenterUrl).into(imageSelectSportCenter)
                 itemSelectSportCenter.setOnClickListener { goToSportCenter(sportCenter.nit) }
-                //val identifier =
-                //context.resources.getIdentifier(
-                //   stadiumInYourArea.image,
-                //"drawable",
-                //  context.packageName
-                //  )
-                //if (identifier > 0) {
-                //imageSelectSportCenter.setImageResource(identifier)
-                //}
                 itemSelectSportCenter.elevation = ELEVATION_CARD
             }
 
