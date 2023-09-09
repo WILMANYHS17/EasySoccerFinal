@@ -86,6 +86,10 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         if (editYes == "No") {
             binding.nitSportCenter.visibility = View.VISIBLE
             binding.editTextNitSportCenterLayout.visibility = View.VISIBLE
+        }else{
+            lifecycleScope.launch {
+                getSportCenter()
+            }
         }
         binding.imageSportCenter.setOnClickListener { imageSportCenter() }
         binding.buttonListImagesSportCenter.setOnClickListener { listImages() }
@@ -96,6 +100,21 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
 
+    }
+
+    private suspend fun getSportCenter() {
+        val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
+        val prefs = getSharedPreferences("easySoccer", MODE_PRIVATE)
+        val emailAdmin = prefs.getString("email", "")
+        nit = intent.extras!!.getString("Nit") ?: ""
+        val sportCenter = emailAdmin?.let { registerSportCenterViewModel.getSportCenter(nit, it) }
+        if (sportCenter != null) {
+            binding.descriptionSportCenter.setText(sportCenter.getOrNull()?.description)
+            binding.price5vs5.setText(sportCenter.getOrNull()?.price5vs5)
+            binding.price8vs8.setText(sportCenter.getOrNull()?.price8vs8)
+            binding.addressSportCenter.setText(sportCenter.getOrNull()?.address)
+            binding.nameSportCenter.setText(sportCenter.getOrNull()?.nameSportCenter)
+        }
     }
 
     suspend fun onClickCreateSportCenter() {
@@ -113,10 +132,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             if (validation?.isSuccess == true) {
                 binding.nitSportCenter.setError("Ya existe este NIT")
             }else{
-                registerSportCenterViewModel.setImageSportCenter(
-                    nit,
-                    uriImageSportCenter
-                )
+                registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
                 registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
                 var url = ""
                 url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
