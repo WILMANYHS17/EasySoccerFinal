@@ -2,7 +2,7 @@
     <string name="app_name">EasySoccer</string>
     <string name="forgotPassword"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="createUser"><u>Registrarse como Usuario</u></string>
-    <string name="createAdmin"><u>Registrarse como administrador</u></string>
+    <string name="createAdmin"><u>Registrarse como Administrador</u></string>
     <string name="RegisterAdmin"> Registro de Administradores</string>
     <string name="RegisterUser"> Registro de Usuarios</string>
     <string name="title_activity_navigation_admin">NavigationAdminActivity</string>

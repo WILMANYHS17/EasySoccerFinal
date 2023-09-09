@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -27,6 +28,7 @@ class RegisterUserActivity : AppCompatActivity() {
     private lateinit var typeUser: String
     private lateinit var uriImageUser: Uri
     private lateinit var editUser: String
+    private var typeUserHeader: Boolean = false
     private lateinit var emailUser: String
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     var isAdmin = false
@@ -50,30 +52,30 @@ class RegisterUserActivity : AppCompatActivity() {
             binding.TittleRegister.text = getString(R.string.RegisterAdmin)
             binding.editTextId.visibility = View.VISIBLE
             binding.editTextIdLayout.visibility = View.VISIBLE
+            binding.editTextEmailRegister.visibility = View.VISIBLE
+            binding.editTextEmailRegisterLayout.visibility = View.VISIBLE
         } else {
             binding.TittleRegister.text = getString(R.string.RegisterUser)
+            binding.editTextEmailRegister.visibility = View.VISIBLE
+            binding.editTextEmailRegisterLayout.visibility = View.VISIBLE
         }
         lifecycleScope.launch {
             editUser = intent.extras!!.getString("EditUser") ?: ""
             if (editUser == "Yes") {
+                binding.TittleRegister.text = "Editando"
                 emailUser = intent.extras!!.getString("EmailUser") ?: ""
                 getUser()
             }
         }
-
         binding.buttonRegister.setOnClickListener {
             lifecycleScope.launch {
                 registerUser()
             }
         }
-
-
         binding.editTextDate.setOnClickListener {
             showDatePickerDialog()
         }
         binding.imageCircle.setOnClickListener { imageUser() }
-
-
         binding.backButton.setOnClickListener { onClickBackActivity() }
         binding.buttonRegisterCancel.setOnClickListener {
             AlertDialog.Builder(this).apply {
@@ -89,41 +91,61 @@ class RegisterUserActivity : AppCompatActivity() {
     }
 
     private suspend fun getUser() {
+        typeUserHeader = intent.extras!!.getBoolean("UserHeader")
         val user = registerUserViewModel.getUser(emailUser)
-        user?.let {
-            binding.editTextName.setText(user.getOrNull()?.name)
-            binding.editTextEmailRegister.setText(user.getOrNull()?.email)
-            binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
-            binding.editTextPassword.setText(user.getOrNull()?.password)
-            binding.editTextPhone.setText(user.getOrNull()?.phone)
-            binding.editTextDate.text = user.getOrNull()?.birthday
-            binding.editTextId.setText(user.getOrNull()?.identification)
+        if (typeUserHeader) {
+            isAdmin = true
+            binding.editTextId.visibility = View.VISIBLE
+            binding.editTextIdLayout.visibility = View.VISIBLE
+            binding.editTextEmailRegister.visibility = View.GONE
+            binding.editTextEmailRegisterLayout.visibility = View.GONE
+            //binding.editTextEmailRegister.visibility = View.INVISIBLE
+            //binding.editTextEmailRegisterLayout.visibility = View.INVISIBLE
+            user?.let {
+                binding.editTextName.setText(user.getOrNull()?.name)
+                binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
+                binding.editTextPassword.setText(user.getOrNull()?.password)
+                binding.editTextPhone.setText(user.getOrNull()?.phone)
+                binding.editTextDate.text = user.getOrNull()?.birthday
+                binding.editTextId.setText(user.getOrNull()?.identification)
+            }
+        } else {
+            binding.editTextEmailRegister.visibility = View.GONE
+            binding.editTextEmailRegisterLayout.visibility = View.GONE
+           // binding.editTextEmailRegister.visibility = View.INVISIBLE
+            //binding.editTextEmailRegisterLayout.visibility = View.INVISIBLE
+            user?.let {
+                binding.editTextName.setText(user.getOrNull()?.name)
+                binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
+                binding.editTextPassword.setText(user.getOrNull()?.password)
+                binding.editTextPhone.setText(user.getOrNull()?.phone)
+                binding.editTextDate.text = user.getOrNull()?.birthday
+            }
         }
+
     }
 
     suspend fun registerUser() {
-        val emailUsers = binding.editTextEmailRegister.text.toString()
+        emailUser = binding.editTextEmailRegister.text.toString()
         if (validationRegister()) {
-            val validation = registerUserViewModel.getUser(emailUsers)
+            val validation = registerUserViewModel.getUser(emailUser)
             if (validation?.isSuccess == true) {
                 binding.editTextEmailRegister.setError("Ya existe ese email")
-            }
-            val emailPattern = "[a-zA-Z0-9._-]+@[gmail|hotmail]+\\.[a-z]+".toRegex()
-            if (binding.editTextEmailRegister.text.toString().matches(emailPattern)) {
-                binding.editTextEmailRegister.setError("La dirección de correo electrónico no es válida")
             } else {
-                var url = ""
-                if (uriImageUser != null) {
+                if (!Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmailRegister.text.toString()).matches()) {
+                    binding.editTextEmailRegister.setError("La dirección de correo electrónico no es válida")
+                }
+                else{
+                    var url = ""
                     registerUserViewModel.setImageUser(
                         uriImageUser,
-                        emailUsers
+                        emailUser
                     )
-                    url = registerUserViewModel.getImageUser(emailUsers).getOrNull().toString()
-
+                    url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
                     val users = Users(
                         name = binding.editTextName.text.toString(),
                         phone = binding.editTextPhone.text.toString(),
-                        email = emailUsers,
+                        email = emailUser,
                         nameUser = binding.editTextNameUser.text.toString(),
                         password = binding.editTextPassword.text.toString(),
                         birthday = binding.editTextDate.text.toString(),
@@ -131,7 +153,6 @@ class RegisterUserActivity : AppCompatActivity() {
                         identification = binding.editTextId.text.toString(),
                         imageUserUrl = url
                     )
-
                     AlertDialog.Builder(this@RegisterUserActivity).apply {
                         setTitle("Registro de Usuario")
                         setMessage("¿Estás seguro de registrarte con este usuario? Más adelante lo puedes editar.")
@@ -140,12 +161,6 @@ class RegisterUserActivity : AppCompatActivity() {
                             registerUserViewModel.createUser(users)
                         }
                         setNegativeButton("No", null)
-                    }.show()
-                } else {
-                    AlertDialog.Builder(this@RegisterUserActivity).apply {
-                        setTitle("Imagen de perfil")
-                        setMessage("Por favor seleccione una imagen de perfil")
-                        setPositiveButton("Aceptar", null)
                     }.show()
                 }
             }

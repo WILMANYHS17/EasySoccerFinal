@@ -19,7 +19,7 @@ class HeaderProfileUser(
 ) {
 
     suspend fun build() {
-
+        var isAdmin = false
         binding.backButton.setOnClickListener {
             (context as Activity).onBackPressed()
         }
@@ -27,14 +27,14 @@ class HeaderProfileUser(
         val email = prefs.getString("email", "")
         email?.let {
             binding.nameUserProfile.text = getNameUser(it).getOrNull()?.nameUser
-
+            isAdmin = getNameUser(it).getOrNull()?.isAdmin == true
         }
         val url = email?.let { getImageUser(it) }
         Glide.with(context).load(url?.getOrNull().toString()).into(binding.imvUser)
         binding.imvUser.setOnClickListener {
 
             val intent = Intent(context, RegisterUserActivity::class.java)
-            intent.putExtra("user", "User")
+            intent.putExtra("UserHeader", isAdmin)
             intent.putExtra("EditUser", "Yes")
             intent.putExtra("EmailUser", email)
             startActivity(context, intent, null)
