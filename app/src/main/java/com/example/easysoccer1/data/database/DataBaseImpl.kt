@@ -136,7 +136,7 @@ class DataBaseImpl(
             )
     }
 
-    // Se puede colocar la función setImage dentro de cualquier función set
+
     override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesSportCenter")
@@ -397,6 +397,11 @@ class DataBaseImpl(
         }
 
         return Result.success(list)
+    }
+
+    override suspend fun cancelReserve(number: String, emailUser: String?) {
+        dataBase.collection("Users").document(emailUser.toString()).collection("Reservations")
+            .document(number).delete()
     }
 
     //Goals User Funtions

@@ -11,4 +11,8 @@ class ReserveUserFragmentViewModel(
         return reserveUseCase.getListReserveUser(emailUser)
     }
 
+    suspend fun cancelReserve(number: String, emailUser: String?) {
+        reserveUseCase.cancelReserve(number, emailUser)
+    }
+
 }

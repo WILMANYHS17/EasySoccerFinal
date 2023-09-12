@@ -103,7 +103,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
-        android:layout_width="200dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/priceNotification"
         android:text="150.000"
@@ -113,15 +113,24 @@
         app:layout_constraintTop_toTopOf="@id/titlePriceNotification"
         app:layout_constraintBottom_toBottomOf="@id/titlePriceNotification"/>
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:id="@+id/payNotification"
         android:text="Pagado"
         android:fontFamily="@font/source_sans_pro_bold"
         android:textColor="@color/red"
         app:layout_constraintStart_toEndOf="@+id/priceNotification"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/priceNotification"
+        app:layout_constraintEnd_toStartOf="@id/iconTrash"
         app:layout_constraintBottom_toBottomOf="@+id/priceNotification"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/iconTrash"
+        android:background="@drawable/trashchange"
+        app:layout_constraintStart_toEndOf="@id/payNotification"
+        app:layout_constraintTop_toTopOf="@id/payNotification"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
