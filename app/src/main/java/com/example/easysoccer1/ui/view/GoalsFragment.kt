@@ -135,7 +135,20 @@ class GoalsFragment : Fragment() {
         )
         val emailAdmin = prefs.getString("email", "")
         val nit = prefs.getString("Nit", "")
-        goalsViewModel.deleteGoal(emailAdmin, nit, number)
+        activity.let {
+            if (it != null) {
+                AlertDialog.Builder(it).apply {
+                    setTitle("Eliminar cancha")
+                    setMessage("¿Está seguro de eliminar la cancha?")
+                    setPositiveButton("Si"){_: DialogInterface, _: Int ->
+                        goalsViewModel.deleteGoal(emailAdmin, nit, number)
+                    }
+                    setNegativeButton("No", null)
+                }.show()
+            }
+        }
+
+
     }
 
     fun setUpAdapter() {

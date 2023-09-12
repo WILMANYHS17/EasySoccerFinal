@@ -41,6 +41,7 @@ interface DatabaseUserRepository {
     suspend fun getGoal(nit: String, size: String): Result<Goals>
     suspend fun updateGoal(updateGoal: Goals, number: String, nit: String)
     suspend fun getListReserveAdmin(nameSportCenter:String): Result<List<Reserve>>
+    suspend fun cancelReserve(number: String, emailUser: String?)
 
     //Comments Users Funtions
     fun setComment(comment: Comments)
