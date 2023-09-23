@@ -402,6 +402,7 @@ class DataBaseImpl(
     override suspend fun cancelReserve(number: String, emailUser: String?) {
         dataBase.collection("Users").document(emailUser.toString()).collection("Reservations")
             .document(number).delete()
+
     }
 
     //Goals User Funtions
