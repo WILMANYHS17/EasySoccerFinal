@@ -110,8 +110,8 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         val sportCenter = emailAdmin?.let { registerSportCenterViewModel.getSportCenter(nit, it) }
         if (sportCenter != null) {
             binding.descriptionSportCenter.setText(sportCenter.getOrNull()?.description)
-            binding.price5vs5.setText(sportCenter.getOrNull()?.price5vs5)
-            binding.price8vs8.setText(sportCenter.getOrNull()?.price8vs8)
+            binding.price5vs5.setText(sportCenter.getOrNull()?.price5vs5!!)
+            binding.price8vs8.setText(sportCenter.getOrNull()?.price8vs8!!)
             binding.addressSportCenter.setText(sportCenter.getOrNull()?.address)
             binding.nameSportCenter.setText(sportCenter.getOrNull()?.nameSportCenter)
         }
@@ -140,8 +140,8 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                     nameSportCenter = binding.nameSportCenter.text.toString(),
                     address = binding.addressSportCenter.text.toString(),
                     nit = nit,
-                    price5vs5 = binding.price5vs5.text.toString(),
-                    price8vs8 = binding.price8vs8.text.toString(),
+                    price5vs5 = binding.price5vs5.text.toString().toInt(),
+                    price8vs8 = binding.price8vs8.text.toString().toInt(),
                     description = binding.descriptionSportCenter.text.toString(),
                     emailAdmin = emailAdmin.toString(),
                     imageSportCenterUrl = url,

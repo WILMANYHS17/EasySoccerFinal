@@ -60,9 +60,9 @@ class ReserveUserActivity : AppCompatActivity() {
         val size = prefs.getString("Size", "")
         val sportCenter = reserveUserViewModel.getSportCenter(nit)
         if (size == "5vs5") {
-            binding.reservationPrice.text = sportCenter.getOrNull()?.price5vs5
+            binding.reservationPrice.text = sportCenter.getOrNull()?.price5vs5.toString()
         } else {
-            binding.reservationPrice.text = sportCenter.getOrNull()?.price8vs8
+            binding.reservationPrice.text = sportCenter.getOrNull()?.price8vs8.toString()
         }
         binding.nameSportCenterReservation.text = sportCenter.getOrNull()?.nameSportCenter
         binding.adressSportCenterReservation.text = sportCenter.getOrNull()?.address
@@ -93,10 +93,10 @@ class ReserveUserActivity : AppCompatActivity() {
                         numberPlayers = binding.numberPlayersReservation.text.toString(),
                         date = binding.reservationDate.text.toString(),
                         hour = binding.reservationHour.text.toString(),
-                        price = binding.reservationPrice.text.toString(),
+                        price = binding.reservationPrice.text.toString().toInt(),
                         nameReserveBy = properName.toString(),
-                        numberReserve = number.toString(),
-                        numberGoal = it.number
+                        numberReserve = number.toString().toInt(),
+                        numberGoal = it.number.toInt()
                     )
                 }?.let {
                     reserveUserViewModel.setReserve(
