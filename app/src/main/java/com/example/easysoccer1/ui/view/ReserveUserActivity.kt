@@ -109,7 +109,7 @@ class ReserveUserActivity : AppCompatActivity() {
                             Goals(
                                 number = it.number,
                                 size = binding.numberPlayersReservation.text.toString(),
-                                price = binding.reservationPrice.text.toString(),
+                                price = binding.reservationPrice.text.toString().toInt(),
                                 available = "Reservado",
                                 hour = binding.reservationHour.text.toString(),
                                 date = binding.reservationDate.text.toString()

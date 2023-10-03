@@ -254,7 +254,7 @@ class DataBaseImpl(
 
     override fun setGoals(goals: Goals, emailAdmin: String?, nit: String?) {
         dataBase.collection("Users").document(emailAdmin.toString()).collection("SportCenter")
-            .document(nit.toString()).collection("Goals").document(goals.number).set(
+            .document(nit.toString()).collection("Goals").document(goals.number.toString()).set(
                 hashMapOf(
                     "number" to goals.number,
                     "size" to goals.size,
@@ -366,7 +366,7 @@ class DataBaseImpl(
     override fun setReserve(reserve: Reserve, emailUser: String?) {
 
         dataBase.collection("Users").document(emailUser.toString()).collection("Reservations")
-            .document(reserve.numberReserve).set(
+            .document(reserve.numberReserve.toString()).set(
                 hashMapOf(
                     "numberReserve" to reserve.numberReserve,
                     "nameSportCenter" to reserve.nameSportCenter,
@@ -428,11 +428,11 @@ class DataBaseImpl(
         return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 
-    override suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
+    override suspend fun updateGoal(updateGoal: Goals, number: Int, nit: String) {
         val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
         for (document in snapshot.documents) {
             dataBase.collection("SportCenter").document(nit).collection("Goals")
-                .document(updateGoal.number)
+                .document(updateGoal.number.toString())
                 .set(
                     hashMapOf(
                         "number" to updateGoal.number,
@@ -449,7 +449,7 @@ class DataBaseImpl(
     //Comments Users Funtions
     override fun setComment(comment: Comments) {
         dataBase.collection("Users").document(comment.emailUser).collection("Comments")
-            .document(comment.id).set(
+            .document(comment.id.toString()).set(
                 hashMapOf(
                     "id" to comment.id,
                     "nameUser" to comment.nameUser,

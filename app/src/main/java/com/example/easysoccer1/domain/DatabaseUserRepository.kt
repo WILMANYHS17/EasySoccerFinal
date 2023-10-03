@@ -39,7 +39,7 @@ interface DatabaseUserRepository {
     fun setReserve(reserve: Reserve, emailUser: String?)
     suspend fun getListReserveUser(emailUser: String?): Result<List<Reserve>>
     suspend fun getGoal(nit: String, size: String): Result<Goals>
-    suspend fun updateGoal(updateGoal: Goals, number: String, nit: String)
+    suspend fun updateGoal(updateGoal: Goals, number: Int, nit: String)
     suspend fun getListReserveAdmin(nameSportCenter:String): Result<List<Reserve>>
     suspend fun cancelReserve(number: String, emailUser: String?)
 
