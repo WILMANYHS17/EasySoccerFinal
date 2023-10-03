@@ -105,9 +105,9 @@ class RegisterUserActivity : AppCompatActivity() {
                 binding.editTextName.setText(user.getOrNull()?.name)
                 binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
                 binding.editTextPassword.setText(user.getOrNull()?.password)
-                binding.editTextPhone.setText(user.getOrNull()?.phone)
+                binding.editTextPhone.setText(user.getOrNull()?.phone!!)
                 binding.editTextDate.text = user.getOrNull()?.birthday
-                binding.editTextId.setText(user.getOrNull()?.identification)
+                binding.editTextId.setText(user.getOrNull()?.identification!!)
             }
         } else {
             binding.editTextEmailRegister.visibility = View.GONE
@@ -118,7 +118,7 @@ class RegisterUserActivity : AppCompatActivity() {
                 binding.editTextName.setText(user.getOrNull()?.name)
                 binding.editTextNameUser.setText(user.getOrNull()?.nameUser)
                 binding.editTextPassword.setText(user.getOrNull()?.password)
-                binding.editTextPhone.setText(user.getOrNull()?.phone)
+                binding.editTextPhone.setText(user.getOrNull()?.phone!!)
                 binding.editTextDate.text = user.getOrNull()?.birthday
             }
         }
@@ -144,13 +144,13 @@ class RegisterUserActivity : AppCompatActivity() {
                     url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
                     val users = Users(
                         name = binding.editTextName.text.toString(),
-                        phone = binding.editTextPhone.text.toString(),
+                        phone = binding.editTextPhone.text.toString().toInt(),
                         email = emailUser,
                         nameUser = binding.editTextNameUser.text.toString(),
                         password = binding.editTextPassword.text.toString(),
                         birthday = binding.editTextDate.text.toString(),
                         isAdmin = isAdmin,
-                        identification = binding.editTextId.text.toString(),
+                        identification = binding.editTextId.text.toString().toInt(),
                         imageUserUrl = url
                     )
                     AlertDialog.Builder(this@RegisterUserActivity).apply {
