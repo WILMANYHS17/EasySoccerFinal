@@ -31,31 +31,11 @@ class DataBaseImpl(
         )
     }
 
-    override fun setImageUser(uriImageUser: Uri, emailUser: String) {
+    override suspend fun setImageUser(uriImageUser: Uri, emailUser: String) {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesUsers")
         val imageReference = imagesReference.child(emailUser)
-        val uploadTask = imageReference.putFile(uriImageUser)
-        uploadTask.addOnSuccessListener {
-            // La tarea se completó con éxito
-            Log.d("TAG", "Imagen subida exitosamente")
-
-
-            // Obtenemos la uri de descarga de la imagen
-            imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
-                // La uri de descarga se obtuvo con éxito
-                Log.d("TAG", "La uri de descarga es: $downloadUri")
-
-            }.addOnFailureListener {
-                // La uri de descarga no se pudo obtener
-                Log.e("TAG", "Error al obtener la uri de descarga", it)
-
-            }
-        }.addOnFailureListener {
-            // La tarea falló con una excepción
-            Log.e("TAG", "Error al subir la imagen", it)
-
-        }
+        imageReference.putFile(uriImageUser).await()
 
     }
 
@@ -137,21 +117,12 @@ class DataBaseImpl(
     }
 
 
-    override fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
+    override suspend fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
         val storageReference = dataBaseStorage.reference
         val imagesReference = storageReference.child("ImagesSportCenter")
         val imageReference = imagesReference.child(nit)
-        val uploadTask = imageReference.putFile(uriImageSportCenter)
-        uploadTask.addOnSuccessListener {
-            Log.d("TAG", "Imagen subida exitosamente")
-            imageReference.downloadUrl.addOnSuccessListener { downloadUri ->
-                Log.d("TAG", "La uri de descarga es: $downloadUri")
-            }.addOnFailureListener {
-                Log.e("TAG", "Error al obtener la uri de descarga", it)
-            }
-        }.addOnFailureListener {
-            Log.e("TAG", "Error al subir la imagen", it)
-        }
+        imageReference.putFile(uriImageSportCenter).await()
+
     }
 
     override suspend fun getImageSportCenter(nit: String): Result<String> {

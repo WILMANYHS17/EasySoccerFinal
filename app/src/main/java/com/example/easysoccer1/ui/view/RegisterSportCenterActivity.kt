@@ -119,6 +119,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     suspend fun onClickCreateSportCenter() {
         val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
+        var url = ""
         if (validationRegister()) {
             getLocationCoordinates(this)
             if (binding.nitSportCenter.text.isEmpty()) {
@@ -134,14 +135,13 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             }else{
                 registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
                 registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
-                var url = ""
                 url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
                 val sportCenter = SportCenter(
                     nameSportCenter = binding.nameSportCenter.text.toString(),
                     address = binding.addressSportCenter.text.toString(),
                     nit = nit,
-                    price5vs5 = binding.price5vs5.text.toString().toInt(),
-                    price8vs8 = binding.price8vs8.text.toString().toInt(),
+                    price5vs5 = binding.price5vs5.text.toString(),
+                    price8vs8 = binding.price8vs8.text.toString(),
                     description = binding.descriptionSportCenter.text.toString(),
                     emailAdmin = emailAdmin.toString(),
                     imageSportCenterUrl = url,
@@ -152,6 +152,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
                     setMessage("¿Estás seguro de registrar este Centro Deportivo? Más adelante lo puedes editar.")
                     setPositiveButton("Sí") { _: DialogInterface, _: Int ->
                         registerSportCenterViewModel.setSportCenter(sportCenter)
+
                     }
                     setNegativeButton("No", null)
                 }.show()

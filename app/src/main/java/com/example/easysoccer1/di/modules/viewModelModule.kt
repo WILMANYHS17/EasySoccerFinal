@@ -87,4 +87,9 @@ val viewModelModule: Module = module {
             mapUseCase = get()
         )
     }
+    viewModel{
+        StatsViewModel(
+            reserveUseCase = get()
+        )
+    }
 }

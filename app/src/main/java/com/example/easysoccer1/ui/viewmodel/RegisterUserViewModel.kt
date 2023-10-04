@@ -13,7 +13,7 @@ class RegisterUserViewModel(
         usersUseCase.createUser(users)
     }
 
-    fun setImageUser(uriImageUser: Uri, emailUser: String) {
+    suspend fun setImageUser(uriImageUser: Uri, emailUser: String) {
         usersUseCase.setImageUser(uriImageUser, emailUser)
     }
 

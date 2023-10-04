@@ -13,8 +13,12 @@ import com.example.easysoccer1.R
 import com.example.easysoccer1.databinding.FragmentHomeAdminBinding
 import com.example.easysoccer1.databinding.FragmentStatsAdminBinding
 import com.example.easysoccer1.ui.viewmodel.HeaderProfileUserViewModel
+import com.example.easysoccer1.ui.viewmodel.StatsViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Calendar
 
 
 class StatsAdminFragment() : Fragment() {
@@ -41,8 +45,30 @@ class StatsAdminFragment() : Fragment() {
                 headerProfileUserViewModel,
                 prefs
             ).build()
+            numberReservesForDay()
         }
+
+
         return root
+    }
+
+    private suspend fun numberReservesForDay() {
+        val statsViewModel: StatsViewModel by viewModel()
+        val prefs = requireActivity().applicationContext.getSharedPreferences(
+            "easySoccer",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val nameSportCenter = prefs.getString("NameSportCenter", "")
+        /*
+        val listDate =
+            nameSportCenter?.let { statsViewModel.getDateOfReserves(it).getOrNull() } ?: emptyList()
+        for (i in listDate) {
+            var date = i.date
+            getDayWeek(date)
+        }
+
+         */
+
     }
 
     override fun onDestroyView() {
@@ -50,6 +76,51 @@ class StatsAdminFragment() : Fragment() {
         _binding = null
 
     }
+/*
+    fun getDayWeek(date: String) {
+        val format = SimpleDateFormat("dd-MM-yyyy")
+        val todayDate = format.parse(date)
 
+        val calendar = Calendar.getInstance()
+        calendar.time = todayDate
+        var count = 0
+        val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
+        if (weekDay == Calendar.MONDAY) {
+            count += 1
+            binding.mondayData.text = count.toString()
+        } else {
+            if (weekDay == Calendar.TUESDAY) {
+                count += 1
+                binding.tuesdayData.text = count.toString()
+            } else {
+                if (weekDay == Calendar.WEDNESDAY) {
+                    count += 1
+                    binding.wednesdayData.text = count.toString()
+                } else {
+                    if (weekDay == Calendar.THURSDAY) {
+                        count += 1
+                        binding.thursdayData.text = count.toString()
+                    } else {
+                        if (weekDay == Calendar.FRIDAY) {
+                            count += 1
+                            binding.fridayData.text = count.toString()
+                        } else {
+                            if (weekDay == Calendar.SATURDAY) {
+                                count += 1
+                                binding.saturdayData.text = count.toString()
+                            } else {
+                                if (weekDay == Calendar.SUNDAY) {
+                                    count += 1
+                                    binding.sundayData.text = count.toString()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ */
 
 }
