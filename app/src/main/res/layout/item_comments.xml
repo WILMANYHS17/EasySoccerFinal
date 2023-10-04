@@ -17,12 +17,11 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/icon_user_default"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="@+id/commentsUsers"
-        app:layout_constraintTop_toTopOf="@+id/commentsUsers"
-        app:layout_constraintBottom_toBottomOf="@+id/commentsUsers"
+        app:layout_constraintStart_toStartOf="@+id/itemCommentsUsers"
+        app:layout_constraintTop_toTopOf="@+id/itemCommentsUsers"
+        app:layout_constraintBottom_toBottomOf="@+id/itemCommentsUsers"
         />
 
     <TextView
@@ -34,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toEndOf="@+id/imageProfile"
         app:layout_constraintTop_toTopOf="@+id/imageProfile"
-        app:layout_constraintEnd_toEndOf="@+id/commentsUsers"
+        app:layout_constraintEnd_toEndOf="@+id/itemCommentsUsers"
         />
 
     <TextView
@@ -45,8 +44,8 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintTop_toBottomOf="@+id/nameUserComments"
         app:layout_constraintStart_toStartOf="@+id/nameUserComments"
-        app:layout_constraintEnd_toEndOf="@+id/commentsUsers"
-        app:layout_constraintBottom_toBottomOf="@+id/commentsUsers"
+        app:layout_constraintEnd_toEndOf="@+id/itemCommentsUsers"
+        app:layout_constraintBottom_toBottomOf="@+id/itemCommentsUsers"
         />
 
 
