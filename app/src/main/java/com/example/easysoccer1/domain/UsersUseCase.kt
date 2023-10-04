@@ -28,7 +28,7 @@ class UsersUseCase(
         return databaseUserRepository.getListSportsCenterUsers(date, hour, optionsFinal)
     }
 
-    fun setImageUser(uriImageUser: Uri, emailUser: String) {
+    suspend fun setImageUser(uriImageUser: Uri, emailUser: String) {
         databaseUserRepository.setImageUser(uriImageUser, emailUser)
     }
 

@@ -12,7 +12,7 @@ class RegisterSportCenterViewModel(
         sportCenterUseCase.setSportCenter(sportCenter)
     }
 
-    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
+    suspend fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
         sportCenterUseCase.setImageSportCenter(nit, uriImageSportCenter)
     }
 

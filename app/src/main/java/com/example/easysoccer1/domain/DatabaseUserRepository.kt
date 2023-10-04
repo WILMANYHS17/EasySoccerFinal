@@ -12,7 +12,7 @@ interface DatabaseUserRepository {
     fun changePassword(forgotPassword: Users)
     suspend fun searchUser(email: String): Result<Users>
     suspend fun getUserComplete(emailUser: String): Result<Users>
-    fun setImageUser(uriImageUser: Uri, emailUser: String)
+    suspend fun setImageUser(uriImageUser: Uri, emailUser: String)
     suspend fun getImageUser(email: String): Result<String?>
 
     //SportCenter Funtions
@@ -20,7 +20,7 @@ interface DatabaseUserRepository {
     suspend fun getSportCenter(nit: String, email: String): Result<SportCenter>
     suspend fun getNitSportCenter(nit: String): Result<SportCenter>
     suspend fun getListSportCenter(email: String?): Result<List<SportCenter>>
-    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
+    suspend fun setImageSportCenter(nit: String, uriImageSportCenter: Uri)
     suspend fun getImageSportCenter(nit: String): Result<String>
     fun setListImageSportCenter(uriList: MutableList<Uri>, nit: String)
     suspend fun getListImageSportCenter(nit: String): Result<List<String>>

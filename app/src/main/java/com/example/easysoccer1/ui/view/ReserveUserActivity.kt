@@ -93,10 +93,10 @@ class ReserveUserActivity : AppCompatActivity() {
                         numberPlayers = binding.numberPlayersReservation.text.toString(),
                         date = binding.reservationDate.text.toString(),
                         hour = binding.reservationHour.text.toString(),
-                        price = binding.reservationPrice.text.toString().toInt(),
+                        price = binding.reservationPrice.text.toString(),
                         nameReserveBy = properName.toString(),
-                        numberReserve = number.toString().toInt(),
-                        numberGoal = it.number.toInt()
+                        numberReserve = number.toString(),
+                        numberGoal = it.number
                     )
                 }?.let {
                     reserveUserViewModel.setReserve(

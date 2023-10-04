@@ -57,19 +57,6 @@ class SportCenterUserAdapter(
                 textAdressStadiumItem.text = stadiumInYourArea.address
                 Glide.with(context).load(stadiumInYourArea.imageSportCenterUrl).into(imageSportCenterItem)
                 itemSportCenterUser.setOnClickListener { goToDescription(stadiumInYourArea.nit) }
-                //btnMap.setOnClickListener { selectGoToDetail(stadiumInYourArea) }
-                //btnReserverUser.setOnClickListener { selectGoToReserve(stadiumInYourArea) }
-                /*
-                val identifier =
-                    context.resources.getIdentifier(
-                        stadiumInYourArea.image,
-                        "drawable",
-                        context.packageName
-                    )
-                if (identifier > 0) {
-                    imageSportCenterItem.setImageResource(identifier)
-                }
-                 */
                 itemSportCenterUser.elevation = ELEVATION_CARD
             }
         }

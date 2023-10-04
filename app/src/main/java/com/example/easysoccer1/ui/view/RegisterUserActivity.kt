@@ -112,7 +112,7 @@ class RegisterUserActivity : AppCompatActivity() {
         } else {
             binding.editTextEmailRegister.visibility = View.GONE
             binding.editTextEmailRegisterLayout.visibility = View.GONE
-           // binding.editTextEmailRegister.visibility = View.INVISIBLE
+            // binding.editTextEmailRegister.visibility = View.INVISIBLE
             //binding.editTextEmailRegisterLayout.visibility = View.INVISIBLE
             user?.let {
                 binding.editTextName.setText(user.getOrNull()?.name)
@@ -132,10 +132,11 @@ class RegisterUserActivity : AppCompatActivity() {
             if (validation?.isSuccess == true) {
                 binding.editTextEmailRegister.setError("Ya existe ese email")
             } else {
-                if (!Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmailRegister.text.toString()).matches()) {
+                if (!Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmailRegister.text.toString())
+                        .matches()
+                ) {
                     binding.editTextEmailRegister.setError("La dirección de correo electrónico no es válida")
-                }
-                else{
+                } else {
                     var url = ""
                     registerUserViewModel.setImageUser(
                         uriImageUser,
@@ -144,13 +145,13 @@ class RegisterUserActivity : AppCompatActivity() {
                     url = registerUserViewModel.getImageUser(emailUser).getOrNull().toString()
                     val users = Users(
                         name = binding.editTextName.text.toString(),
-                        phone = binding.editTextPhone.text.toString().toInt(),
+                        phone = binding.editTextPhone.text.toString(),
                         email = emailUser,
                         nameUser = binding.editTextNameUser.text.toString(),
                         password = binding.editTextPassword.text.toString(),
                         birthday = binding.editTextDate.text.toString(),
                         isAdmin = isAdmin,
-                        identification = binding.editTextId.text.toString().toInt(),
+                        identification = binding.editTextId.text.toString(),
                         imageUserUrl = url
                     )
                     AlertDialog.Builder(this@RegisterUserActivity).apply {
@@ -220,9 +221,9 @@ class RegisterUserActivity : AppCompatActivity() {
     }
 
     fun imageUser() {
-        binding.imageCircle.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-        }
+
+        pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+
     }
 
     private fun showDatePickerDialog() {

@@ -5,5 +5,5 @@ data class Comments(
     val nameUser: String = "",
     val nameSportCenter: String = "",
     val comment: String = "",
-    val id: Int = 0
+    val id: String = ""
 )

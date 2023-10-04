@@ -94,7 +94,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
                 nameUser = user.getOrNull()!!.nameUser,
                 comment = binding.textComment.text.toString(),
                 nameSportCenter = sportCenter.getOrNull()!!.nameSportCenter,
-                id = idComment.toString().toInt()
+                id = idComment.toString()
             )
         )
 

@@ -80,9 +80,9 @@ class GoalsFragment : Fragment() {
                     if (size == "5vs5") {
                         price5vs5?.let { it1 ->
                             Goals(
-                                number = binding.inputTextNumberGoal.text.toString().toInt(),
+                                number = binding.inputTextNumberGoal.text.toString(),
                                 size = size,
-                                price = it1.toInt(),
+                                price = it1,
                                 available = "Disponible",
                                 hour = "",
                                 date = ""
@@ -95,9 +95,9 @@ class GoalsFragment : Fragment() {
                     } else {
                         price8vs8?.let { it1 ->
                             Goals(
-                                number = binding.inputTextNumberGoal.text.toString().toInt(),
+                                number = binding.inputTextNumberGoal.text.toString(),
                                 size = size,
-                                price = it1.toInt(),
+                                price = it1,
                                 available = "Disponible",
                                 hour = "",
                                 date = ""

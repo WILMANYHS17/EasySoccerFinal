@@ -22,7 +22,7 @@ class SportCenterUseCase(
         return databaseUserRepository.getSportCenterUser(nit)
     }
 
-    fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
+    suspend fun setImageSportCenter(nit: String, uriImageSportCenter: Uri) {
         databaseUserRepository.setImageSportCenter(nit, uriImageSportCenter)
     }
 
