@@ -16,7 +16,7 @@
         android:id="@+id/imageProfile"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/user"
+        android:background="@drawable/icon_user_default"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:scaleType="fitXY"
