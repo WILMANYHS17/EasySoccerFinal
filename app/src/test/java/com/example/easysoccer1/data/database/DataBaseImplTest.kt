@@ -1,122 +1,80 @@
 package com.example.easysoccer1.data.database
 
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import org.junit.jupiter.api.Assertions.*
+import io.mockk.*
+import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
 
 class DataBaseImplTest {
-    private val dataBase: FirebaseFirestore = TODO()
-    private val dataBaseStorage: FirebaseStorage = TODO()
 
-    @org.junit.jupiter.api.Test
-    fun createUser() {
+    // Mocks para FirebaseFirestore y FirebaseStorage
+    @MockK
+    private lateinit var mockDatabase: FirebaseFirestore
+
+    @MockK
+    private lateinit var mockStorage: FirebaseStorage
+
+    // Clase bajo prueba
+    private lateinit var databaseImpl: DataBaseImpl
+
+    @Before
+    fun setUp() {
+        MockKAnnotations.init(this)
+        databaseImpl = DataBaseImpl(mockDatabase, mockStorage)
     }
 
-    @org.junit.jupiter.api.Test
-    fun setImageUser() {
+    @After
+    fun tearDown() {
+        clearAllMocks()
     }
 
-    @org.junit.jupiter.api.Test
-    fun getImageUser() {
+    @Test
+    fun testGetUser_Success() {
+        val email = "test@example.com"
+        val password = "password123"
+        val snapshot = mockk<DocumentSnapshot>()
+
+        // Configura el comportamiento simulado de los mocks
+        coEvery { mockDatabase.collection("Users").document(email).get().await() } returns snapshot
+        every { snapshot.get("password") } returns password
+
+        // Ejecuta el método bajo prueba
+        val result = runBlocking { databaseImpl.getUser(email, password) }
+
+        // Verifica que el resultado sea el esperado
+        assert(result.isSuccess)
+        assert(result.getOrDefault(false))
+
+        // Verifica que se llamó al método con los argumentos esperados
+        coVerify { mockDatabase.collection("Users").document(email).get().await() }
     }
 
-    @org.junit.jupiter.api.Test
-    fun getUser() {
-    }
+    @Test
+    fun testGetUser_Failure() {
+        val email = "test@example.com"
+        val password = "password123"
+        val incorrectPassword = "incorrect"
 
-    @org.junit.jupiter.api.Test
-    fun getUserComplete() {
-    }
+        val snapshot = mockk<DocumentSnapshot>()
 
-    @org.junit.jupiter.api.Test
-    fun searchUser() {
-    }
+        // Configura el comportamiento simulado de los mocks
+        coEvery { mockDatabase.collection("Users").document(email).get().await() } returns snapshot
+        every { snapshot.get("password") } returns incorrectPassword
 
-    @org.junit.jupiter.api.Test
-    fun changePassword() {
-    }
+        // Ejecuta el método bajo prueba
+        val result = runBlocking { databaseImpl.getUser(email, password) }
 
-    @org.junit.jupiter.api.Test
-    fun createSportCenter() {
-    }
+        // Verifica que el resultado sea el esperado
+        assert(result.isSuccess)
+        assert(!result.getOrDefault(false))
 
-    @org.junit.jupiter.api.Test
-    fun setImageSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getImageSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun setListImageSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListImageSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getNitSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListSportCenter() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun setGoals() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListGoals() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun deleteGoal() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListReserveAdmin() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getSportCenterUser() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListSportsCenterUsers() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun setReserve() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListReserveUser() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun cancelReserve() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getGoal() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun updateGoal() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun setComment() {
-    }
-
-    @org.junit.jupiter.api.Test
-    fun getListComments() {
+        // Verifica que se llamó al método con los argumentos esperados
+        coVerify { mockDatabase.collection("Users").document(email).get().await() }
     }
 }
