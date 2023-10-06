@@ -22,20 +22,30 @@ class UsersUseCaseTest {
     fun searchUser() {
         runBlocking {
             //given
-            val user = Users(birthday = "", password = "", identification = "", nameUser = "", phone = "", name = "", isAdmin = false, email = "a", imageUserUrl = "")
+            val user = Users(
+                birthday = "",
+                password = "",
+                identification = "",
+                nameUser = "",
+                phone = "",
+                name = "",
+                isAdmin = false,
+                email = "a",
+                imageUserUrl = ""
+            )
             coEvery { databaseUserRepository.searchUser("a") } returns Result.success(user)
             //when
             val result = usersUseCase.searchUser("a").getOrNull()
             //then
             assertEquals(user.email, result?.email)
 
-            coVerify (exactly = 1){databaseUserRepository.searchUser("a")}
+            coVerify(exactly = 1) { databaseUserRepository.searchUser("a") }
         }
 
     }
 
     @Test
-    fun getImage(){
+    fun getImage() {
         runBlocking {
             //given
             coEvery { databaseUserRepository.getImageUser("a") } returns Result.success("a")
@@ -48,17 +58,27 @@ class UsersUseCaseTest {
     }
 
     @Test
-    fun getUsers(){
+    fun getUsers() {
         runBlocking {
             //given
-            val user = Users(birthday = "", password = "", identification = "", nameUser = "", phone = "", name = "", isAdmin = false, email = "a", imageUserUrl = "")
+            val user = Users(
+                birthday = "",
+                password = "",
+                identification = "",
+                nameUser = "",
+                phone = "",
+                name = "",
+                isAdmin = false,
+                email = "a",
+                imageUserUrl = ""
+            )
             coEvery { databaseUserRepository.getUserComplete("a") } returns Result.success(user)
             //when
             val result = usersUseCase.getUser("a").getOrNull()
             //then
             assertEquals(user.email, result?.email)
 
-            coVerify (exactly = 1){databaseUserRepository.getUserComplete("a")}
+            coVerify(exactly = 1) { databaseUserRepository.getUserComplete("a") }
         }
     }
 
