@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.easysoccer1.ui.view.HomeAdminFragment"
+        android:name="com.wyhs.easysoccer.ui.view.HomeAdminFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home_admin" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.easysoccer1.ui.view.GoalsFragment"
+        android:name="com.wyhs.easysoccer.ui.view.GoalsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_reserve_admin" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.easysoccer1.ui.view.ReserveAdminFragment"
+        android:name="com.wyhs.easysoccer.ui.view.ReserveAdminFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_goals" />
 
     <fragment
         android:id="@+id/navigation_stats"
-        android:name="com.example.easysoccer1.ui.view.StatsAdminFragment"
+        android:name="com.wyhs.easysoccer.ui.view.StatsAdminFragment"
         android:label="@string/title_stats"
         tools:layout="@layout/fragment_stats_admin"/>
 </navigation>
