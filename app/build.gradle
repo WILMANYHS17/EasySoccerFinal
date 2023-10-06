@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.gms.google-services'
+    //id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.example.easysoccer1'
+    namespace 'com.wyhs.easysoccer'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.easysoccer1"
+        applicationId "com.wyhs.easysoccer"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -52,8 +53,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation platform('com.google.firebase:firebase-bom:31.3.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     implementation 'androidx.fragment:fragment-ktx:1.5.6'
     implementation 'androidx.activity:activity-ktx:1.7.0'
     implementation 'androidx.core:core-splashscreen:1.0.0'
@@ -81,14 +81,23 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
     //Firebase
-    implementation 'com.google.firebase:firebase-storage:version'
-    implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.8.1'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
+    //implementation platform('com.google.firebase:firebase-bom:31.3.0')
+    //implementation 'com.google.firebase:firebase-analytics-ktx'
+    //implementation 'com.google.firebase:firebase-storage:version'
+    //implementation 'com.google.firebase:firebase-storage:20.0.0'
+    //implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
+
     //Reactivex
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'

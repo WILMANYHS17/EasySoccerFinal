@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home_user"
-        android:name="com.example.easysoccer1.ui.view.HomeUserFragment"
+        android:name="com.wyhs.easysoccer.ui.view.HomeUserFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home_user" />
 
     <fragment
         android:id="@+id/navigation_notifications_user"
-        android:name="com.example.easysoccer1.ui.view.ReserveUserFragment"
+        android:name="com.wyhs.easysoccer.ui.view.ReserveUserFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_reserve_admin" />
 
