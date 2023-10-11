@@ -15,12 +15,10 @@ import org.junit.jupiter.api.Assertions.*
 class SelectSportCenterViewModelTest {
     private val sportCenterUseCase: SportCenterUseCase = mockk(relaxed = true)
     private lateinit var selectSportCenterViewModel: SelectSportCenterViewModel
-
     @Before
     fun setup() {
         selectSportCenterViewModel = SelectSportCenterViewModel(sportCenterUseCase)
     }
-
     @Test
     fun getListSportCenter() {
         runBlocking {
@@ -49,7 +47,6 @@ class SelectSportCenterViewModelTest {
                     locationSportCenter = ""
                 )
             )
-
             coEvery { sportCenterUseCase.getListSportCenter("a") } returns Result.success(
                 sportCenterList
             )

@@ -11,7 +11,6 @@ import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 
-
 class RegisterUserViewModelTest {
     private val usersUseCase: UsersUseCase = mockk(relaxed = true)
     private lateinit var registerUserViewModel: RegisterUserViewModel
@@ -21,18 +20,29 @@ class RegisterUserViewModelTest {
         registerUserViewModel =
             RegisterUserViewModel(usersUseCase)
     }
+
     @Test
     fun getUser() {
         runBlocking {
             //given
-            val user = Users(birthday = "", password = "", identification = "", nameUser = "", phone = "", name = "", isAdmin = false, email = "a", imageUserUrl = "")
-            coEvery { usersUseCase.searchUser("a") } returns Result.success(user)
+            val user = Users(
+                birthday = "",
+                password = "",
+                identification = "",
+                nameUser = "",
+                phone = "",
+                name = "",
+                isAdmin = false,
+                email = "a",
+                imageUserUrl = ""
+            )
+            coEvery { usersUseCase.getUser("a") } returns Result.success(user)
             //when
             val result = registerUserViewModel.getUser("a").getOrNull()
             //then
             assertEquals(user.email, result?.email)
 
-            coVerify (exactly = 1){usersUseCase.searchUser("a")}
+            coVerify(exactly = 1) { usersUseCase.getUser("a") }
         }
     }
 

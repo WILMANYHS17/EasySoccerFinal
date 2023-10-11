@@ -11,7 +11,6 @@ import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 
-
 class JoinSessionViewModelTest {
     private val usersUseCase: UsersUseCase = mockk(relaxed = true)
     private lateinit var joinSessionViewModel: JoinSessionViewModel
@@ -26,14 +25,24 @@ class JoinSessionViewModelTest {
     fun searchUsers1() {
         runBlocking {
             //given
-            val user = Users(birthday = "", password = "", identification = "", nameUser = "", phone = "", name = "", isAdmin = false, email = "a", imageUserUrl = "")
+            val user = Users(
+                birthday = "",
+                password = "",
+                identification = "",
+                nameUser = "",
+                phone = "",
+                name = "",
+                isAdmin = false,
+                email = "a",
+                imageUserUrl = ""
+            )
             coEvery { usersUseCase.searchUser("a") } returns Result.success(user)
             //when
             val result = joinSessionViewModel.searchUsers1("a").getOrNull()
             //then
             assertEquals(user.email, result?.email)
 
-            coVerify (exactly = 1){usersUseCase.searchUser("a")}
+            coVerify(exactly = 1) { usersUseCase.searchUser("a") }
         }
     }
 }

@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Assertions.*
 class GoalsViewModelTest {
     private val goalsUseCase: GoalsUseCase = mockk(relaxed = true)
     private lateinit var goalsViewModel: GoalsViewModel
-
     @Before
     fun setup() {
         goalsViewModel =
@@ -43,7 +42,6 @@ class GoalsViewModelTest {
                     date = ""
                 )
             )
-
             coEvery { goalsUseCase.getListGoals("a", "a") } returns Result.success(
                 goalList
             )

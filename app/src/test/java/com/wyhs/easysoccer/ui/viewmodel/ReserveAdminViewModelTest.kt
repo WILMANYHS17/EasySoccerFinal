@@ -7,9 +7,10 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
-import org.junit.jupiter.api.Test
+
 
 class ReserveAdminViewModelTest {
     private val reserveUseCase: ReserveUseCase = mockk(relaxed = true)
@@ -19,7 +20,6 @@ class ReserveAdminViewModelTest {
         reserveAdminViewModel =
             ReserveAdminViewModel(reserveUseCase)
     }
-
     @Test
     fun getListAdminNotificationReserve() {
         runBlocking {

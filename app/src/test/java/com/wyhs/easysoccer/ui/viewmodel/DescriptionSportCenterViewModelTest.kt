@@ -41,7 +41,9 @@ class DescriptionSportCenterViewModelTest {
                 imageSportCenterUrl = "",
                 locationSportCenter = ""
             )
-            coEvery { sportCenterUseCase.getSportCenterUser("a") } returns Result.success(sportCenter)
+            coEvery { sportCenterUseCase.getSportCenterUser("a") } returns Result.success(
+                sportCenter
+            )
             //when
             val result = descriptionSportCenterViewModel.getSportCenterUser("a").getOrNull()
             //then
@@ -55,14 +57,24 @@ class DescriptionSportCenterViewModelTest {
     fun getUser() {
         runBlocking {
             //given
-            val user = Users(birthday = "", password = "", identification = "", nameUser = "", phone = "", name = "", isAdmin = false, email = "a", imageUserUrl = "")
-            coEvery { usersUseCase.getUser("a") } returns Result.success(user)
+            val user = Users(
+                birthday = "",
+                password = "",
+                identification = "",
+                nameUser = "",
+                phone = "",
+                name = "",
+                isAdmin = false,
+                email = "a",
+                imageUserUrl = ""
+            )
+            coEvery { usersUseCase.searchUser("a") } returns Result.success(user)
             //when
             val result = descriptionSportCenterViewModel.getUser("a").getOrNull()
             //then
             assertEquals(user.email, result?.email)
 
-            coVerify (exactly = 1){usersUseCase.getUser("a")}
+            coVerify(exactly = 1) { usersUseCase.searchUser("a") }
         }
     }
 

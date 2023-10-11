@@ -15,13 +15,11 @@ import org.junit.jupiter.api.Assertions.*
 class HomeUserViewModelTest {
     private val usersUseCase: UsersUseCase = mockk(relaxed = true)
     private lateinit var homeUserViewModel: HomeUserViewModel
-
     @Before
     fun setup() {
         homeUserViewModel =
             HomeUserViewModel(usersUseCase)
     }
-
     @Test
     fun getListSportsCenter() {
         runBlocking {
@@ -50,7 +48,6 @@ class HomeUserViewModelTest {
                     locationSportCenter = ""
                 )
             )
-
             coEvery { usersUseCase.getListSportsCenter("a", "a", "a") } returns Result.success(
                 sportCenterList
             )
