@@ -402,8 +402,8 @@ class DataBaseImpl(
     override suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
         val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
         for (document in snapshot.documents) {
-            dataBase.collection("SportCenter").document(nit).collection("Goals")
-                .document(updateGoal.number.toString())
+            document.reference.collection("SportCenter").document(nit).collection("Goals")
+                .document(updateGoal.number)
                 .set(
                     hashMapOf(
                         "number" to updateGoal.number,

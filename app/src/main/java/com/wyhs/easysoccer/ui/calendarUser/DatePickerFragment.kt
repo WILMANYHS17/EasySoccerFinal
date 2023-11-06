@@ -18,6 +18,7 @@ class DatePickerFragment(val listener: (day: Int, month: Int, year: Int) -> Unit
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
+        c.add(Calendar.DAY_OF_MONTH, 1)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
