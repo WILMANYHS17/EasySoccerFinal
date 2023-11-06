@@ -38,7 +38,7 @@ class StatsAdminFragment() : Fragment() {
                 headerProfileUserViewModel,
                 prefs
             ).build()
-            numberReservesForDay()
+            //numberReservesForDay()
         }
 
 

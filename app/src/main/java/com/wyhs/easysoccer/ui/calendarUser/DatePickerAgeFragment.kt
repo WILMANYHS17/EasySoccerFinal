@@ -21,13 +21,14 @@ class DatePickerAgeFragment(val listener: (day: Int, month: Int, year: Int) -> U
         val day = c.get(Calendar.DAY_OF_MONTH)
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
-        // Calcular la fecha mínima (15 años antes de la fecha actual)
 
-        c.add(Calendar.YEAR, -14)
+        // Establecer la fecha mínima en enero de 2008
+        c.set(2008, 0, 1)
 
-        // Establecer la fecha mínima en el DatePickerDialog
         val picker = DatePickerDialog(activity as Context, this, year, month, day)
-        picker.datePicker.minDate = c.timeInMillis
+
+        // Establecer la fecha máxima en la fecha actual
+        picker.datePicker.maxDate = c.timeInMillis
         return picker
 
     }

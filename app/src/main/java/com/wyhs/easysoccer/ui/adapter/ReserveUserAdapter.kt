@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wyhs.easysoccer.data.models.Reserve
 import com.wyhs.easysoccer.databinding.ItemNotificationReserveBinding
 
-class ReserveUserAdapter(private val cancelReserve: (String) -> Unit) :
+class ReserveUserAdapter(private val cancelReserve: (String) -> Unit, private val updateGoal: (String) -> Unit) :
     RecyclerView.Adapter<ReserveUserAdapter.ReserveUserViewHolder>() {
     private var reserveUser: ArrayList<Reserve> = arrayListOf()
 
@@ -34,7 +34,7 @@ class ReserveUserAdapter(private val cancelReserve: (String) -> Unit) :
 
     override fun onBindViewHolder(holder: ReserveUserViewHolder, position: Int) {
         val product = reserveUser[position]
-        holder.bind(product, holder.itemView.context, cancelReserve)
+        holder.bind(product, holder.itemView.context, cancelReserve, updateGoal)
     }
 
     override fun getItemCount(): Int {
@@ -47,7 +47,8 @@ class ReserveUserAdapter(private val cancelReserve: (String) -> Unit) :
         fun bind(
             reserveUser: Reserve,
             context: Context,
-            cancelReserve: (String) -> Unit
+            cancelReserve: (String) -> Unit,
+            updateGoal: (String) -> Unit
         ) {
             view.apply {
                 nameSportCenterNotification.text = reserveUser.nameSportCenter
@@ -56,6 +57,7 @@ class ReserveUserAdapter(private val cancelReserve: (String) -> Unit) :
                 priceNotification.text = reserveUser.price
                 payNotification.text = reserveUser.paidOrNot
                 numberGoalNotification.text = reserveUser.numberGoal
+                updateGoal(reserveUser.numberGoal)
                 iconTrash.setOnClickListener { cancelReserve(reserveUser.numberReserve) }
                 itemNotificationReserve.elevation = ELEVATION_CARD
             }

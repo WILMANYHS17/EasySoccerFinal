@@ -25,7 +25,7 @@ class ReserveUserFragment : Fragment() {
     private val binding get() = _binding!!
     private val reserveUserAdapter by lazy {
         ReserveUserAdapter(
-            ::cancelReserve
+            ::cancelReserve, ::updateGoal
         )
     }
 
@@ -92,6 +92,10 @@ class ReserveUserFragment : Fragment() {
             }
 
         }
+
+    }
+
+    fun updateGoal (numberGoal: String){
 
     }
 

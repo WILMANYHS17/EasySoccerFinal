@@ -31,7 +31,7 @@ class RegisterSportCenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterSportCenterBinding
     private lateinit var editYes: String
     private lateinit var nit: String
-    private lateinit var uriImageSportCenter: Uri
+    private var uriImageSportCenter: Uri? = null
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var pickMediaImageMultiple: ActivityResultLauncher<Intent>
     private val uriList = mutableListOf<Uri>()
@@ -86,7 +86,9 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         if (editYes == "No") {
             binding.nitSportCenter.visibility = View.VISIBLE
             binding.editTextNitSportCenterLayout.visibility = View.VISIBLE
-        }else{
+        } else {
+            binding.titleRegisterSportCenter.text = "Editando"
+            binding.buttonRegisterSportCenter.text = "Cambiar"
             lifecycleScope.launch {
                 getSportCenter()
             }
@@ -95,12 +97,18 @@ class RegisterSportCenterActivity : AppCompatActivity() {
         binding.buttonListImagesSportCenter.setOnClickListener { listImages() }
         binding.buttonRegisterSportCenter.setOnClickListener {
             lifecycleScope.launch {
-                onClickCreateSportCenter()
+                if (editYes == "No") {
+                    onClickCreateSportCenter()
+                } else {
+                    updateSportCenter()
+                }
+
             }
         }
         binding.buttonRegisterSportCenterCancel.setOnClickListener { onClickBackActivity() }
 
     }
+
 
     private suspend fun getSportCenter() {
         val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
@@ -132,9 +140,12 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             val validation = registerSportCenterViewModel.getNitSportCenter(nit)
             if (validation?.isSuccess == true) {
                 binding.nitSportCenter.setError("Ya existe este NIT")
-            }else{
-                registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter)
-                registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
+            } else {
+                uriImageSportCenter?.let {
+                    registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter!!)
+                    registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
+                }
+
                 url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
                 val sportCenter = SportCenter(
                     nameSportCenter = binding.nameSportCenter.text.toString(),
@@ -161,6 +172,46 @@ class RegisterSportCenterActivity : AppCompatActivity() {
 
     }
 
+    private suspend fun updateSportCenter() {
+        val registerSportCenterViewModel: RegisterSportCenterViewModel by viewModel()
+        var url = ""
+        getLocationCoordinates(this)
+        if (binding.nitSportCenter.text.isEmpty()) {
+            nit = intent.extras!!.getString("Nit") ?: ""
+        } else {
+            nit = binding.nitSportCenter.text.toString()
+        }
+        if (validationRegisterEdit()) {
+            uriImageSportCenter?.let {
+                registerSportCenterViewModel.setImageSportCenter(nit, uriImageSportCenter!!)
+                registerSportCenterViewModel.setListImageSportCenter(uriList, nit)
+            }
+            val prefs = getSharedPreferences("easySoccer", MODE_PRIVATE)
+            val emailAdmin = prefs.getString("email", "")
+            url = registerSportCenterViewModel.getImageSportCenter(nit).getOrNull().toString()
+            val sportCenter = SportCenter(
+                nameSportCenter = binding.nameSportCenter.text.toString(),
+                address = binding.addressSportCenter.text.toString(),
+                nit = nit,
+                price5vs5 = binding.price5vs5.text.toString(),
+                price8vs8 = binding.price8vs8.text.toString(),
+                description = binding.descriptionSportCenter.text.toString(),
+                emailAdmin = emailAdmin.toString(),
+                imageSportCenterUrl = url,
+                locationSportCenter = locationSportCenter
+            )
+            AlertDialog.Builder(this).apply {
+                setTitle("Registro de Centro deportivo")
+                setMessage("¿Estás seguro de los datos para el Centro Deportivo? Más adelante lo puedes editar.")
+                setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                    registerSportCenterViewModel.setSportCenter(sportCenter)
+
+                }
+                setNegativeButton("No", null)
+            }.show()
+        }
+    }
+
     fun validationRegister(): Boolean {
         var isValid = true
         if (binding.nameSportCenter.text?.isEmpty() == true) {
@@ -175,6 +226,38 @@ class RegisterSportCenterActivity : AppCompatActivity() {
             isValid = false
         } else {
             binding.nitSportCenter.setError(null)
+        }
+
+        if (binding.price5vs5.text?.isEmpty() == true) {
+            binding.price5vs5.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.price5vs5.setError(null)
+        }
+
+        if (binding.price8vs8.text?.isEmpty() == true) {
+            binding.price8vs8.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.price8vs8.setError(null)
+        }
+
+        if (binding.descriptionSportCenter.text?.isEmpty() == true) {
+            binding.descriptionSportCenter.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.descriptionSportCenter.setError(null)
+        }
+        return isValid
+    }
+
+    fun validationRegisterEdit(): Boolean {
+        var isValid = true
+        if (binding.nameSportCenter.text?.isEmpty() == true) {
+            binding.nameSportCenter.setError("El espacio está vacio")
+            isValid = false
+        } else {
+            binding.nameSportCenter.setError(null)
         }
 
         if (binding.price5vs5.text?.isEmpty() == true) {
