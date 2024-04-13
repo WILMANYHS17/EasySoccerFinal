@@ -29,4 +29,14 @@ class DescriptionSportCenterViewModel(
     suspend fun getListImageSportCenter(nit: String): Result<List<String>> {
         return sportCenterUseCase.getListImageSportCenter(nit)
     }
+
+    suspend fun generateRandomNumber(): Int {
+        val generatedNumbers = mutableSetOf<Int>()
+        var number: Int
+        do {
+            number = (100000..999999).random()
+        } while (generatedNumbers.contains(number))
+        generatedNumbers.add(number)
+        return number
+    }
 }

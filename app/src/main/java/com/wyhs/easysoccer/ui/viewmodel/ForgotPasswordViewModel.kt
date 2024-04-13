@@ -15,4 +15,12 @@ class ForgotPasswordViewModel(
     suspend fun getUser(emailUser: String): Result<Users> {
         return usersUseCase.searchUser(emailUser)
     }
+
+    fun validationValue(email: String, password : String): Boolean {
+        return email.isEmpty() && password.isEmpty()
+    }
+
+    fun validationEmail(email : Result<Users>): Boolean{
+        return email.isFailure
+    }
 }
