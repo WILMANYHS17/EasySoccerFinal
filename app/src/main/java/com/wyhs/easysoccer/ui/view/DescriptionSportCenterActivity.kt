@@ -22,6 +22,7 @@ import kotlin.math.abs
 class DescriptionSportCenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDescriptionSportCenterBinding
     private lateinit var nit: String
+    private val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
     private val commentsUserAdapter by lazy {
         CommentsUserAdapter(
             ::goComment
@@ -87,7 +88,7 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         val descriptionSportCenterViewModel: DescriptionSportCenterViewModel by viewModel()
         val sportCenter = descriptionSportCenterViewModel.getSportCenterUser(nit)
         val user = emailUser?.let { descriptionSportCenterViewModel.getUser(it) }
-        val idComment = generateRandomNumber()
+        val idComment = descriptionSportCenterViewModel.generateRandomNumber()
         descriptionSportCenterViewModel.setComment(
             Comments(
                 emailUser = user!!.getOrNull()!!.email,
@@ -111,8 +112,8 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
     }
 
     private suspend fun onLocateSportCenter() {
-        val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
-        val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
+
+        val descriptionSportCenter = descriptionSportCenterViewModel.getSportCenterUser(nit)
         val intent = Intent(this, MapActivity::class.java)
         intent.putExtra("Coordinates", descriptionSportCenter.getOrNull()?.locationSportCenter)
         intent.putExtra("SportCenter", descriptionSportCenter.getOrNull()?.nameSportCenter)
@@ -120,13 +121,11 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
     }
 
     suspend fun getListImageSportCenter(): List<String> {
-        val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
-        return descriptionSportCenterUser.getListImageSportCenter(nit).getOrNull() ?: emptyList()
+        return descriptionSportCenterViewModel.getListImageSportCenter(nit).getOrNull() ?: emptyList()
     }
 
     suspend fun getSportCenterUser(nit: String?) {
-        val descriptionSportCenterUser: DescriptionSportCenterViewModel by viewModel()
-        val descriptionSportCenter = descriptionSportCenterUser.getSportCenterUser(nit)
+        val descriptionSportCenter = descriptionSportCenterViewModel.getSportCenterUser(nit)
         binding.titleSportCenter.text =
             descriptionSportCenter?.getOrNull()?.nameSportCenter.toString()
         binding.descriptionSportCenter.text =
@@ -156,13 +155,4 @@ class DescriptionSportCenterActivity : AppCompatActivity() {
         }
     }
 
-    fun generateRandomNumber(): Int {
-        val generatedNumbers = mutableSetOf<Int>()
-        var number: Int
-        do {
-            number = (100000..999999).random()
-        } while (generatedNumbers.contains(number))
-        generatedNumbers.add(number)
-        return number
-    }
 }

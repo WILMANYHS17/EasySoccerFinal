@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
+    private val forgotPasswordViewModel: ForgotPasswordViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +25,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener { onClickBackActivity() }
         binding.buttonCancelForgotPassword.setOnClickListener {
-            if (validationRegister()) {
-                onClickBackActivity()
-            }
+            onClickBackActivity()
         }
         binding.buttonRegister.setOnClickListener {
             lifecycleScope.launch {
@@ -36,38 +35,42 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private suspend fun forgotPassword() {
-        val forgotPasswordViewModel: ForgotPasswordViewModel by viewModel()
+
         val emailUser = binding.editTextEmailRegister.text.toString()
-        val forgotPassword = forgotPasswordViewModel.getUser(emailUser)
+        val password = binding.editTextPassword.text.toString()
 
 
-        if (validationRegister()) {
-            AlertDialog.Builder(this).apply {
-                setTitle("Cambio de contraseña")
-                setMessage("¿Estás seguro de cambiar de contraseña?")
-                setPositiveButton("Sí") { _: DialogInterface, _: Int ->
 
+        if (forgotPasswordViewModel.validationValue(emailUser, password)) {
+            binding.editTextEmailRegister.error = "El espacio está vacio"
+            binding.editTextPassword.error = "El espacio está vacio"
+        } else {
+            val forgotPassword = forgotPasswordViewModel.getUser(emailUser)
+            if (forgotPasswordViewModel.validationEmail(forgotPassword)) {
+                binding.editTextEmailRegister.error = "Error en el email o no existe"
+            } else {
+                AlertDialog.Builder(this).apply {
+                    setTitle("Cambio de contraseña")
+                    setMessage("¿Estás seguro de cambiar de contraseña?")
+                    setPositiveButton("Sí") { _: DialogInterface, _: Int ->
 
-                    forgotPassword.getOrNull()?.isAdmin?.let {
-                        Users(
-                            email = emailUser,
-                            password = binding.editTextPassword.text.toString(),
-                            identification = forgotPassword.getOrNull()?.identification.toString(),
-                            birthday = forgotPassword.getOrNull()?.birthday.toString(),
-                            nameUser = forgotPassword.getOrNull()?.nameUser.toString(),
-                            name = forgotPassword.getOrNull()?.name.toString(),
-                            phone = forgotPassword.getOrNull()?.phone.toString(),
-                            isAdmin = it,
-                        )
-                    }?.let {
                         forgotPasswordViewModel.changePassword(
-                            it
+                            Users(
+                                email = emailUser,
+                                password = password,
+                                identification = forgotPassword.getOrNull()?.identification.toString(),
+                                birthday = forgotPassword.getOrNull()?.birthday.toString(),
+                                nameUser = forgotPassword.getOrNull()?.nameUser.toString(),
+                                name = forgotPassword.getOrNull()?.name.toString(),
+                                phone = forgotPassword.getOrNull()?.phone.toString(),
+                                isAdmin = forgotPassword.getOrNull()?.isAdmin ?: false,
+                            )
                         )
                     }
+                    setNegativeButton("No", null)
+                }.show()
+            }
 
-                }
-                setNegativeButton("No", null)
-            }.show()
         }
 
     }
@@ -77,15 +80,4 @@ class ForgotPasswordActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun validationRegister(): Boolean {
-        if (binding.editTextEmailRegister.text?.isEmpty() == true && binding.editTextPassword.text?.isEmpty() == true) {
-            binding.editTextEmailRegister.setError("El espacio está vacio")
-            binding.editTextPassword.setError("El espacio está vacio")
-            return false
-        } else {
-            binding.editTextEmailRegister.setError(null)
-            binding.editTextPassword.setError(null)
-            return true
-        }
-    }
 }
