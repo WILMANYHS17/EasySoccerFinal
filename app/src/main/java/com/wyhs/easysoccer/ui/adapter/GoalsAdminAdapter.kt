@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wyhs.easysoccer.data.models.Goals
 import com.wyhs.easysoccer.databinding.ItemGoalsBinding
+import kotlin.reflect.KSuspendFunction1
 
-class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit) :
+class GoalsAdminAdapter(private val deleteGoals: (String) -> Unit ) :
     RecyclerView.Adapter<GoalsAdminAdapter.GoalsViewHolder>() {
     private var goals: ArrayList<Goals> = arrayListOf()
 
