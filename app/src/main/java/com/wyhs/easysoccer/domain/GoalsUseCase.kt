@@ -24,4 +24,8 @@ class GoalsUseCase(
     suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
         databaseUserRepository.updateGoal(updateGoal, number, nit)
     }
+
+    suspend fun getGoalAdmin(nit: String?, number: String): Result<Goals> {
+        return databaseUserRepository.getGoalAdmin(nit, number)
+    }
 }

@@ -399,6 +399,25 @@ class DataBaseImpl(
         return Result.failure(Exception("No se encontró ningún SportCenter con el NIT proporcionado"))
     }
 
+    override suspend fun getGoalAdmin(nit: String?, number: String): Result<Goals> {
+        val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
+        for (document in snapshot.documents) {
+            val collectionSportCenter =
+                document.reference.collection("SportCenter").whereEqualTo("nit", nit).get().await()
+            for (sportCenter in collectionSportCenter.documents) {
+                val collectionGoals =
+                    sportCenter.reference.collection("Goals").whereEqualTo("number", number).get()
+                        .await()
+                if (collectionGoals.documents.isNotEmpty()) {
+                    val goalDocument = collectionGoals.documents[0]
+                    val goal = goalDocument.toObject(Goals::class.java)
+                    return Result.success(goal) as Result<Goals>
+                }
+            }
+        }
+    return Result.failure(Exception("No se encuentra ese número de la cancha"))
+    }
+
     override suspend fun updateGoal(updateGoal: Goals, number: String, nit: String) {
         val snapshot = dataBase.collection("Users").whereEqualTo("isAdmin", true).get().await()
         for (document in snapshot.documents) {
@@ -447,6 +466,8 @@ class DataBaseImpl(
         }
         return Result.success(list)
     }
+
+
 
 
 }

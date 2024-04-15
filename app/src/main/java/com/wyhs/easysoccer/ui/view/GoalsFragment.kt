@@ -21,6 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class GoalsFragment : Fragment() {
 
     private var _binding: FragmentGoalsBinding? = null
+    private val goalsViewModel: GoalsViewModel by viewModel()
     private val binding get() = _binding!!
 
     private val goalsAdminAdapter by lazy {
@@ -52,72 +53,94 @@ class GoalsFragment : Fragment() {
                 prefs
             ).build()
             goalsAdminAdapter.setListGoals(getListGoals())
-
         }
 
-        binding.bottonCreateGoal.setOnClickListener { onClickCreateGoals() }
+        binding.bottonCreateGoal.setOnClickListener {
+            lifecycleScope.launch {
+                onClickCreateGoals()
+            }
+        }
         return root
     }
 
-    fun onClickCreateGoals() {
-        val goalsViewModel: GoalsViewModel by viewModel()
+    suspend fun onClickCreateGoals() {
+
         val prefs = requireActivity().applicationContext.getSharedPreferences(
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
 
-        val emailAdmin = prefs.getString("email", "")
-        val nit = prefs.getString("Nit", "")
-        val price5vs5 = prefs.getString("Price5vs5", "")
-        val price8vs8 = prefs.getString("Price8vs8", "")
-        val size = binding.editTextSizeGoal.text.toString()
+        val emailAdmin: String? = prefs.getString("email", "")
+        val nit: String? = prefs.getString("Nit", "")
+        val price5vs5: String? = prefs.getString("Price5vs5", "")
 
-        activity?.let {
-            AlertDialog.Builder(it).apply {
-                setTitle("Crear cancha")
-                setMessage("¿Está seguro de crear esta cancha?")
-                setPositiveButton("Si") { _: DialogInterface, _: Int ->
-                    if (size == "5vs5") {
-                        price5vs5?.let { it1 ->
-                            Goals(
-                                number = binding.inputTextNumberGoal.text.toString(),
-                                size = size,
-                                price = it1,
-                                available = "Disponible",
-                                hour = "",
-                                date = ""
-                            )
-                        }?.let { it2 ->
-                            goalsViewModel.setGoal(
-                                it2, emailAdmin, nit
-                            )
-                        }
+        val price8vs8: String? = prefs.getString("Price8vs8", "")
+        val size = binding.editTextSizeGoal.text.toString()
+        val number = binding.inputTextNumberGoal.text.toString()
+        if (number.isEmpty() && size.isEmpty()) {
+            binding.editTextSizeGoal.error = "La casilla está vacía"
+            binding.inputTextNumberGoal.error = "La casilla está vacía"
+        } else {
+            if (size.isEmpty()) {
+                binding.editTextSizeGoal.error = "La casilla está vacía"
+            } else {
+                if (number.isEmpty()) {
+                    binding.inputTextNumberGoal.error = "La casilla está vacía"
+                } else {
+                    if (goalsViewModel.getGoalAdmin(nit, number).isSuccess) {
+                        binding.inputTextNumberGoal.error = "Esa cancha ya existe"
                     } else {
-                        price8vs8?.let { it1 ->
-                            Goals(
-                                number = binding.inputTextNumberGoal.text.toString(),
-                                size = size,
-                                price = it1,
-                                available = "Disponible",
-                                hour = "",
-                                date = ""
-                            )
-                        }?.let { it2 ->
-                            goalsViewModel.setGoal(
-                                it2, emailAdmin, nit
-                            )
+                        requireActivity().let {
+                            AlertDialog.Builder(it).apply {
+                                setTitle("Crear cancha")
+                                setMessage("¿Está seguro de crear esta cancha?")
+                                setPositiveButton("Si") { _: DialogInterface, _: Int ->
+                                    if (goalsViewModel.validateSize(size)) {
+                                        val goals = price5vs5?.let { it1 ->
+                                            Goals(
+                                                number = number,
+                                                size = size,
+                                                price = it1,
+                                                available = "Disponible",
+                                                hour = "",
+                                                date = ""
+                                            )
+                                        }
+                                        if (goals != null) {
+                                            goalsViewModel.setGoal(
+                                                goals, emailAdmin, nit
+                                            )
+                                        }
+                                    } else {
+                                        val goals = price8vs8?.let { it1 ->
+                                            Goals(
+                                                number = binding.inputTextNumberGoal.text.toString(),
+                                                size = size,
+                                                price = it1,
+                                                available = "Disponible",
+                                                hour = "",
+                                                date = ""
+                                            )
+                                        }
+                                        if (goals != null) {
+                                            goalsViewModel.setGoal(
+                                                goals, emailAdmin, nit
+                                            )
+                                        }
+                                    }
+                                }
+                                setNegativeButton("No", null)
+                            }.show()
                         }
                     }
-
                 }
-                setNegativeButton("No", null)
-            }.show()
+            }
         }
 
+        getListGoals()
     }
 
     suspend fun getListGoals(): List<Goals> {
-        val goalsViewModel: GoalsViewModel by viewModel()
         val prefs = requireActivity().applicationContext.getSharedPreferences(
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
@@ -128,27 +151,22 @@ class GoalsFragment : Fragment() {
     }
 
     fun deleteGoals(number: String) {
-        val goalsViewModel: GoalsViewModel by viewModel()
         val prefs = requireActivity().applicationContext.getSharedPreferences(
             "easySoccer",
             AppCompatActivity.MODE_PRIVATE
         )
         val emailAdmin = prefs.getString("email", "")
         val nit = prefs.getString("Nit", "")
-        activity.let {
-            if (it != null) {
-                AlertDialog.Builder(it).apply {
-                    setTitle("Eliminar cancha")
-                    setMessage("¿Está seguro de eliminar la cancha?")
-                    setPositiveButton("Si"){_: DialogInterface, _: Int ->
-                        goalsViewModel.deleteGoal(emailAdmin, nit, number)
-                    }
-                    setNegativeButton("No", null)
-                }.show()
-            }
+        requireActivity().let {
+            AlertDialog.Builder(it).apply {
+                setTitle("Eliminar cancha")
+                setMessage("¿Está seguro de eliminar la cancha?")
+                setPositiveButton("Si") { _: DialogInterface, _: Int ->
+                    goalsViewModel.deleteGoal(emailAdmin, nit, number)
+                }
+                setNegativeButton("No", null)
+            }.show()
         }
-
-
     }
 
     fun setUpAdapter() {
